@@ -1,9 +1,16 @@
 import '../css/app.css';
 import './bootstrap';
 
+//-------------------PrimeReact
+import "primereact/resources/themes/lara-light-green/theme.css"; //Theme
+import "primereact/resources/primereact.min.css"; //Nucleo
+import "primeicons/primeicons.css" //Icons
+
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
+
+
 
 const appName = import.meta.env.VITE_APP_NAME || 'Realidad Virtual C.U. UAEM Ecatepec';
 
