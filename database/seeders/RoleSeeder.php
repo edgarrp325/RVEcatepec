@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\RoleEnum;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -14,23 +15,28 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         DB::table('roles')->insert([
-            'name' => 'admin',
+            'name' => RoleEnum::ADMIN->label(),
+            'description' => 'Administrate the system and manage users.',
         ]);
 
         DB::table('roles')->insert([
-            'name' => 'user',
+            'name' => RoleEnum::USER->label(),
+            'description' => 'You only need to download resources.',
         ]);
 
         DB::table('roles')->insert([
-            'name' => 'alumn',
+            'name' => RoleEnum::ALUMN->label(),
+            'description' => 'You need to use a laboratory and equipment from UAEM Ecatepec.',
         ]);
 
         DB::table('roles')->insert([
-            'name' => 'social_service',
+            'name' => RoleEnum::SOCIALSERVICE->label(),
+            'description' => 'You need to do social service in UAEM Ecatepec.',
         ]);
 
         DB::table('roles')->insert([
-            'name' => 'internships',
+            'name' => RoleEnum::INTERNSHIP->label(),
+            'description' => 'You need to do internships in UAEM Ecatepec.',
         ]);
     }
 }
