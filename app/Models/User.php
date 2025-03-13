@@ -53,14 +53,24 @@ class User extends Authenticatable
     /**
      * Relationship with the Role model.
      */
-    public function role(){
+    public function role()
+    {
         return $this->belongsTo(Role::class);
     }
 
     /**
      * Relationship with the Origin model.
      */
-    public function origin(){
+    public function origin()
+    {
         return $this->hasOne(Origin::class);
+    }
+
+    /**
+     * Relationship with the Major model.
+     */
+    public function majors()
+    {
+        return $this->belongsToMany(Major::class);
     }
 }
