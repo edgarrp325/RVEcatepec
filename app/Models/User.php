@@ -73,4 +73,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Major::class);
     }
+
+    /**
+     * Relashionship with the Laboratory model.
+     */
+    public function laboratories()
+    {
+        return $this->belongsToMany(Laboratory::class);
+    }
 }
