@@ -9,4 +9,5 @@ use Inertia\Inertia;
 Route::middleware('auth')->group(function (){
     
     Route::get('one-time-passwords', [OTPController::class, 'edit'])->name('otp.edit');
+    Route::post('/one-time-passwords/{id}/regenerate', [OTPController::class, 'regenerate'])->name('otp.regenerate');
 });

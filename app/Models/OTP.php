@@ -15,7 +15,4 @@ class OTP extends Model
         'id',
         'code',
     ];
-    protected $hidden = [
-        'code',
-    ];
 }
