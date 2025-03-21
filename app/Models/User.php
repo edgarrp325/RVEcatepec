@@ -79,6 +79,6 @@ class User extends Authenticatable
      */
     public function laboratories()
     {
-        return $this->belongsToMany(Laboratory::class);
+        return $this->belongsToMany(Laboratory::class)->withPivot('id','date','start_time', 'end_time');
     }
 }

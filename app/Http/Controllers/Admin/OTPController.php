@@ -35,20 +35,4 @@ class OTPController extends Controller
         
         return to_route('otp.edit');
     }
-
-
-    /**
-     * Null a one time password
-     */
-    public function regenerateUser(Request $request): RedirectResponse
-    {
-        $otp = OTP::find('user_id');
-
-        $otp->code = random_int(100000, 999999);
-        $otp->save();
-        
-        return to_route('otp.edit');
-    }
-
-    
 }

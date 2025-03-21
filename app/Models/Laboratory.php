@@ -13,6 +13,7 @@ class Laboratory extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'name',
         'opening_time',
         'closing_time',
     ];
@@ -25,8 +26,8 @@ class Laboratory extends Model
     protected function casts(): array
     {
         return [
-            'opening_time' => 'datetime:H:i:s',
-            'closing_time' => 'datetime:H:i:s',
+            'opening_time' => 'datetime:H:i',
+            'closing_time' => 'datetime:H:i',
         ];
     }
 
@@ -35,7 +36,7 @@ class Laboratory extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('id','date','start_time', 'end_time');
     }
 
     public $timestamps = false;

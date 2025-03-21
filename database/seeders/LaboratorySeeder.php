@@ -16,26 +16,26 @@ class LaboratorySeeder extends Seeder
     {
         DB::table('laboratories')->insert([
             'name' => LaboratoryEnum::VR->label(),
-            'opening_time' => '07:00:00',
-            'closing_time' => '17:00:00',
+            'opening_time' => '07:00',
+            'closing_time' => '17:00',
         ]);
 
         DB::table('laboratories')->insert([
             'name' => LaboratoryEnum::SW->label(),
-            'opening_time' => '07:00:00',
-            'closing_time' => '17:00:00',
+            'opening_time' => '07:00',
+            'closing_time' => '17:00',
         ]);
 
         DB::table('laboratories')->insert([
             'name' => LaboratoryEnum::PROTOTYPES->label(),
-            'opening_time' => '07:00:00',
-            'closing_time' => '17:00:00',
+            'opening_time' => '07:00',
+            'closing_time' => '17:00',
         ]);
 
         DB::table('laboratories')->insert([
             'name' => LaboratoryEnum::ELECTRONICS->label(),
-            'opening_time' => '07:00:00',
-            'closing_time' => '17:00:00',
+            'opening_time' => '07:00',
+            'closing_time' => '17:00',
         ]);
     }
 }

@@ -113,6 +113,13 @@ class RegisteredUserController extends Controller
             $user->majors()->attach($request->major_id);
         }
 
+        //Regenerate otp if the user is admin
+        if($isSelectedAdmin){
+            $otp = OTP::find('admin_code');
+            $otp->code = random_int(100000, 999999);
+            $otp->save();
+        }
+
         Auth::login($user);
 
         //if rol is user return to the last page before login

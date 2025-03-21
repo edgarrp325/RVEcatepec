@@ -17,18 +17,16 @@ interface OTP {
     code: string;
 }
 
-interface oneTimePasswordsProps {
+interface OneTimePasswordsProps {
     otps: OTP[];
 }
 
-export default function OneTimePasswords({ otps }: oneTimePasswordsProps) {
+export default function OneTimePasswords({ otps }: OneTimePasswordsProps) {
     const { post, processing } = useForm({});
 
     const regenerateOTP = (otpType: string) => {
         post(route('otp.regenerate', otpType));
     };
-
-    console.log(otps);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>

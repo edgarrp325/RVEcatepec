@@ -7,7 +7,9 @@ import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { MajorEnum, RoleEnum } from '@/enums';
 import AuthLayout from '@/layouts/auth-layout';
+import { type Major, type Role } from '@/types';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
@@ -28,39 +30,10 @@ interface RegisterForm {
     [key: string]: string;
 }
 
-interface Role {
-    id: number;
-    name: string;
-    description: string;
-}
-
-interface Major {
-    id: number;
-    name: string;
-}
-
 interface RegisterProps {
     roles: Role[];
     majors: Major[];
 }
-
-const RoleEnum = {
-    ADMIN: '1',
-    USER: '2',
-    ALUMN: '3',
-    SOCIALSERVICE: '4',
-    INTERNSHIP: '5',
-} as const;
-
-const MajorEnum = {
-    ICO: '1',
-    LIA: '2',
-    LPS: '3',
-    LAM: '4',
-    LCN: '5',
-    LDE: '6',
-    OTHER: '7',
-} as const;
 
 export default function Register({ roles, majors }: RegisterProps) {
     const { data, setData, post, processing, errors, reset } = useForm<RegisterForm>({
