@@ -39,5 +39,13 @@ class Laboratory extends Model
         return $this->belongsToMany(User::class)->withPivot('id','date','start_time', 'end_time');
     }
 
+    /**
+     * Relashionship with the Equipment model.
+     */
+    public function equipment()
+    {
+        return $this->hasMany(Equipment::class);
+    }
+
     public $timestamps = false;
 }
