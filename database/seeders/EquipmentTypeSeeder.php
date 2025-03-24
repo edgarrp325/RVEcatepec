@@ -27,11 +27,7 @@ class EquipmentTypeSeeder extends Seeder
         ]);
 
         DB::table('equipment_types')->insert([
-            'name' => 'Impresora',
-        ]);
-
-        DB::table('equipment_types')->insert([
-            'name' => 'Leap Motion',
+            'name' => 'Impresora 3D',
         ]);
 
         DB::table('equipment_types')->insert([
