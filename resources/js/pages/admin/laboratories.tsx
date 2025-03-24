@@ -12,9 +12,9 @@ import { FormEventHandler, useState } from 'react';
 import { toast } from 'sonner';
 
 import { useAttendanceData } from '@/hooks/useAttendanceData';
-import { DataTable } from './data-table';
+import { DataTable } from '@/components/attendances-table/data-table';
 
-import { columns } from '@/pages/admin/columns';
+import { columns } from '@/components/attendances-table/columns';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

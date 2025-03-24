@@ -1,4 +1,4 @@
-import { DataTableSortableHeader } from '@/pages/admin/data-table-sortable-header';
+import { DataTableSortableHeader } from '@/components/attendances-table/data-table-sortable-header';
 import { type Attendance } from '@/types';
 import { ColumnDef } from '@tanstack/react-table';
 
