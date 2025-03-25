@@ -36,7 +36,7 @@ class Laboratory extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(User::class)->withPivot('id','date','start_time', 'end_time');
+        return $this->belongsToMany(User::class)->withPivot('id', 'date', 'start_time', 'end_time');
     }
 
     /**

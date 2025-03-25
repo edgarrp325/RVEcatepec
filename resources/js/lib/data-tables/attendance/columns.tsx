@@ -1,14 +1,37 @@
-import { DataTableSortableHeader } from '@/components/attendances-table/data-table-sortable-header';
+import { DataTableSortableHeader } from '@/components/data-table/data-table-sortable-header';
+import { Button } from '@/components/ui/button';
 import { type Attendance } from '@/types';
+import { useForm } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
+import { LogOut } from 'lucide-react';
+import { toast } from 'sonner';
 
 import { roleLabel } from '@/enums';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import ButtonFinishAttendance from './button-finish-attendance';
 
 dayjs.extend(relativeTime);
+
+interface ButtonFinishAttendanceProps {
+    attendanceId: number;
+}
+export default function ButtonFinishAttendance({ attendanceId }: ButtonFinishAttendanceProps) {
+    const { put, processing } = useForm({});
+
+    const finishAttendance = () => {
+        put(route('attendance.update', attendanceId), {
+            onSuccess: () => {
+                toast.success('Assistance finished successfully');
+            },
+        });
+    };
+    return (
+        <Button variant="ghost" onClick={() => finishAttendance()} disabled={processing}>
+            <LogOut className="h-4 w-4" />
+        </Button>
+    );
+}
 
 export const columns: ColumnDef<Attendance>[] = [
     {
@@ -44,7 +67,7 @@ export const columns: ColumnDef<Attendance>[] = [
     },
     {
         accessorKey: 'date',
-        header: 'Date',
+        header: ({ column }) => <DataTableSortableHeader column={column} title="Date" />,
         cell: ({ row }) => {
             const date = row.original.date;
             const isToday = dayjs(date).isSame(dayjs(), 'day'); // Verify if the date is today
@@ -53,7 +76,7 @@ export const columns: ColumnDef<Attendance>[] = [
     },
     {
         accessorKey: 'start_time',
-        header: 'Start Time',
+        header: ({ column }) => <DataTableSortableHeader column={column} title="Start Time" />,
     },
     {
         accessorKey: 'end_time',

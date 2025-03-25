@@ -98,3 +98,16 @@ export interface AttendanceResponse {
     closing_time: string;
     users: UserWithAttendance[];
 }
+
+// Data table interfaces
+
+export interface FilterOption {
+    label: string;
+    value: string;
+}
+
+export interface Filter {
+    columnKey: string;
+    title: string;
+    options: FilterOption[];
+}

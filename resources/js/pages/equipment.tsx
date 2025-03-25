@@ -11,10 +11,10 @@ import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
 import { toast } from 'sonner';
 
-import { useAttendanceData } from '@/hooks/useAttendanceData';
-import { DataTable } from '@/components/attendances-table/data-table';
+import { useAttendanceData } from '@/hooks/use-attendance-data';
+import { DataTable } from '@/components/data-table/data-table';
 
-import { columns } from '@/components/attendances-table/columns';
+import { columns } from '@/lib/data-tables/attendance/columns';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

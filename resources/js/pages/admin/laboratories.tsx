@@ -7,14 +7,15 @@ import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { type AttendanceResponse, type BreadcrumbItem, type Laboratory } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
+import { LoaderCircle, Plus } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
 import { toast } from 'sonner';
 
-import { useAttendanceData } from '@/hooks/useAttendanceData';
-import { DataTable } from '@/components/attendances-table/data-table';
+import { DataTable } from '@/components/data-table/data-table';
 
-import { columns } from '@/components/attendances-table/columns';
+import { columns } from '@/lib/data-tables/attendance/columns';
+import { isActiveFilter, laboratoryFilter } from '@/lib/data-tables/attendance/filters';
+import { transformAttendanceData } from '@/lib/transformers/attendance';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -37,7 +38,7 @@ interface LaboratoryForm {
 }
 
 export default function Laboratories({ laboratories, attendanceResponse }: LaboratoriesProps) {
-    const { attendanceData } = useAttendanceData(attendanceResponse);
+    const attendanceData = transformAttendanceData(attendanceResponse);
     const { data, setData, post, put, processing, errors, clearErrors, reset } = useForm<LaboratoryForm>({
         name: '',
         opening_time: '',
@@ -109,27 +110,49 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Laboratories" />
-            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                {/* New lab and list all  */}
-                <div>
-                    <Button onClick={() => openDialog('create')}>New</Button>
+            <div className="flex h-full flex-1 flex-col justify-start gap-4 rounded-xl p-4">
+                {/* New lab button  */}
+                <div className="px-4 md:px-6">
+                    <Button variant={'outline'} onClick={() => openDialog('create')}>
+                        <Plus /> New Laboratory
+                    </Button>
                 </div>
-                <div className="flex flex-wrap gap-4">
-                    {laboratories.map((laboratory) => {
-                        return (
-                            <Card key={laboratory.id} className="w-96">
-                                <CardHeader>
-                                    <CardDescription>{laboratory.name}</CardDescription>
-                                    <CardTitle className="text-2xl tabular-nums @[250px]/card:text-3xl">
-                                        {laboratory.opening_time} - {laboratory.closing_time}
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardFooter>
-                                    <Button onClick={() => openDialog('edit', laboratory)}>Edit</Button>
-                                </CardFooter>
-                            </Card>
-                        );
-                    })}
+                <div className="@container/main flex flex-1 flex-col gap-2">
+                    <div className="flex flex-col gap-4 md:gap-6">
+                        {/* Laboratories cards grid */}
+                        <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 px-4 lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
+                            {laboratories.map((laboratory) => {
+                                return (
+                                    <Card key={laboratory.id} className="@container/card">
+                                        <CardHeader>
+                                            <CardDescription>{laboratory.name}</CardDescription>
+                                            <CardTitle className="text-2xl tabular-nums @[250px]/card:text-3xl">
+                                                {laboratory.opening_time} - {laboratory.closing_time}
+                                            </CardTitle>
+                                        </CardHeader>
+                                        <CardFooter>
+                                            <Button onClick={() => openDialog('edit', laboratory)}>Edit</Button>
+                                        </CardFooter>
+                                    </Card>
+                                );
+                            })}
+                        </div>
+                        {/* Lab attendances table */}
+                        <div className="@container/main flex flex-1 flex-col gap-4 p-6">
+                            <div>
+                                <h2 className="text-2xl font-bold tracking-tight">Lab attendances</h2>
+                                <p className="text-muted-foreground">
+                                    Here&apos;s a list of lab attendances you can filter, search, sort and export!
+                                </p>
+                            </div>
+                            <DataTable
+                                data={attendanceData}
+                                columns={columns}
+                                searchableColumns={['account_number', 'user_name', 'user_paternal_surname', 'user_maternal_surname', 'date']}
+                                filters={[laboratoryFilter, isActiveFilter]}
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 {/* Dialog to create and edit lab */}
@@ -195,12 +218,6 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
                         </form>
                     </DialogContent>
                 </Dialog>
-
-                {/* Lab attendances label */}
-                <div className="py-6">
-                    <h1 className="mb-4 text-2xl font-bold">Lab Attendances</h1>
-                    <DataTable data={attendanceData} columns={columns} />
-                </div>
             </div>
         </AppLayout>
     );
