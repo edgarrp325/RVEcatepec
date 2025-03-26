@@ -15,7 +15,7 @@ import { DataTable } from '@/components/data-table/data-table';
 
 import { columns } from '@/lib/data-tables/attendance/columns';
 import { isActiveFilter, laboratoryFilter } from '@/lib/data-tables/attendance/filters';
-import { transformAttendanceData } from '@/lib/transformers/attendance';
+import { transformAttendanceData } from '@/lib/data-tables/attendance/transformer';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

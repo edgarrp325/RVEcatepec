@@ -1,8 +1,9 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { DataTable } from '@/components/data-table/data-table';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { Head, useForm } from '@inertiajs/react';
+import { getColumns } from '@/lib/data-tables/equipment-types/columns';
+import { EquipmentType, type BreadcrumbItem } from '@/types';
+import { Head } from '@inertiajs/react';
+import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -11,28 +12,29 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-interface EquipmentTypes {
-    id: string;
-    name: string;
-}
-
 interface EquipmentTypesProps {
-    equipmentTypes: EquipmentTypes[];
+    equipmentTypes: EquipmentType[];
 }
 
-export default function EquipmentTypes({ equipmentTypes
- }: EquipmentTypesProps) {
-    const { post, processing } = useForm({});   
-    
+export default function EquipmentTypes({ equipmentTypes }: EquipmentTypesProps) {   
+    const [selectedEquipment, setSelectedEquipment] = useState<EquipmentType | null>(null);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    const columns = getColumns(setSelectedEquipment, setIsDialogOpen);
+
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Equipment types" />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                <div className="flex h-full flex-wrap items-center justify-center gap-4">
-                <div className="flex flex-wrap gap-4">
-                    
-                </div>
+                {/* Lab attendances table */}
+                <div className="@container/main flex flex-1 flex-col gap-4 p-6">
+                    <DataTable
+                        data={equipmentTypes}
+                        columns={columns}
+                        searchableColumns={['name']}
+                    /> 
                 </div>
             </div>
         </AppLayout>

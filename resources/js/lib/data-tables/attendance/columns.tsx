@@ -16,7 +16,7 @@ dayjs.extend(relativeTime);
 interface ButtonFinishAttendanceProps {
     attendanceId: number;
 }
-export default function ButtonFinishAttendance({ attendanceId }: ButtonFinishAttendanceProps) {
+function ButtonFinishAttendance({ attendanceId }: ButtonFinishAttendanceProps) {
     const { put, processing } = useForm({});
 
     const finishAttendance = () => {
@@ -86,6 +86,7 @@ export const columns: ColumnDef<Attendance>[] = [
     {
         accessorKey: 'is_active',
         header: 'Active',
+
         cell: ({ row }) =>
             row.original.is_active === 'active' ? (
                 <span className="flex items-center gap-2 font-semibold text-green-600">

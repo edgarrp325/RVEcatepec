@@ -99,6 +99,12 @@ export interface AttendanceResponse {
     users: UserWithAttendance[];
 }
 
+// the equipment types is the same that the response from the model equipment types
+export interface EquipmentType {
+    id: number; 
+    name: string;
+}
+
 // Data table interfaces
 
 export interface FilterOption {
