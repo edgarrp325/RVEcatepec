@@ -26,9 +26,10 @@ interface DataTableProps<TData, TValue> {
     data: TData[];
     searchableColumns: (keyof TData)[];
     filters?: Filter[];
+    filename?: string;
 }
 
-export function DataTable<TData, TValue>({ columns, data, searchableColumns, filters = [] }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data, searchableColumns, filters = [], filename }: DataTableProps<TData, TValue>) {
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
     const [globalFilter, setGlobalFilter] = React.useState('');
 
@@ -63,7 +64,7 @@ export function DataTable<TData, TValue>({ columns, data, searchableColumns, fil
 
     return (
         <div className="space-y-4">
-            <DataTableToolbar table={table} globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} filters={filters} />
+            <DataTableToolbar table={table} globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} filters={filters} filename={filename} />
             <div className="rounded-md border">
                 <Table>
                     <TableHeader>

@@ -14,9 +14,10 @@ interface DataTableToolbarProps<TData> {
     globalFilter: string;
     setGlobalFilter: (value: string) => void;
     filters?: { columnKey: string; title: string; options: FilterOption[] }[];
+    filename?: string;
 }
 
-export function DataTableToolbar<TData>({ table, globalFilter, setGlobalFilter, filters = [] }: DataTableToolbarProps<TData>) {
+export function DataTableToolbar<TData>({ table, globalFilter, setGlobalFilter, filters = [], filename }: DataTableToolbarProps<TData>) {
     const isFiltered = table.getState().columnFilters.length > 0;
     return (
         <div className="flex items-center justify-between">
@@ -40,7 +41,7 @@ export function DataTableToolbar<TData>({ table, globalFilter, setGlobalFilter, 
                 )}
             </div>
             <div>
-                <Button variant={'outline'} size='sm' onClick={()=>exportTableToCSV(table, {filename: "Lab_Assistances", excludeColumns:["is_active"]})}><Download/> Export</Button>
+                <Button variant={'outline'} size='sm' onClick={()=>exportTableToCSV(table, {filename:filename, excludeColumns:["is_active", "actions"]})}><Download/> Export</Button>
             </div>
         </div>
     );
