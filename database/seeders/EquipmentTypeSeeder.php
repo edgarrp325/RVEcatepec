@@ -31,6 +31,10 @@ class EquipmentTypeSeeder extends Seeder
         ]);
 
         DB::table('equipment_types')->insert([
+            'name' => 'Meta Quest 2',
+        ]);
+
+        DB::table('equipment_types')->insert([
             'name' => 'Kinect',
         ]);
 

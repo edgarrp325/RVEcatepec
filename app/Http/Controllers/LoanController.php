@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EquipmentType;
-
+use App\Models\Equipment;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
-class EquipmentTypeController extends Controller
+class LoanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('equipment-types',[
-            'equipmentTypes' => EquipmentType::all(),
+        return Inertia::render('equipment-loans', [
+            'equipmentLoans' => Equipment::whereHas('users')->with('users')->with('equipmentType')->get(),
         ]);
     }
 
@@ -32,17 +33,13 @@ class EquipmentTypeController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-        
-        EquipmentType::create($data);
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(EquipmentType $equipmentType)
+    public function show(string $id)
     {
         //
     }
@@ -50,7 +47,7 @@ class EquipmentTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(EquipmentType $equipmentType)
+    public function edit(string $id)
     {
         //
     }
@@ -58,20 +55,26 @@ class EquipmentTypeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, EquipmentType $equipmentType)
+    public function update(Request $request, string $id)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-        
-        $equipmentType->update($validated);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(EquipmentType $equipmentType)
+    public function destroy(string $id)
     {
-        $equipmentType->delete();
+        //
+    }
+
+    public function destroyAll(){
+
+        $finished_loans = DB::table('equipment_user')
+        ->whereNotNull('end_time');
+
+        $finished_loans->delete();
+
+        DB::statement('ALTER TABLE equipment_user AUTO_INCREMENT = 1');
     }
 }

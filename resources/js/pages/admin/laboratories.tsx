@@ -150,6 +150,7 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
                                 columns={columns}
                                 searchableColumns={['account_number', 'user_name', 'user_paternal_surname', 'user_maternal_surname', 'date']}
                                 filters={[laboratoryFilter, isActiveFilter]}
+                                filename='lab_attendances'
                             />
                         </div>
                     </div>

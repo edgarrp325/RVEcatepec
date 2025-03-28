@@ -13,11 +13,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('equipment', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
             $table->string('label');
             $table->foreignId('equipment_type_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->enum('status', [EquipmentStatusEnum::USING->label(), EquipmentStatusEnum::AVAILABLE->label(), EquipmentStatusEnum::MAINTENANCE->label()])->default(EquipmentStatusEnum::AVAILABLE->label());
             $table->foreignId('laboratory_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('used_time')->default(0);
         });
     }
 

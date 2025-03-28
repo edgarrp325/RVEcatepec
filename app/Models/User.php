@@ -81,4 +81,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Laboratory::class)->withPivot('id','date','start_time', 'end_time');
     }
+
+    /**
+     * Relationship with the Equipment model.
+     */
+    public function equipment()
+    {
+        return $this->belongsToMany(Equipment::class)->withPivot('id', 'date', 'start_time', 'end_time');
+    }
 }

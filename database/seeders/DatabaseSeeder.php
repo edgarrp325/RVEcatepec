@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             MajorSeeder::class,
             OTPSeeder::class,
             LaboratorySeeder::class,
+            EquipmentSeeder::class,
         ]);
     }
 }

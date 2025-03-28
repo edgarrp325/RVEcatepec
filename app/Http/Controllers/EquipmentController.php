@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Equipment;
+use App\Models\EquipmentType;
+use App\Models\Laboratory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class EquipmentController extends Controller
 {
@@ -12,39 +16,27 @@ class EquipmentController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('equipment', [
+            'equipment' => Equipment::with('usersInUse')->with('equipmentType')->with('laboratory')->orderBy('label', 'asc')->get(),
+            'equipmentTypes' => EquipmentType::all(),
+            'laboratories' => Laboratory::all(),
+        ]);
+        
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
+    
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validated = $request->validate([
+            'id' => 'required|string|max:255|unique:equipment',
+            'label' => 'required|string|max:255',
+            'equipment_type_id' => 'required',
+            'laboratory_id' => 'required',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Equipment $equipment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Equipment $equipment)
-    {
-        //
+        Equipment::create($validated);
     }
 
     /**
@@ -52,7 +44,19 @@ class EquipmentController extends Controller
      */
     public function update(Request $request, Equipment $equipment)
     {
-        //
+        $validated = $request->validate([
+            'label' => 'required|string|max:255',
+            'equipment_type_id' => 'required',
+            'laboratory_id' => 'required',
+        ]);
+
+        $equipment->update(
+           [
+            'label' => $validated['label'],
+            'equipment_type_id' => $validated['equipment_type_id'],
+            'laboratory_id' => $validated['laboratory_id'],
+           ]
+        );
     }
 
     /**
@@ -60,6 +64,6 @@ class EquipmentController extends Controller
      */
     public function destroy(Equipment $equipment)
     {
-        //
+        $equipment->delete();
     }
 }

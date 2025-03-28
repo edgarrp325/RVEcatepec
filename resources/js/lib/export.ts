@@ -18,7 +18,7 @@ export function exportTableToCSV<TData>(
      * @default []
      * @example ["select", "actions"]
      */
-    excludeColumns?: (keyof TData | "is_active")[];
+    excludeColumns?: (keyof TData | "is_active" | "actions")[];
 
     /**
      * Whether to export only the selected rows.

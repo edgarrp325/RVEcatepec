@@ -6,10 +6,11 @@ import { ColumnDef } from '@tanstack/react-table';
 import { MoreHorizontal } from 'lucide-react';
 
 interface GetColumnsProps {
-    setSelectedEquipmentType: (eq: EquipmentType) => void;
-    setIsDialogOpen: (open: boolean) => void;
+    setSelectedEquipmentType: (selectedEquipmentType: EquipmentType) => void;
+    openDialog: (variant: "create" | "edit", equipmentType?: EquipmentType) => void;    
+    setIsDeleteDialogOpen: (isDeleteDialogOpen: boolean) => void;
 }
-export function getColumns({ setSelectedEquipmentType, setIsDialogOpen }: GetColumnsProps): ColumnDef<EquipmentType>[] {
+export function getColumns({ setSelectedEquipmentType, openDialog, setIsDeleteDialogOpen }: GetColumnsProps): ColumnDef<EquipmentType>[] {
     return [
         {
             accessorKey: 'id',
@@ -35,13 +36,20 @@ export function getColumns({ setSelectedEquipmentType, setIsDialogOpen }: GetCol
                             <DropdownMenuContent align="end">
                                 <DropdownMenuItem
                                     onSelect={() => {
-                                        setIsDialogOpen(true);
+                                        openDialog('edit', equipmentType);
                                         setSelectedEquipmentType(equipmentType);
                                     }}
                                 >
                                     Edit
                                 </DropdownMenuItem>
-                                <DropdownMenuItem onSelect={() => console.log(equipmentType)}>Delete</DropdownMenuItem>
+                                <DropdownMenuItem
+                                    onSelect={() => {
+                                        setIsDeleteDialogOpen(true);
+                                        setSelectedEquipmentType(equipmentType);
+                                    }}
+                                >
+                                    Delete
+                                </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </>

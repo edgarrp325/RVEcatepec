@@ -1,6 +1,6 @@
 import { DataTableSortableHeader } from '@/components/data-table/data-table-sortable-header';
 import { Button } from '@/components/ui/button';
-import { type Attendance } from '@/types';
+import { type AttendanceTable } from '@/types';
 import { useForm } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
 import { LogOut } from 'lucide-react';
@@ -33,7 +33,7 @@ function ButtonFinishAttendance({ attendanceId }: ButtonFinishAttendanceProps) {
     );
 }
 
-export const columns: ColumnDef<Attendance>[] = [
+export const columns: ColumnDef<AttendanceTable>[] = [
     {
         accessorKey: 'laboratory_name',
         header: 'Laboratory',
