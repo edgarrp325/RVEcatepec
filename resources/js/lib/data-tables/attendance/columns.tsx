@@ -6,8 +6,6 @@ import { ColumnDef } from '@tanstack/react-table';
 import { LogOut } from 'lucide-react';
 import { toast } from 'sonner';
 
-import { roleLabel } from '@/enums';
-
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
@@ -47,23 +45,8 @@ export const columns: ColumnDef<AttendanceTable>[] = [
         header: 'Account Number',
     },
     {
-        accessorKey: 'user_name',
-        header: ({ column }) => <DataTableSortableHeader column={column} title="Name" />,
-    },
-    {
-        accessorKey: 'user_paternal_surname',
-        header: ({ column }) => <DataTableSortableHeader column={column} title="Paternal surname" />,
-    },
-    {
-        accessorKey: 'user_maternal_surname',
-        header: ({ column }) => <DataTableSortableHeader column={column} title="Maternal surname" />,
-    },
-    {
-        accessorKey: 'role_id',
-        header: 'Role',
-        cell: ({ row }) => {
-            return roleLabel(row.original.role_id.toString());
-        },
+        accessorKey: 'user_full_name',
+        header: ({ column }) => <DataTableSortableHeader column={column} title="User" />,
     },
     {
         accessorKey: 'date',

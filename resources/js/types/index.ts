@@ -39,7 +39,7 @@ export interface User {
 
     account_number: string;
     paternal_surname: string;
-    maternal_surname: string;
+    maternal_surname: string | null;
     role_id: number;
 
     [key: string]: unknown; // This allows for additional properties...
@@ -70,8 +70,7 @@ export interface AttendanceTable {
     account_number: string;
     user_name: string;
     user_paternal_surname: string;
-    user_maternal_surname: string;
-    role_id: number;
+    user_maternal_surname: string | null;
     attendance_id: number;
     date: string;
     start_time: string;
@@ -153,8 +152,30 @@ export interface EquipmentLoansTable{
     loan_end_time: string | null;
 }
 
+export interface Origin {
+    id: number;
+    name: string;
+    user_id: number;
+}
+export interface UserResponse extends User {
+    role: Role;
+    major: Major[] | [];
+    origin: Origin | null;
+}
 
-
+export interface UsersTable{
+    id: number;
+    account_number: string;
+    name: string;
+    paternal_surname: string;
+    maternal_surname: string | null;
+    major: string | null;
+    origin: string | null;
+    email: string;
+    role_id: number;
+    role: string;
+    created_at: string;
+}
 // Data table interfaces
 
 export interface FilterOption {
