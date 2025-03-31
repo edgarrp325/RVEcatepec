@@ -1,21 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Equipment;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Equipment;
-use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
-class LoanController extends Controller
+class EquipmentLoanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('equipment-loans', [
+        return Inertia::render('equipment/equipment-loans', [
             'equipmentLoans' => Equipment::whereHas('users')->with('users')->with('equipmentType')->get(),
         ]);
     }

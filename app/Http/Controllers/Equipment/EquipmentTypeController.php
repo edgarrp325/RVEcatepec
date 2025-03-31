@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Equipment;
+
+use App\Http\Controllers\Controller;
+
 
 use App\Models\EquipmentType;
 
@@ -14,7 +17,7 @@ class EquipmentTypeController extends Controller
      */
     public function index()
     {
-        return Inertia::render('equipment-types',[
+        return Inertia::render('equipment/equipment-types',[
             'equipmentTypes' => EquipmentType::all(),
         ]);
     }

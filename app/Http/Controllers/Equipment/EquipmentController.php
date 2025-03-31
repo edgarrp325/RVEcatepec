@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Equipment;
+
+use App\Http\Controllers\Controller;
+
 
 use App\Models\Equipment;
 use App\Models\EquipmentType;
 use App\Models\Laboratory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class EquipmentController extends Controller
@@ -16,7 +18,7 @@ class EquipmentController extends Controller
      */
     public function index()
     {
-        return Inertia::render('equipment', [
+        return Inertia::render('equipment/index', [
             'equipment' => Equipment::with('usersInUse')->with('equipmentType')->with('laboratory')->orderBy('label', 'asc')->get(),
             'equipmentTypes' => EquipmentType::all(),
             'laboratories' => Laboratory::all(),

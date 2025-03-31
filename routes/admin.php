@@ -1,11 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\EquipmentTypeController as AdminEquipmentTypeController;
 use App\Http\Controllers\Admin\OTPController;
 use App\Http\Controllers\Admin\LaboratoryController;
 
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::middleware('auth')->group(function (){
     
