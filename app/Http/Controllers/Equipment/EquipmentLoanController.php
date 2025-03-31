@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Equipment;
 use App\Http\Controllers\Controller;
 
 use App\Models\Equipment;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -59,7 +59,25 @@ class EquipmentLoanController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        DB::table('equipment_user')
+            ->where('id', $id)
+            ->update([
+                'end_time' => Carbon::now('America/Mexico_City')->format('H:i'),
+            ]);
+
+        $loan = DB::table('equipment_user')
+            ->where('id', $id)
+            ->first();
+
+        $startTime = Carbon::parse($loan->start_time);
+        $endTime = Carbon::parse($loan->end_time);
+        $usedMinutes = $startTime->diffInMinutes($endTime);
+
+        Equipment::find($loan->equipment_id)->update([
+            'used_time' => DB::raw('used_time + ' . $usedMinutes),
+            'status' => 'Available',
+        ]);
     }
 
     /**
@@ -70,10 +88,11 @@ class EquipmentLoanController extends Controller
         //
     }
 
-    public function destroyAll(){
+    public function destroyAll()
+    {
 
         $finished_loans = DB::table('equipment_user')
-        ->whereNotNull('end_time');
+            ->whereNotNull('end_time');
 
         $finished_loans->delete();
 

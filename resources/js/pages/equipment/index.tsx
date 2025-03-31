@@ -20,6 +20,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
 import { getColumns } from '@/lib/data-tables/equipment/columns';
+import { laboratoryFilter, statusFilter } from '@/lib/data-tables/equipment/filters';
 import { transformEquipmentData } from '@/lib/data-tables/equipment/transformer';
 import { cn, formatMinutes, getBadgeColor } from '@/lib/utils';
 import { Equipment, EquipmentResponse, EquipmentType, type BreadcrumbItem, type Laboratory } from '@/types';
@@ -69,6 +70,8 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
 
     const equipmentData = transformEquipmentData(equipment);
     const iMacs = equipmentData.filter((equipment) => equipment.equipment_type_id === 1);
+    console.log(equipment);
+    
 
     const [selectedEquipment, setSelectedEquipment] = useState<Equipment | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -223,6 +226,7 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
                                 data={equipmentData}
                                 columns={columns}
                                 searchableColumns={['id','equipment_type_name', 'label', 'user_full_name']}
+                                filters={[statusFilter, laboratoryFilter]}
                                 filename="Equipment"
                             />
                         </div>

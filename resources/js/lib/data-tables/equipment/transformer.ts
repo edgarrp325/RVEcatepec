@@ -20,12 +20,14 @@ export const transformEquipmentData = (equipment: EquipmentResponse[]) => {
                 ...data,
                 user_id: equipment.users_in_use[0].id,
                 user_full_name: cn(user.name, user.paternal_surname, user.maternal_surname),  
+                loan_id: user.pivot.id,
             }
         }else{
             return {
                 ...data,
                 user_id: null,
                 user_full_name: null,
+                loan_id: null,
             }
         }   
     });

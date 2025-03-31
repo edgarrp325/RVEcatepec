@@ -52,22 +52,15 @@ class AttendanceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id):RedirectResponse
+    public function update(Request $request, string $id)
     {
-        // Find attendance by id 
-        $attendance = DB::table('laboratory_user')
-            ->where('id', $id) // Aquí usamos el ID del registro pivot
-            ->first();
 
         // Verify if the register exist 
             DB::table('laboratory_user')
                 ->where('id', $id)
                 ->update([
                     'end_time' => Carbon::now('America/Mexico_City')->format('H:i'),
-                ]);
-
-            return redirect()->back()->with('status', 'attendance-updated');
-        
+                ]);        
     }
 
     /**

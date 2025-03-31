@@ -18,5 +18,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('equipment-loans/destroy-all', [EquipmentLoanController::class, 'destroyAll'])->name('equipment-loans.destroy-all');
     Route::resource('equipment-loans', EquipmentLoanController::class)->only([
         'index',
+        'update',
     ]);
 });

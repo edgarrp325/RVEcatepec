@@ -265,7 +265,7 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
                         </form>
                     </DialogContent>
                 </Dialog>
-                {/* Alert dialog to delete all Equipment loans */}
+                {/* Alert dialog to delete all attendance */}
                 <AlertDialog open={isDeleteAllDialogOpen} onOpenChange={setIsDeleteAllDialogOpen}>
                     <AlertDialogContent>
                         <AlertDialogHeader>

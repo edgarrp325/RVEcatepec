@@ -133,6 +133,7 @@ export interface EquipmentTable extends Equipment {
     laboratory_name: string;
     equipment_type_name: string;
     user_full_name: string | null;
+    loan_id: number | null;
 }
 
 export interface EquipmentLoansResponse extends Equipment {

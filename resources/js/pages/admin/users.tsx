@@ -126,6 +126,7 @@ export default function Users({ users, roles }: UsersProps) {
                         columns={columns}
                         searchableColumns={['account_number', 'name', 'paternal_surname', 'maternal_surname', 'email']}
                         filters={[roleFilter]}
+                        filename="users"
                     />
                 </div>
                 {/* Dialog to edit user role  */}
