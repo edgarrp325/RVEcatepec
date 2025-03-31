@@ -69,9 +69,9 @@ class User extends Authenticatable
     /**
      * Relationship with the Major model.
      */
-    public function majors()
+    public function major()
     {
-        return $this->belongsToMany(Major::class);
+        return $this->belongsToMany(Major::class)->limit(1);
     }
 
     /**

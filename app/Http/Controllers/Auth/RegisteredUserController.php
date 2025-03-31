@@ -110,7 +110,7 @@ class RegisteredUserController extends Controller
         if ($isSelectedUser || $isSelectedOtherMajor) {
             $user->origin()->create(['name' => $request->origin]);
         } else {
-            $user->majors()->attach($request->major_id);
+            $user->major()->attach($request->major_id);
         }
 
         //Regenerate otp if the user is admin

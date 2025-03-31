@@ -66,7 +66,7 @@ export default function EquipmentLoans({ equipmentLoans }: EquipmentLoansProps) 
                 {/* Delete all equipment loans button  */}
                 {equipmentLoans.length > 0 && (
                     <div className="px-4 md:px-6">
-                        <Button variant={'destructive'} onClick={() => setIsDeleteAllDialogOpen(true)}>
+                        <Button variant={'destructive'} size={'sm'} onClick={() => setIsDeleteAllDialogOpen(true)}>
                             <Trash /> Delete history
                         </Button>
                     </div>

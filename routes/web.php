@@ -14,6 +14,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 
+    Route::delete('attendance/destroy-all', [AttendanceController::class, 'destroyAll'])->name('attendance.destroy-all');
     Route::resource('attendance', AttendanceController::class)->only([
         'update',
     ]);

@@ -77,4 +77,14 @@ class AttendanceController extends Controller
     {
         //
     }
+
+    public function destroyAll()
+    {
+        $finished_attendance = DB::table('laboratory_user')
+        ->whereNotNull('end_time');
+
+        $finished_attendance->delete();
+
+        DB::statement('ALTER TABLE laboratory_user AUTO_INCREMENT = 1');
+    }
 }

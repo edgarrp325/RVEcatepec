@@ -1,4 +1,15 @@
+import { DataTable } from '@/components/data-table/data-table';
 import InputError from '@/components/input-error';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -7,11 +18,9 @@ import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { type AttendanceResponse, type BreadcrumbItem, type Laboratory } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
-import { LoaderCircle, Plus } from 'lucide-react';
+import { LoaderCircle, Plus, Trash } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
 import { toast } from 'sonner';
-
-import { DataTable } from '@/components/data-table/data-table';
 
 import { columns } from '@/lib/data-tables/attendance/columns';
 import { isActiveFilter, laboratoryFilter } from '@/lib/data-tables/attendance/filters';
@@ -39,12 +48,23 @@ interface LaboratoryForm {
 
 export default function Laboratories({ laboratories, attendanceResponse }: LaboratoriesProps) {
     const attendanceData = transformAttendanceData(attendanceResponse);
-    const { data, setData, post, put, processing, errors, clearErrors, reset } = useForm<LaboratoryForm>({
+    const {
+        data,
+        setData,
+        post,
+        put,
+        delete: destroy,
+        processing,
+        errors,
+        clearErrors,
+        reset,
+    } = useForm<LaboratoryForm>({
         name: '',
         opening_time: '',
         closing_time: '',
     });
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isDeleteAllDialogOpen, setIsDeleteAllDialogOpen] = useState(false);
     const [isEditSelected, setIsEditSelected] = useState(false);
     const [currentLaboratory, setCurrentLaboratory] = useState<Laboratory | undefined>();
     const [dialogLabels, setDialogLabels] = useState({
@@ -87,8 +107,24 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
         }
     };
 
+    const deleteAllAttendance = () => {
+        destroy(route('attendance.destroy-all'), {
+            onSuccess: () => {
+                setIsDeleteAllDialogOpen(false);
+                toast.success('Attendance history deleted successfully');
+            },
+            onFinish: () => reset(),
+            onError: () => toast.error('Something went wrong'),
+        });
+    };
+
     const closeDialog = () => {
         setIsDialogOpen(false);
+        clearErrors();
+        reset();
+    };
+    const closeDeleteDialog = () => {
+        setIsDeleteAllDialogOpen(false);
         clearErrors();
         reset();
     };
@@ -117,6 +153,8 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
                         <Plus /> New Laboratory
                     </Button>
                 </div>
+                {/* Delete all equipment loans button  */}
+                {attendanceResponse.length > 0 && <div className="px-4 md:px-6"></div>}
                 <div className="@container/main flex flex-1 flex-col gap-2">
                     <div className="flex flex-col gap-4 md:gap-6">
                         {/* Laboratories cards grid */}
@@ -144,13 +182,21 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
                                 <p className="text-muted-foreground">
                                     Here&apos;s a list of lab attendances you can filter, search, sort and export!
                                 </p>
+                                {/* Delete all attendances button  */}
+                                {attendanceResponse.length > 0 && (
+                                    <div className="mt-6">
+                                        <Button variant={'destructive'} size={'sm'} onClick={() => setIsDeleteAllDialogOpen(true)}>
+                                            <Trash /> Delete history
+                                        </Button>
+                                    </div>
+                                )}
                             </div>
                             <DataTable
                                 data={attendanceData}
                                 columns={columns}
-                                searchableColumns={['account_number', 'user_name', 'user_paternal_surname', 'user_maternal_surname', 'date']}
+                                searchableColumns={['account_number', 'user_full_name', 'date']}
                                 filters={[laboratoryFilter, isActiveFilter]}
-                                filename='lab_attendances'
+                                filename="lab_attendances"
                             />
                         </div>
                     </div>
@@ -219,6 +265,24 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
                         </form>
                     </DialogContent>
                 </Dialog>
+                {/* Alert dialog to delete all Equipment loans */}
+                <AlertDialog open={isDeleteAllDialogOpen} onOpenChange={setIsDeleteAllDialogOpen}>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle className="text-destructive">Are you sure to delete every attendance?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                This will permanently delete the attendance history; only active attendance may remain unaffected.
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel onClick={closeDeleteDialog}>Cancel</AlertDialogCancel>
+                            <AlertDialogAction className="bg-destructive hover:bg-destructive/90" onClick={deleteAllAttendance} disabled={processing}>
+                                {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                                Delete permanently
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
             </div>
         </AppLayout>
     );

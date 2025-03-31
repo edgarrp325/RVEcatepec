@@ -14,9 +14,9 @@ class Major extends Model
     /**
      * Relationship with the User model.
      */
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->limit(1);
     }
     public $timestamps = false;
 }

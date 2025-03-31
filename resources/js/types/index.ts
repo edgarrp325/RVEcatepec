@@ -68,9 +68,7 @@ export interface Laboratory {
 export interface AttendanceTable {
     laboratory_name: string;
     account_number: string;
-    user_name: string;
-    user_paternal_surname: string;
-    user_maternal_surname: string | null;
+    user_full_name: string;
     attendance_id: number;
     date: string;
     start_time: string;
