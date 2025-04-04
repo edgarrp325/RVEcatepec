@@ -178,7 +178,6 @@ export default function EquipmentTypes({ equipmentTypes }: EquipmentTypesProps) 
                                     <Input
                                         id="equipment_type_name"
                                         type="text"
-                                        autoComplete="equipment_type_name"
                                         value={data.name}
                                         onChange={(e) => setData('name', e.target.value)}
                                         disabled={processing}

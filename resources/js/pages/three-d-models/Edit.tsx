@@ -84,7 +84,6 @@ export default function Edit({ model, formats }: EditProps) {
                             className="mt-1 block w-full"
                             value={data.name}
                             onChange={(e) => setData({ ...data, name: e.target.value })}
-                            autoComplete="model_name"
                             placeholder="3D model name"
                         />
 
@@ -127,7 +126,6 @@ export default function Edit({ model, formats }: EditProps) {
                                     e.preventDefault();
                                 }
                             }}
-                            autoComplete="model_poligons"
                             placeholder="3D model poligons number"
                         />
 

@@ -80,7 +80,6 @@ export default function Create({ formats }: ShowProps) {
                             className="mt-1 block w-full"
                             value={data.name}
                             onChange={(e) => setData('name', e.target.value)}
-                            autoComplete="model_name"
                             placeholder="3D model name"
                         />
 
@@ -123,7 +122,6 @@ export default function Create({ formats }: ShowProps) {
                                     e.preventDefault();
                                 }
                             }}
-                            autoComplete="model_poligons"
                             placeholder="3D model poligons number"
                         />
 

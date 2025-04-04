@@ -216,8 +216,7 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
                                     <Input
                                         id="lab_name"
                                         type="text"
-                                        required
-                                        autoComplete="lab_name"
+                                        name='lab_name'
                                         value={data.name}
                                         onChange={(e) => setData('name', e.target.value)}
                                         disabled={processing}
@@ -230,7 +229,6 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
                                     <Input
                                         id="opening_time"
                                         type="time"
-                                        required
                                         value={data.opening_time}
                                         onChange={(e) => setData('opening_time', e.target.value)}
                                         disabled={processing}
@@ -242,7 +240,6 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
                                     <Input
                                         id="closing_time"
                                         type="time"
-                                        required
                                         value={data.closing_time}
                                         onChange={(e) => setData('closing_time', e.target.value)}
                                         disabled={processing}

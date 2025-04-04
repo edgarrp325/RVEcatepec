@@ -23,7 +23,7 @@ export function DataTableToolbar<TData>({ table, globalFilter, setGlobalFilter, 
         <div className="flex items-center justify-between">
             <div className="flex flex-1 items-center space-x-2">
                 {/* 🔍 Global filter field */}
-                <Input placeholder="Search..." value={globalFilter} onChange={(e) => setGlobalFilter(e.target.value)} className="max-w-sm" />
+                <Input id='search' placeholder="Search..." value={globalFilter} onChange={(e) => setGlobalFilter(e.target.value)} className="max-w-sm" />
 
                 {/*  🎛  Dinamic render of filters*/}
                 {filters.map(({ columnKey, title, options }) =>

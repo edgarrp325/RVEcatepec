@@ -72,11 +72,9 @@ export function DataTable<TData, TValue>({ columns, data, searchableColumns, fil
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <>
-                                            <TableHead key={header.id} colSpan={header.colSpan}>
-                                                {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                                            </TableHead>
-                                        </>
+                                        <TableHead key={header.id} colSpan={header.colSpan}>
+                                            {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                                        </TableHead>
                                     );
                                 })}
                             </TableRow>
