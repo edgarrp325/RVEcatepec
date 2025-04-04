@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, MonitorCheck, MonitorCog, MonitorSmartphone, RectangleEllipsis, Rocket, UserRoundCog } from 'lucide-react';
+import { BookOpen, Box, Folder, LayoutGrid, MonitorCheck, MonitorCog, MonitorSmartphone, RectangleEllipsis, Rocket, UserRoundCog } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -43,6 +43,11 @@ const mainNavItems: NavItem[] = [
         title:'Users',
         url:'/users',
         icon: UserRoundCog,
+    },
+    {
+        title:'3D Models',
+        url:'/three-d-models',
+        icon:Box,
     }
 ];
 

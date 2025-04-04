@@ -175,6 +175,31 @@ export interface UsersTable{
     role: string;
     created_at: string;
 }
+
+export interface ThreeDModel{
+    id: number;
+    name: string;
+    format_id: number;
+    poligons: number;
+    textures: boolean;
+    animations: boolean;
+    rigged: boolean;
+    img_url: string;
+    model_url: string;
+    download_url:string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Format {
+    id:number;
+    name:string;
+}
+
+export interface ThreeDModelResponse extends ThreeDModel{
+    format: Format;
+}
+
 // Data table interfaces
 
 export interface FilterOption {
@@ -186,4 +211,25 @@ export interface Filter {
     columnKey: string;
     title: string;
     options: FilterOption[];
+}
+
+// Pagination interfac
+
+export interface Pagination {
+    total: number;
+    per_page: number;
+    current_page: number;
+    last_page: number;
+    first_page_url: string;
+    last_page_url: string;
+    next_page_url: string | null;
+    prev_page_url: string | null;
+    path: string;
+    from: number;
+    to: number;
+    links: {label: string, url: string, active: boolean}[];
+}
+
+export interface ThreeDModelResponsePagination extends Pagination{
+    data: ThreeDModelResponse[];
 }

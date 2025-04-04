@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             OTPSeeder::class,
             LaboratorySeeder::class,
             EquipmentSeeder::class,
+            FormatSeeder::class,
+            ThreeDModelSeeder::class
         ]);
     }
 }

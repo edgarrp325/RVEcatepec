@@ -36,7 +36,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-interface EquipmentsProps {
+interface EquipmentProps {
     equipment: EquipmentResponse[];
     equipmentTypes: EquipmentType[];
     laboratories: Laboratory[];
@@ -50,7 +50,7 @@ interface EquipmentForm {
     laboratory_id: string;
 }
 
-export default function Equipments({ equipment, equipmentTypes, laboratories }: EquipmentsProps) {
+export default function Equipments({ equipment, equipmentTypes, laboratories }: EquipmentProps) {
     const {
         data,
         setData,
@@ -70,8 +70,6 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
 
     const equipmentData = transformEquipmentData(equipment);
     const iMacs = equipmentData.filter((equipment) => equipment.equipment_type_id === 1);
-    console.log(equipment);
-    
 
     const [selectedEquipment, setSelectedEquipment] = useState<Equipment | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -154,7 +152,7 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
     useEffect(() => {
         if (selectedEquipment) {
             setData({
-                id:'',
+                id: '',
                 label: selectedEquipment.label,
                 equipment_type_id: selectedEquipment.equipment_type_id.toString(),
                 laboratory_id: selectedEquipment.laboratory_id.toString(),
@@ -225,7 +223,7 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
                             <DataTable
                                 data={equipmentData}
                                 columns={columns}
-                                searchableColumns={['id','equipment_type_name', 'label', 'user_full_name']}
+                                searchableColumns={['id', 'equipment_type_name', 'label', 'user_full_name']}
                                 filters={[statusFilter, laboratoryFilter]}
                                 filename="Equipment"
                             />
@@ -239,20 +237,21 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
                                 </DialogHeader>
                                 <form onSubmit={submit}>
                                     <div className="grid gap-6">
-                                        {!isEditSelected &&
+                                        {!isEditSelected && (
                                             <div className="grid gap-2">
-                                            <Label htmlFor="equipment_id">No. bien</Label>
-                                            <Input
-                                                id="equipment_id"
-                                                type="text"
-                                                autoComplete="equipment_id"
-                                                value={data.id}
-                                                onChange={(e) => setData('id', e.target.value)}
-                                                disabled={processing}
-                                                placeholder="Enter the equipment id"
-                                            />
-                                            <InputError message={errors.id} />
-                                        </div>}
+                                                <Label htmlFor="equipment_id">No. bien</Label>
+                                                <Input
+                                                    id="equipment_id"
+                                                    type="text"
+                                                    autoComplete="equipment_id"
+                                                    value={data.id}
+                                                    onChange={(e) => setData('id', e.target.value)}
+                                                    disabled={processing}
+                                                    placeholder="Enter the equipment id"
+                                                />
+                                                <InputError message={errors.id} />
+                                            </div>
+                                        )}
 
                                         <div className="grid gap-2">
                                             <Label htmlFor="equipment_label">Label</Label>
@@ -271,7 +270,7 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
                                             <Label htmlFor="equipment_types">Equipment type</Label>
                                             <Select
                                                 value={data.equipment_type_id.toString()}
-                                                onValueChange={(value) =>  setData('equipment_type_id', value)}
+                                                onValueChange={(value) => setData('equipment_type_id', value)}
                                             >
                                                 <SelectTrigger>
                                                     <SelectValue placeholder="Select the type of equipment you need" />

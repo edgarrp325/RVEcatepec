@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttendanceController;
-
+use App\Http\Controllers\ThreeDModelController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -18,6 +18,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('attendance', AttendanceController::class)->only([
         'update',
     ]);
+
+    Route::resource('three-d-models', ThreeDModelController::class);
 });
 
 require __DIR__.'/settings.php';
