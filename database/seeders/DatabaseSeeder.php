@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             LaboratorySeeder::class,
             EquipmentSeeder::class,
             FormatSeeder::class,
-            ThreeDModelSeeder::class
+            ThreeDModelSeeder::class,
+            TutorialTypeSeeder::class,
         ]);
     }
 }
