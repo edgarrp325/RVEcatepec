@@ -9,6 +9,7 @@ import { FormEventHandler, useState } from 'react';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import { toast } from 'sonner';
+import '@justinribeiro/lite-youtube';
 
 interface TutorialFormData {
     title: string;
@@ -74,7 +75,7 @@ export default function Create({ tutorial }: EditProps) {
 
     return (
         <AppLayout breadcrumbs={breadcrumb}>
-            <Head title="Create tutorial" />
+            <Head title="Edit tutorial" />
             <div className="flex h-full flex-col items-center rounded-xl p-4">
                 <form onSubmit={submit} className="my-4 w-full max-w-5xl space-y-6" encType="multipart/form-data">
                     <div className="grid gap-2">

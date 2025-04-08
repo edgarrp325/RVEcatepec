@@ -11,6 +11,7 @@ import { FormEventHandler, useState } from 'react';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import { toast } from 'sonner';
+import '@justinribeiro/lite-youtube';
 
 const breadcrumb: BreadcrumbItem[] = [
     {
@@ -46,6 +47,8 @@ export default function Create({ tutorialTypes }: CreateProps) {
     });
 
     const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const [pdfPreview, setPdfPreview] = useState<string | null>(null);
+
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -124,6 +127,12 @@ export default function Create({ tutorialTypes }: CreateProps) {
                     {data.tutorial_type_id === 2 && (
                         <div className="grid gap-2">
                             <Label htmlFor="tutorial_embed_url">File</Label>
+                            {pdfPreview &&
+                                <embed
+                                    className="mt-4 flex aspect-video w-11/12 items-center justify-center"
+                                    src={pdfPreview}
+                                    type="application/pdf"
+                                ></embed>}
                             <Input
                                 id="tutorial_embed_url"
                                 type="file"
@@ -132,6 +141,7 @@ export default function Create({ tutorialTypes }: CreateProps) {
                                 onChange={(e) => {
                                     if (e.target.files?.[0]) {
                                         setData('pdf', e.target.files[0]);
+                                        setPdfPreview(URL.createObjectURL(e.target.files[0]));
                                     }
                                 }}
                             />
@@ -142,6 +152,7 @@ export default function Create({ tutorialTypes }: CreateProps) {
                     {data.tutorial_type_id === 1 && (
                         <div className="grid gap-2">
                             <Label htmlFor="tutorial_embed_url">Embed URL</Label>
+                            <lite-youtube className="mt-4 flex aspect-video w-full items-center justify-center md:w-9/12" videoId={data.embed_url} />
                             <Input
                                 id="tutorial_embed_url"
                                 type="text"

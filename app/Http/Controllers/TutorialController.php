@@ -41,13 +41,13 @@ class TutorialController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'tutorial_type_id' => 'required|exists:tutorial_types,id',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:8192',
         ];
 
         $isPDF = $request->tutorial_type_id == 2;
 
         if ($isPDF) {
-            $rules['pdf'] = 'required|file|mimes:pdf';
+            $rules['pdf'] = 'required|file|mimes:pdf|max:122880';
         } else {
             $rules['embed_url'] = 'required|string|max:255';
         }
@@ -95,13 +95,13 @@ class TutorialController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'tutorial_type_id' => 'required|exists:tutorial_types,id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:8192',
         ];
 
         $isPDF = $request->tutorial_type_id == 2;
 
         if ($isPDF) {
-            $rules['pdf'] = 'nullable|file|mimes:pdf';
+            $rules['pdf'] = 'nullable|file|mimes:pdf|max:122880';
         } else {
             $rules['embed_url'] = 'required|string|max:255';
         }
