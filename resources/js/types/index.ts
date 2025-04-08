@@ -200,6 +200,26 @@ export interface ThreeDModelResponse extends ThreeDModel{
     format: Format;
 }
 
+export interface Tutorial {
+    id: number;
+    title: string;
+    description: string;
+    image_url: string;
+    embed_url: string;
+    tutorial_type_id: number;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface TutorialType {
+    id: number;
+    name: string;
+}
+
+export interface TutorialResponse extends Tutorial{
+    tutorial_type: TutorialType;
+}
+
 // Data table interfaces
 
 export interface FilterOption {
@@ -232,4 +252,8 @@ export interface Pagination {
 
 export interface ThreeDModelResponsePagination extends Pagination{
     data: ThreeDModelResponse[];
+}
+
+export interface TutorialResponsePagination extends Pagination{
+    data: TutorialResponse[];
 }

@@ -4,52 +4,9 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Box, Folder, LayoutGrid, MonitorCheck, MonitorCog, MonitorSmartphone, RectangleEllipsis, Rocket, UserRoundCog } from 'lucide-react';
+import { BookOpen, Folder } from 'lucide-react';
 import AppLogo from './app-logo';
-
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        url: '/dashboard',
-        icon: LayoutGrid,
-    },
-    {
-        title: 'One-time Passwords',
-        url: '/one-time-passwords',
-        icon: RectangleEllipsis,
-    },
-    {
-        title: 'Laboratories',
-        url:'/laboratories',
-        icon: Rocket,
-    },
-    {
-        title:'Equipment',
-        url:'/equipment',
-        icon:MonitorCog,
-    },
-    {
-        title:'Equipment Types',
-        url:'/equipment-types',
-        icon:MonitorSmartphone,
-    },
-    
-    {
-        title:'Equipment Loans',
-        url:'/equipment-loans',
-        icon:MonitorCheck,
-    },
-    {
-        title:'Users',
-        url:'/users',
-        icon: UserRoundCog,
-    },
-    {
-        title:'3D Models',
-        url:'/three-d-models',
-        icon:Box,
-    }
-];
+import { mainNavItems } from '@/config/nav-items';
 
 const footerNavItems: NavItem[] = [
     {

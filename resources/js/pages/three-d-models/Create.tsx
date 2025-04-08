@@ -23,7 +23,7 @@ const breadcrumb: BreadcrumbItem[] = [
     },
 ];
 
-interface ShowProps {
+interface CreateProps {
     formats: Format[];
 }
 
@@ -40,7 +40,7 @@ interface ModelFormData {
     [key: string]: string | boolean | File | null | number;
 }
 
-export default function Create({ formats }: ShowProps) {
+export default function Create({ formats }: CreateProps) {
     const { data, setData, post, errors, processing } = useForm<ModelFormData>({
         name: '',
         format_id: 1,
@@ -210,7 +210,7 @@ export default function Create({ formats }: ShowProps) {
                     </div>
                     <div className="flex items-center gap-4">
                         <Button type="submit" disabled={processing}>
-                            {processing && <LoaderCircle />}
+                            {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                             Create
                         </Button>
                     </div>

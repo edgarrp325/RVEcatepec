@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ThreeDModelController;
+use App\Http\Controllers\TutorialController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -20,6 +21,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     ]);
 
     Route::resource('three-d-models', ThreeDModelController::class);
+
+    Route::resource('tutorials', TutorialController::class);
 });
 
 require __DIR__.'/settings.php';

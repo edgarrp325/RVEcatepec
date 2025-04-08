@@ -63,20 +63,28 @@ export default function Edit({ model, formats }: EditProps) {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        router.post(route('three-d-models.update', model.id), {
-            _method: 'put',
-            ...data,
-        },{
-            onSuccess: () => {toast.success('3D Model updated successfully');},
-            onError: () => {toast.error('Error updating 3D Model');},
-        });
+        router.post(
+            route('three-d-models.update', model.id),
+            {
+                _method: 'put',
+                ...data,
+            },
+            {
+                onSuccess: () => {
+                    toast.success('3D Model updated successfully');
+                },
+                onError: () => {
+                    toast.error('Error updating 3D Model');
+                },
+            },
+        );
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumb}>
             <Head title={model.name} />
             <div className="flex h-full flex-col items-center rounded-xl p-4">
-                <form onSubmit={submit} className="max-w-xl space-y-6 my-4" encType="multipart/form-data">
+                <form onSubmit={submit} className="my-4 max-w-xl space-y-6" encType="multipart/form-data">
                     <div className="grid gap-2">
                         <Label htmlFor="model_name">Name</Label>
                         <Input
@@ -112,7 +120,7 @@ export default function Edit({ model, formats }: EditProps) {
                             pattern="\d*"
                             inputMode="numeric"
                             value={data.poligons}
-                            onChange={(e) => setData({ ...data, poligons: Number(e.target.value )})}
+                            onChange={(e) => setData({ ...data, poligons: Number(e.target.value) })}
                             required
                             onKeyDown={(e) => {
                                 if (
@@ -180,20 +188,23 @@ export default function Edit({ model, formats }: EditProps) {
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="model_model_viewer">Model to viewer</Label>
-                        <model-viewer src={ modelPreview ? modelPreview : `/storage/${model.model_url}`} auto-rotate
-                        camera-controls
-                        touch-actions="pan-x"
-                        ar
-                        shadow-intensity="1"
-                        style={{ width: '100%', height: '600px' }}/>
+                        <model-viewer
+                            src={modelPreview ? modelPreview : `/storage/${model.model_url}`}
+                            auto-rotate
+                            camera-controls
+                            touch-actions="pan-x"
+                            ar
+                            shadow-intensity="1"
+                            style={{ width: '100%', height: '600px' }}
+                        />
                         <Input
                             id="model_model_viewer"
                             type="file"
                             accept=".glb"
                             className="mt-1 block w-full"
                             onChange={(e) => {
-                                if (e.target.files?.[0]){
-                                    setData({ ...data, model_view: e.target.files[0]});
+                                if (e.target.files?.[0]) {
+                                    setData({ ...data, model_view: e.target.files[0] });
                                     setModelPreview(URL.createObjectURL(e.target.files[0]));
                                 }
                             }}
@@ -205,11 +216,11 @@ export default function Edit({ model, formats }: EditProps) {
                         <Input
                             id="model_download"
                             type="file"
-                            accept={data.format_id === 1 ? ".fbx" : ".obj"}
+                            accept={data.format_id === 1 ? '.fbx' : '.obj'}
                             className="mt-1 block w-full"
                             onChange={(e) => {
-                                if (e.target.files?.[0]){
-                                    setData({ ...data, model_download: e.target.files[0]});
+                                if (e.target.files?.[0]) {
+                                    setData({ ...data, model_download: e.target.files[0] });
                                 }
                             }}
                         />
