@@ -103,7 +103,7 @@ export default function Create() {
                             className="mt-1 block w-full"
                             value={data.download_url}
                             onChange={(e) => setData('download_url', e.target.value)}
-                            placeholder="Project download url (Mega, Mediafire, Drive, etc...)"
+                            placeholder="Github URL"
                         />
                         <InputError className="mt-2" message={errors.download_url} />
                     </div>

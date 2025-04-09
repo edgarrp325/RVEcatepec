@@ -2,7 +2,7 @@ import { Button, buttonVariants } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem, Project } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
+import { ArrowUpRight, LoaderCircle } from 'lucide-react';
 import { useState } from 'react';
 import 'react-quill-new/dist/quill.snow.css';
 import { toast } from 'sonner';
@@ -58,8 +58,8 @@ export default function Show({ project }: ShowProps) {
             <Head title={project.title} />
             <div className="flex h-full flex-col items-center rounded-xl p-4">
                 <div className="flex w-full flex-col items-center">
-                    <div className="w-full">
-                        <Card>
+                    <div className="flex w-full justify-center">
+                        <Card className="max-w-3xl">
                             <CardHeader className="relative">
                                 <CardTitle className="w-11/12 text-xl">{project.title}</CardTitle>
                                 <CardDescription className="flex flex-wrap gap-x-2">
@@ -69,10 +69,22 @@ export default function Show({ project }: ShowProps) {
                                     )}
                                 </CardDescription>
                             </CardHeader>
-                            <CardContent className="flex flex-wrap items-center justify-between">
-                                <div className="w-full [&>ol]:list-disc [&>ol]:p-6" dangerouslySetInnerHTML={{ __html: project.description }} />
-                                <img src={`/storage/${project.image_url}`} alt={project.title} className="aspect-video w-3xl object-contain"></img>
+                            <CardContent className="flex flex-col gap-8 p-6">
+                                {/* Description */}
+                                <div className="prose prose-p:m-0 prose-headings:first:mt-0 quill-content">
+                                    <div dangerouslySetInnerHTML={{ __html: project.description }} />
+                                </div>
+
+                                {/* Image */}
+                                <div className="flex w-full items-center justify-center">
+                                    <img
+                                        src={`/storage/${project.image_url}`}
+                                        alt={project.title}
+                                        className="aspect-video w-full rounded-xl object-cover shadow-md"
+                                    />
+                                </div>
                             </CardContent>
+
                             <CardFooter className="flex justify-between">
                                 <a
                                     href={project.download_url}
@@ -80,7 +92,7 @@ export default function Show({ project }: ShowProps) {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    Download
+                                    Github <ArrowUpRight className="ml-2" />
                                 </a>
                                 <div className="flex gap-2">
                                     <Link className={buttonVariants({ variant: 'outline' })} href={route('projects.edit', project.id)}>

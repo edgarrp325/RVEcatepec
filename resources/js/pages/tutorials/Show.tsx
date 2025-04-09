@@ -60,8 +60,8 @@ export default function Show({ tutorial }: ShowProps) {
             <Head title={tutorial.title} />
             <div className="flex h-full flex-col items-center rounded-xl p-4">
                 <div className="flex w-full flex-col items-center">
-                    <div className="w-full">
-                        <Card>
+                    <div className="flex w-full justify-center">
+                        <Card className="max-w-3xl">
                             <CardHeader className="relative">
                                 <CardTitle className="w-11/12 text-xl">{tutorial.title}</CardTitle>
                                 <CardDescription className="flex flex-wrap gap-x-2">
@@ -71,21 +71,25 @@ export default function Show({ tutorial }: ShowProps) {
                                     )}
                                 </CardDescription>
                             </CardHeader>
-                            <CardContent className="flex flex-wrap items-center justify-between">
-                                <div className="w-full [&>ol]:list-disc [&>ol]:p-6" dangerouslySetInnerHTML={{ __html: tutorial.description }} />
+                            <CardContent className="flex flex-col items-center gap-8 p-6">
+                                <div
+                                    className="prose prose-p:m-0 prose-headings:first:mt-0 quill-content"
+                                    dangerouslySetInnerHTML={{ __html: tutorial.description }}
+                                />
                                 {tutorial.tutorial_type_id === 1 ? (
                                     <lite-youtube
-                                        className="mt-4 flex aspect-video w-11/12 items-center justify-center"
+                                        className="flex aspect-video h-fit w-full items-center justify-center rounded-xl shadow-md"
                                         videoId={tutorial.embed_url}
                                     />
                                 ) : (
                                     <embed
-                                        className="mt-4 flex aspect-video w-11/12 items-center justify-center"
+                                        className="mt-4 flex aspect-video h-fit w-full items-center justify-center rounded-xl object-cover shadow-md"
                                         src={`/storage/${tutorial.embed_url}`}
                                         type="application/pdf"
                                     ></embed>
                                 )}
                             </CardContent>
+
                             <CardFooter className="flex gap-2">
                                 <Link className={buttonVariants({ variant: 'outline' })} href={route('tutorials.edit', tutorial.id)}>
                                     Edit
