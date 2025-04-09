@@ -109,7 +109,7 @@ export default function Create({ tutorialTypes }: CreateProps) {
                         <InputError className="mt-2" message={errors.image} />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="laboratories">Tutorial Type</Label>
+                        <Label htmlFor="tutorial_type">Tutorial Type</Label>
                         <Select value={data.tutorial_type_id.toString()} onValueChange={(value) => setData('tutorial_type_id', Number(value))}>
                             <SelectTrigger>
                                 <SelectValue placeholder="Select the tutorial type" />

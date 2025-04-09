@@ -37,7 +37,7 @@ class ThreeDModel extends Model
         ];
     }
 
-     /**
+    /**
      * Relationship with the Format model.
      */
     public function format()

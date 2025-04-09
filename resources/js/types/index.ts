@@ -88,13 +88,13 @@ export interface UserWithAttendance extends User {
 }
 
 // Comes from the relashionship Many-to-many Laboratory-User
-export interface AttendanceResponse extends Laboratory{
+export interface AttendanceResponse extends Laboratory {
     users: UserWithAttendance[];
 }
 
 // the equipment types is the same that the response from the model equipment types
 export interface EquipmentType {
-    id: number; 
+    id: number;
     name: string;
 }
 
@@ -141,7 +141,7 @@ export interface EquipmentLoansResponse extends Equipment {
     users: UserWithLoans[];
 }
 
-export interface EquipmentLoansTable{
+export interface EquipmentLoansTable {
     equipment_id: string;
     equipment_label: string;
     equipment_type: string;
@@ -162,7 +162,7 @@ export interface UserResponse extends User {
     origin: Origin | null;
 }
 
-export interface UsersTable{
+export interface UsersTable {
     id: number;
     account_number: string;
     name: string;
@@ -176,7 +176,7 @@ export interface UsersTable{
     created_at: string;
 }
 
-export interface ThreeDModel{
+export interface ThreeDModel {
     id: number;
     name: string;
     format_id: number;
@@ -186,17 +186,17 @@ export interface ThreeDModel{
     rigged: boolean;
     img_url: string;
     model_url: string;
-    download_url:string;
+    download_url: string;
     created_at: string;
     updated_at: string;
 }
 
 export interface Format {
-    id:number;
-    name:string;
+    id: number;
+    name: string;
 }
 
-export interface ThreeDModelResponse extends ThreeDModel{
+export interface ThreeDModelResponse extends ThreeDModel {
     format: Format;
 }
 
@@ -216,8 +216,18 @@ export interface TutorialType {
     name: string;
 }
 
-export interface TutorialResponse extends Tutorial{
+export interface TutorialResponse extends Tutorial {
     tutorial_type: TutorialType;
+}
+
+export interface Project {
+    id: number;
+    title: string;
+    description: string;
+    image_url: string;
+    download_url: string;
+    created_at: string;
+    updated_at: string;
 }
 
 // Data table interfaces
@@ -247,13 +257,17 @@ export interface Pagination {
     path: string;
     from: number;
     to: number;
-    links: {label: string, url: string, active: boolean}[];
+    links: { label: string; url: string; active: boolean }[];
 }
 
-export interface ThreeDModelResponsePagination extends Pagination{
+export interface ThreeDModelResponsePagination extends Pagination {
     data: ThreeDModelResponse[];
 }
 
-export interface TutorialResponsePagination extends Pagination{
+export interface TutorialResponsePagination extends Pagination {
     data: TutorialResponse[];
+}
+
+export interface ProjectPagination extends Pagination {
+    data: Project[];
 }

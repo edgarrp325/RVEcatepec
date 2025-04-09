@@ -86,7 +86,7 @@ export default function Create({ formats }: CreateProps) {
                         <InputError className="mt-2" message={errors.name} />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="laboratories">Format</Label>
+                        <Label htmlFor="formats">Format</Label>
                         <Select value={data.format_id.toString()} onValueChange={(value) => setData('format_id', Number(value))}>
                             <SelectTrigger>
                                 <SelectValue placeholder="Select the laboratory where the equipment is located" />

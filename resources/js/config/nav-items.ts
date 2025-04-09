@@ -1,5 +1,5 @@
 import { NavItem } from "@/types";
-import { Box, GraduationCap, LayoutGrid, MonitorCheck, MonitorCog, MonitorSmartphone, RectangleEllipsis, Rocket, UserRoundCog } from "lucide-react";
+import { Box, Folder, GraduationCap, LayoutGrid, MonitorCheck, MonitorCog, MonitorSmartphone, RectangleEllipsis, Rocket, UserRoundCog } from "lucide-react";
 
 
 export const mainNavItems: NavItem[] = [
@@ -48,5 +48,10 @@ export const mainNavItems: NavItem[] = [
         title:'Tutorials',
         url:'/tutorials',
         icon:GraduationCap,
+    },
+    {
+        title: 'Projects',
+        url: '/projects',
+        icon: Folder,
     }
 ];
