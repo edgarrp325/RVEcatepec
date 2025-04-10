@@ -6,12 +6,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem, TutorialType } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
+import '@justinribeiro/lite-youtube';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import { toast } from 'sonner';
-import '@justinribeiro/lite-youtube';
 
 const breadcrumb: BreadcrumbItem[] = [
     {
@@ -48,7 +48,6 @@ export default function Create({ tutorialTypes }: CreateProps) {
 
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [pdfPreview, setPdfPreview] = useState<string | null>(null);
-
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -127,12 +126,13 @@ export default function Create({ tutorialTypes }: CreateProps) {
                     {data.tutorial_type_id === 2 && (
                         <div className="grid gap-2">
                             <Label htmlFor="tutorial_embed_url">File</Label>
-                            {pdfPreview &&
+                            {pdfPreview && (
                                 <embed
                                     className="mt-4 flex aspect-video w-11/12 items-center justify-center"
                                     src={pdfPreview}
                                     type="application/pdf"
-                                ></embed>}
+                                ></embed>
+                            )}
                             <Input
                                 id="tutorial_embed_url"
                                 type="file"

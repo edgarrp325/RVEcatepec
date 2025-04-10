@@ -216,7 +216,7 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
                                     <Input
                                         id="lab_name"
                                         type="text"
-                                        name='lab_name'
+                                        name="lab_name"
                                         value={data.name}
                                         onChange={(e) => setData('name', e.target.value)}
                                         disabled={processing}

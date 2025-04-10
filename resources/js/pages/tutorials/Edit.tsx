@@ -5,11 +5,11 @@ import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem, Tutorial } from '@/types';
 import { Head, router, usePage } from '@inertiajs/react';
+import '@justinribeiro/lite-youtube';
 import { FormEventHandler, useState } from 'react';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import { toast } from 'sonner';
-import '@justinribeiro/lite-youtube';
 
 interface TutorialFormData {
     title: string;
