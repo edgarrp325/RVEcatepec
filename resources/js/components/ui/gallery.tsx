@@ -21,14 +21,14 @@ const data = [
     {
         id: 'Tour-360',
         title: 'Tour Virtual del Centro Universitario UAEM Ecatepec en 360° ',
-        description: 'csdocmdsocmdposmcposdmcpomdspocmdspomcpodsmcpodsmpocmdspocmpdosmcposdmcpomdspocmdspocmdspocmdspocmdspomcdspomcp',
+        description: 'csdocmdsocmdpo smcposdmcpomdspocmd spomcpodsmcpodsmp ocmdspocmpdosmcposdmcpo mdspocmdspocmdsp ocmdspocmd spomcdspomcp',
         href: '360',
         image: 'https://realidadvirtualecatepec.com.mx/public/img/carrousel/1.png',
     },
     {
         id: 'Tour-3D',
         title: '3D',
-        description: 'mnewoldnlwendoliewndfoiernfoibnreqkfnrwqlifnewqoinfp{oeiwnfpowenpofnewpifnpew{rnfpoewnfpewnpfnewpfnewpfnewpfnewpnfpwe',
+        description: 'mnew oldnlwendoliewndfoie rnfoibnreqkfnrwqlifnew qoinfp{oeiwnfp owenpofnewpifnpew{ rnfpoewnfpe wnpfnewpfnewpfne wpfnewpnfpwe',
         href: 'https://tailwindcss.com',
         image: 'https://realidadvirtualecatepec.com.mx/public/img/carrousel/2.png',
     },
@@ -53,7 +53,7 @@ const Gallery = ({ items = data }: GalleryProps) => {
     }, [carouselApi]);
 
     return (
-        <section className="py-4">
+        
             <div className="w-full">
                 <Carousel
                     setApi={setCarouselApi}
@@ -65,7 +65,7 @@ const Gallery = ({ items = data }: GalleryProps) => {
                         },
                     }}
                 >
-                    <CarouselContent className="ml-0 2xl:mr-[max(0rem,calc(50vw-700px))] 2xl:ml-[max(8rem,calc(50vw-700px))]">
+                    <CarouselContent>
                         {items.map((item) => (
                             <CarouselItem key={item.id} className="w-full pl-[20px]">
                                 <a href={item.href} className="group rounded-xl">
@@ -100,7 +100,7 @@ const Gallery = ({ items = data }: GalleryProps) => {
                     ))}
                 </div>
             </div>
-        </section>
+       
     );
 };
 

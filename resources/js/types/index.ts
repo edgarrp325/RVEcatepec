@@ -231,6 +231,24 @@ export interface Project {
     updated_at: string;
 }
 
+export interface Development{
+    id: number;
+    title: string;
+    description: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface DevelopmentResponse extends Development{
+    images: DevelopmentImage[];
+}
+
+export interface DevelopmentImage{
+    id: number;
+    development_id: number;
+    image_url: string;
+}
+
 // Data table interfaces
 
 export interface FilterOption {
@@ -271,4 +289,8 @@ export interface TutorialResponsePagination extends Pagination {
 
 export interface ProjectPagination extends Pagination {
     data: Project[];
+}
+
+export interface DevelopmentPagination extends Pagination {
+    data: DevelopmentResponse[];
 }

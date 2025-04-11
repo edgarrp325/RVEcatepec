@@ -1,7 +1,5 @@
-import { RoleEnum } from '@/enums';
 import { NavGroup } from '@/types';
 import {
-    Bot,
     Box,
     Folder,
     GraduationCap,
@@ -16,31 +14,27 @@ import {
 
 export const groupedNavItems: NavGroup[] = [
     {
-        title: 'Administration',
+        title: 'El laboratorio',
         items: [
             {
                 title: 'Dashboard',
                 url: '/dashboard',
                 icon: LayoutGrid,
-                canView: [RoleEnum.ADMIN],
             },
             {
                 title: 'One-time Passwords',
                 url: '/one-time-passwords',
                 icon: RectangleEllipsis,
-                canView: [RoleEnum.ADMIN],
             },
             {
                 title: 'Users',
                 url: '/users',
                 icon: UserRoundCog,
-                canView: [RoleEnum.ADMIN],
             },
             {
                 title: 'Laboratories',
                 url: '/laboratories',
-                icon: Bot,
-                canView: [RoleEnum.ADMIN],
+                icon: Rocket,
             },
         ],
     },
@@ -61,7 +55,6 @@ export const groupedNavItems: NavGroup[] = [
                 title: 'Equipment Loans',
                 url: '/equipment-loans',
                 icon: MonitorCheck,
-                canView: [RoleEnum.ADMIN],
             },
         ],
     },
@@ -85,14 +78,4 @@ export const groupedNavItems: NavGroup[] = [
             },
         ],
     },
-    {
-        title: 'Posts',
-        items: [
-            {
-                title: 'Developments',
-                url: '/developments',
-                icon: Rocket,
-            },
-        ],
-    }
 ];

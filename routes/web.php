@@ -2,17 +2,13 @@
 
 use App\Enums\RoleEnum;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\DevelopmentController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ThreeDModelController;
 use App\Http\Controllers\TutorialController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-
-// Public routes
-Route::get('/', function () {
-    return Inertia::render('welcome');
-})->name('home');
 
 
 
@@ -44,6 +40,11 @@ Route::middleware(['auth', 'verified', 'role:' . implode(',', $editors)])->group
         'index',
         'show',
     );
+
+    Route::resource('developments', DevelopmentController::class)->except([
+        'index',
+        'show',
+    ]);
 });
 
 // Registered users
@@ -68,6 +69,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'show',
     ]);
 });
+
+
+// Public routes
+Route::get('/', function () {
+    return Inertia::render('welcome');
+})->name('home');
+
+Route::resource('developments', DevelopmentController::class)->only([
+    'index',
+    'show',
+]);
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
