@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Editors;
 
+use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -14,7 +15,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return Inertia::render('projects/Index', [
+        return Inertia::render('editors/projects/Index', [
             'projects' => Project::orderBy('updated_at', 'desc')->paginate(12),
         ]);
     }
@@ -24,7 +25,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return Inertia::render('projects/Create');
+        return Inertia::render('editors/projects/Create');
     }
 
     /**
@@ -40,7 +41,7 @@ class ProjectController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image_url'] = Storage::put('projects/images', $request->image);
+            $validated['image_url'] = Storage::put('editors/projects/images', $request->image);
         }
 
         Project::create($validated);
@@ -52,7 +53,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return Inertia::render('projects/Show', [
+        return Inertia::render('editors/projects/Show', [
             'project' => $project,
         ]);
     }
@@ -62,7 +63,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return Inertia::render('projects/Edit', [
+        return Inertia::render('editors/projects/Edit', [
             'project' => $project,
         ]);
     }
@@ -83,7 +84,7 @@ class ProjectController extends Controller
         $validated['image_url'] = $project->image_url;
 
         if ($request->hasFile('image')) {
-            $validated['image_url'] = Storage::put('projects/images', $request->image);
+            $validated['image_url'] = Storage::put('editors/projects/images', $request->image);
         }
 
         $project->update($validated);

@@ -9,7 +9,7 @@ import { Plus } from 'lucide-react';
 const breadcrumb: BreadcrumbItem[] = [
     {
         title: 'Tutorials',
-        href: '/tutorials',
+        href: '/dashboard/tutorials',
     },
 ];
 interface TutorialsProps {

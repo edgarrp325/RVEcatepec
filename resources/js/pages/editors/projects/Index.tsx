@@ -9,7 +9,7 @@ import { Plus } from 'lucide-react';
 const breadcrumb: BreadcrumbItem[] = [
     {
         title: 'Projects',
-        href: '/projects',
+        href: '/dashboard/projects',
     },
 ];
 interface ProjectsProps {

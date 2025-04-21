@@ -25,11 +25,11 @@ import { toast } from 'sonner';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Equipment',
-        href: '/equipment',
+        href: '/dashboard/equipment',
     },
     {
         title: 'Types',
-        href: '/equipment-types',
+        href: '/dashboard/equipment-types',
     },
 ];
 

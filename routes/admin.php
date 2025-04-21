@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AttendanceController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'role:' . RoleEnum::ADMIN->value])->group(function () {
+Route::middleware(['auth', 'role:' . RoleEnum::ADMIN->value])->prefix('dashboard')->group(function () {
 
     Route::get('one-time-passwords', [OTPController::class, 'edit'])->name('otp.edit');
     Route::post('/one-time-passwords/{id}/regenerate', [OTPController::class, 'regenerate'])->name('otp.regenerate');

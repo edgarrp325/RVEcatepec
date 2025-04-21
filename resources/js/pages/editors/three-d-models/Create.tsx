@@ -5,14 +5,25 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
-import { BreadcrumbItem, Format, ThreeDModelResponse } from '@/types';
+import { BreadcrumbItem, Format } from '@/types';
 import '@google/model-viewer';
-import { Head, router, usePage } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
+import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
 import { toast } from 'sonner';
 
-interface EditProps {
-    model: ThreeDModelResponse;
+const breadcrumb: BreadcrumbItem[] = [
+    {
+        title: '3D Models',
+        href: '/dashboard/three-d-models',
+    },
+    {
+        title: 'Create',
+        href: '/dashboard/three-d-models/Create',
+    },
+];
+
+interface CreateProps {
     formats: Format[];
 }
 
@@ -29,14 +40,14 @@ interface ModelFormData {
     [key: string]: string | boolean | File | null | number;
 }
 
-export default function Edit({ model, formats }: EditProps) {
-    const [data, setData] = useState<ModelFormData>({
-        name: model.name,
-        format_id: model.format_id,
-        poligons: model.poligons,
-        textures: model.textures,
-        animations: model.animations,
-        rigged: model.rigged,
+export default function Create({ formats }: CreateProps) {
+    const { data, setData, post, errors, processing } = useForm<ModelFormData>({
+        name: '',
+        format_id: 1,
+        poligons: 0,
+        textures: false,
+        animations: false,
+        rigged: false,
         image: null,
         model_view: null,
         model_download: null,
@@ -44,45 +55,22 @@ export default function Edit({ model, formats }: EditProps) {
 
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [modelPreview, setModelPreview] = useState<string | null>(null);
-    const { errors } = usePage().props;
-
-    const breadcrumb: BreadcrumbItem[] = [
-        {
-            title: '3D Models',
-            href: '/three-d-models',
-        },
-        {
-            title: model.name,
-            href: '/three-d-models/' + model.id,
-        },
-        {
-            title: 'Edit',
-            href: '/three-d-models/' + model.id + '/edit',
-        },
-    ];
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        router.post(
-            route('three-d-models.update', model.id),
-            {
-                _method: 'put',
-                ...data,
+        post(route('three-d-models.store'), {
+            onSuccess: () => {
+                toast.success('3D Model created successfully');
             },
-            {
-                onSuccess: () => {
-                    toast.success('3D Model updated successfully');
-                },
-                onError: () => {
-                    toast.error('Error updating 3D Model');
-                },
+            onError: () => {
+                toast.error('Error creating 3D Model');
             },
-        );
+        });
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumb}>
-            <Head title={model.name} />
+            <Head title={'Create 3D Model'} />
             <div className="flex h-full flex-col items-center rounded-xl p-4">
                 <form onSubmit={submit} className="my-4 max-w-xl space-y-6" encType="multipart/form-data">
                     <div className="grid gap-2">
@@ -91,15 +79,15 @@ export default function Edit({ model, formats }: EditProps) {
                             id="model_name"
                             className="mt-1 block w-full"
                             value={data.name}
-                            onChange={(e) => setData({ ...data, name: e.target.value })}
+                            onChange={(e) => setData('name', e.target.value)}
                             placeholder="3D model name"
                         />
 
                         <InputError className="mt-2" message={errors.name} />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="laboratories">Format</Label>
-                        <Select value={data.format_id.toString()} onValueChange={(value) => setData({ ...data, format_id: Number(value) })}>
+                        <Label htmlFor="formats">Format</Label>
+                        <Select value={data.format_id.toString()} onValueChange={(value) => setData('format_id', Number(value))}>
                             <SelectTrigger>
                                 <SelectValue placeholder="Select the laboratory where the equipment is located" />
                             </SelectTrigger>
@@ -120,7 +108,7 @@ export default function Edit({ model, formats }: EditProps) {
                             pattern="\d*"
                             inputMode="numeric"
                             value={data.poligons}
-                            onChange={(e) => setData({ ...data, poligons: Number(e.target.value) })}
+                            onChange={(e) => setData('poligons', Number(e.target.value))}
                             required
                             onKeyDown={(e) => {
                                 if (
@@ -144,7 +132,7 @@ export default function Edit({ model, formats }: EditProps) {
                             <Checkbox
                                 id="model_textures"
                                 checked={data.textures}
-                                onCheckedChange={(checked) => setData({ ...data, textures: Boolean(checked) })}
+                                onCheckedChange={(checked) => setData('textures', Boolean(checked))}
                             />
                             <Label htmlFor="model_textures">Textures</Label>
                         </div>
@@ -152,26 +140,18 @@ export default function Edit({ model, formats }: EditProps) {
                             <Checkbox
                                 id="model_animations"
                                 checked={data.animations}
-                                onCheckedChange={(checked) => setData({ ...data, animations: Boolean(checked) })}
+                                onCheckedChange={(checked) => setData('animations', Boolean(checked))}
                             />
                             <Label htmlFor="model_animations">Animations</Label>
                         </div>
                         <div className="flex items-center gap-2">
-                            <Checkbox
-                                id="model_rigged"
-                                checked={data.rigged}
-                                onCheckedChange={(checked) => setData({ ...data, rigged: Boolean(checked) })}
-                            />
+                            <Checkbox id="model_rigged" checked={data.rigged} onCheckedChange={(checked) => setData('rigged', Boolean(checked))} />
                             <Label htmlFor="model_rigged">Rigged</Label>
                         </div>
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="model_image">Preview Image</Label>
-                        <img
-                            src={imagePreview ? imagePreview : `/storage/${model.img_url}`}
-                            alt="3D Model Image Preview"
-                            className="aspect-video w-3xl object-contain"
-                        />
+                        {imagePreview && <img src={imagePreview} alt="3D Model Image Preview" className="aspect-video w-3xl object-contain" />}
                         <Input
                             id="model_image"
                             type="file"
@@ -179,7 +159,7 @@ export default function Edit({ model, formats }: EditProps) {
                             className="mt-1 block w-full"
                             onChange={(e) => {
                                 if (e.target.files?.[0]) {
-                                    setData({ ...data, image: e.target.files[0] });
+                                    setData('image', e.target.files[0]);
                                     setImagePreview(URL.createObjectURL(e.target.files[0]));
                                 }
                             }}
@@ -187,24 +167,26 @@ export default function Edit({ model, formats }: EditProps) {
                         <InputError className="mt-2" message={errors.image} />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="model_model_viewer">Model to viewer</Label>
-                        <model-viewer
-                            src={modelPreview ? modelPreview : `/storage/${model.model_url}`}
-                            auto-rotate
-                            camera-controls
-                            touch-actions="pan-x"
-                            ar
-                            shadow-intensity="1"
-                            style={{ width: '100%', height: '600px' }}
-                        />
+                        <Label htmlFor="model_view">Model to viewer</Label>
+                        {modelPreview && (
+                            <model-viewer
+                                src={modelPreview}
+                                auto-rotate
+                                camera-controls
+                                touch-actions="pan-x"
+                                ar
+                                shadow-intensity="1"
+                                style={{ width: '100%', height: '600px' }}
+                            />
+                        )}
                         <Input
-                            id="model_model_viewer"
+                            id="model_view"
                             type="file"
                             accept=".glb"
                             className="mt-1 block w-full"
                             onChange={(e) => {
                                 if (e.target.files?.[0]) {
-                                    setData({ ...data, model_view: e.target.files[0] });
+                                    setData('model_view', e.target.files[0]);
                                     setModelPreview(URL.createObjectURL(e.target.files[0]));
                                 }
                             }}
@@ -220,14 +202,17 @@ export default function Edit({ model, formats }: EditProps) {
                             className="mt-1 block w-full"
                             onChange={(e) => {
                                 if (e.target.files?.[0]) {
-                                    setData({ ...data, model_download: e.target.files[0] });
+                                    setData('model_download', e.target.files[0]);
                                 }
                             }}
                         />
                         <InputError className="mt-2" message={errors.model_download} />
                     </div>
                     <div className="flex items-center gap-4">
-                        <Button type="submit">Update</Button>
+                        <Button type="submit" disabled={processing}>
+                            {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                            Create
+                        </Button>
                     </div>
                 </form>
             </div>

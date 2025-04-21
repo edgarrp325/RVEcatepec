@@ -60,45 +60,7 @@ const AppPublicHeader = ({
         src: 'https://realidadvirtualecatepec.com.mx/public/img/isotipo_RV.png',
         alt: 'Logo RV Ecatepec',
     },
-    menu = [
-        { title: 'El laboratorio', url: '#' },
-        {
-            title: 'Desarrollos',
-            url: '#',
-        },
-        {
-            title: 'Repositorio',
-            url: '#',
-            items: [
-                {
-                    title: 'Elementos 3D',
-                    icon: <Box className="size-5 shrink-0" />,
-                    description: 'Aqui podras encontrar modelos 3D para tus proyectos de realidad virtual y aumentada',
-                    url: '#',
-                },
-                {
-                    title: 'Proyectos',
-                    icon: <Rocket className="size-5 shrink-0" />,
-                    description: 'Aqui podras descargar proyectos de realidad virtual y aumentada',
-                    url: '#',
-                },
-                {
-                    title: 'Tutoriales',
-                    icon: <GraduationCap className="size-5 shrink-0" />,
-                    description: 'Aqui podras encontrar tutoriales de realidad virtual y aumentada en video y pdf',
-                    url: '#',
-                },
-            ],
-        },
-        {
-            title: 'Servicios',
-            url: '#',
-        },
-        {
-            title: 'Contacto',
-            url: '#',
-        },
-    ],
+    menu,
     authButtons = {
         login: { text: 'Log in', url: 'login' },
         signup: { text: 'Sign up', url: 'register' },

@@ -17,7 +17,7 @@ class EquipmentTypeController extends Controller
      */
     public function index()
     {
-        return Inertia::render('equipment/equipment-types',[
+        return Inertia::render('editors/equipment/equipment-types',[
             'equipmentTypes' => EquipmentType::all(),
         ]);
     }

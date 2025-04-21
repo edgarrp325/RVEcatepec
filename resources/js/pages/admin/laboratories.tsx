@@ -29,7 +29,7 @@ import { transformAttendanceData } from '@/lib/data-tables/attendance/transforme
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Laboratories',
-        href: '/laboratories',
+        href: '/dashboard/laboratories',
     },
 ];
 

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Editors;
 
+use App\Http\Controllers\Controller;
 use App\Models\Development;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -14,7 +15,7 @@ class DevelopmentController extends Controller
      */
     public function index()
     {
-        return Inertia::render('developments/Index', [
+        return Inertia::render('editors/developments/Index', [
             'developments' => Development::with('images')->latest()->paginate(12),
         ]);
     }
@@ -24,7 +25,7 @@ class DevelopmentController extends Controller
      */
     public function create()
     {
-        return Inertia::render('developments/Create');
+        return Inertia::render('editors/developments/Create');
     }
 
     /**
@@ -45,7 +46,7 @@ class DevelopmentController extends Controller
         ]);
 
         foreach ($request->file('images') as $image) {
-            $imagePath = Storage::put('developments/images', $image);
+            $imagePath = Storage::put('editors/developments/images', $image);
             $development->images()->create([
                 'image_url' => $imagePath,
             ]);
@@ -59,7 +60,9 @@ class DevelopmentController extends Controller
      */
     public function show(Development $development)
     {
-        //
+        return Inertia::render('editors/developments/Show', [
+            'development' => $development::with('images')->find($development->id),
+        ]);
     }
 
     /**
@@ -67,7 +70,7 @@ class DevelopmentController extends Controller
      */
     public function edit(Development $development)
     {
-        //
+        
     }
 
     /**
@@ -83,6 +86,8 @@ class DevelopmentController extends Controller
      */
     public function destroy(Development $development)
     {
-        //
+        $development->delete();
+
+        return to_route('developments.index');
     }
 }

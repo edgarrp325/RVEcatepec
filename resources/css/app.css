@@ -83,7 +83,6 @@
     }
 }
 
-
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
@@ -185,5 +184,41 @@
 
     .quill-content li[data-list="bullet"] {
         @apply list-disc;
+    }
+}
+
+/*
+  ---break---
+*/
+
+@theme inline {
+    --animate-shine:
+        shine var(--duration) infinite linear;
+  @keyframes shine {
+  0% {
+    background-position:
+        0% 0%;
+        }
+  50% {
+    background-position:
+        100% 100%;
+        }
+  to {
+    background-position:
+        0% 0%;
+        }
+    }
+}
+
+/*
+  ---break---
+*/
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground;
     }
 }

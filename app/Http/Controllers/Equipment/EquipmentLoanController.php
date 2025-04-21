@@ -17,7 +17,7 @@ class EquipmentLoanController extends Controller
      */
     public function index()
     {
-        return Inertia::render('equipment/equipment-loans', [
+        return Inertia::render('editors/equipment/equipment-loans', [
             'equipmentLoans' => Equipment::whereHas('users')->with('users')->with('equipmentType')->get(),
         ]);
     }

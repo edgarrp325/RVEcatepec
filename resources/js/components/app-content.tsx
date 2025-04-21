@@ -13,7 +13,7 @@ export function AppContent({ variant = 'header', children, ...props }: AppConten
 
     return (
         <main
-            className={cn('mx-auto flex h-full w-full flex-1 flex-col gap-4 rounded-xl', variant === 'public' ? 'max-w-[1500px]' : 'max-w-7xl')}
+            className={cn('mx-auto flex h-full w-full flex-1 flex-col gap-4 rounded-xl', variant === 'public' ? 'max-w-[1920px]' : 'max-w-7xl')}
             {...props}
         >
             {children}

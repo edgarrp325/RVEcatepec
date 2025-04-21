@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Editors;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Tutorial;
 use App\Models\TutorialType;
@@ -15,7 +17,7 @@ class TutorialController extends Controller
      */
     public function index()
     {
-        return Inertia::render('tutorials/Index', [
+        return Inertia::render('editors/tutorials/Index', [
             'tutorials' => Tutorial::with('tutorialType')->orderBy('updated_at', 'desc')->paginate(12),
         ]);
     }
@@ -25,7 +27,7 @@ class TutorialController extends Controller
      */
     public function create()
     {
-        return Inertia::render('tutorials/Create', [
+        return Inertia::render('editors/tutorials/Create', [
             'tutorialTypes' => TutorialType::all(),
         ]);
     }
@@ -55,11 +57,11 @@ class TutorialController extends Controller
         $data = $request->validate($rules);
 
         if ($isPDF && $request->hasFile('pdf')) {
-            $data['embed_url'] = Storage::put('tutorials/files', $request->pdf);
+            $data['embed_url'] = Storage::put('editors/tutorials/files', $request->pdf);
         }
 
         if ($request->hasFile('image')) {
-            $data['image_url'] = Storage::put('tutorials/images', $request->image);
+            $data['image_url'] = Storage::put('editors/tutorials/images', $request->image);
         }
 
         Tutorial::create($data);
@@ -71,7 +73,7 @@ class TutorialController extends Controller
      */
     public function show(Tutorial $tutorial)
     {
-        return Inertia::render(('tutorials/Show'), [
+        return Inertia::render(('editors/tutorials/Show'), [
             'tutorial' => $tutorial
         ]);
     }
@@ -81,7 +83,7 @@ class TutorialController extends Controller
      */
     public function edit(Tutorial $tutorial)
     {
-        return Inertia::render('tutorials/Edit', [
+        return Inertia::render('editors/tutorials/Edit', [
             'tutorial' => $tutorial,
         ]);
     }
@@ -114,12 +116,12 @@ class TutorialController extends Controller
 
         if ($isPDF && $request->hasFile('pdf')) {
             Storage::delete($tutorial->embed_url);
-            $data['embed_url'] = Storage::put('tutorials/files', $request->pdf);
+            $data['embed_url'] = Storage::put('editors/tutorials/files', $request->pdf);
         }
 
         if ($request->hasFile('image')) {
             Storage::delete($tutorial->image_url);
-            $data['image_url'] = Storage::put('tutorials/images', $request->image);
+            $data['image_url'] = Storage::put('editors/tutorials/images', $request->image);
         }
 
         $tutorial->update($data);

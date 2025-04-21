@@ -26,19 +26,19 @@ export const groupedNavItems: NavGroup[] = [
             },
             {
                 title: 'One-time Passwords',
-                url: '/one-time-passwords',
+                url: '/dashboard/one-time-passwords',
                 icon: RectangleEllipsis,
                 canView: [RoleEnum.ADMIN],
             },
             {
                 title: 'Users',
-                url: '/users',
+                url: '/dashboard/users',
                 icon: UserRoundCog,
                 canView: [RoleEnum.ADMIN],
             },
             {
                 title: 'Laboratories',
-                url: '/laboratories',
+                url: '/dashboard/laboratories',
                 icon: Bot,
                 canView: [RoleEnum.ADMIN],
             },
@@ -49,17 +49,17 @@ export const groupedNavItems: NavGroup[] = [
         items: [
             {
                 title: 'Equipment',
-                url: '/equipment',
+                url: '/dashboard/equipment',
                 icon: MonitorCog,
             },
             {
                 title: 'Equipment Types',
-                url: '/equipment-types',
+                url: '/dashboard/equipment-types',
                 icon: MonitorSmartphone,
             },
             {
                 title: 'Equipment Loans',
-                url: '/equipment-loans',
+                url: '/dashboard/equipment-loans',
                 icon: MonitorCheck,
                 canView: [RoleEnum.ADMIN],
             },
@@ -70,17 +70,17 @@ export const groupedNavItems: NavGroup[] = [
         items: [
             {
                 title: '3D Models',
-                url: '/three-d-models',
+                url: '/dashboard/three-d-models',
                 icon: Box,
             },
             {
                 title: 'Tutorials',
-                url: '/tutorials',
+                url: '/dashboard/tutorials',
                 icon: GraduationCap,
             },
             {
                 title: 'Projects',
-                url: '/projects',
+                url: '/dashboard/projects',
                 icon: Folder,
             },
         ],
@@ -90,7 +90,7 @@ export const groupedNavItems: NavGroup[] = [
         items: [
             {
                 title: 'Developments',
-                url: '/developments',
+                url: '/dashboard/developments',
                 icon: Rocket,
             },
         ],

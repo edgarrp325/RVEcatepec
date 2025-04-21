@@ -23,6 +23,4 @@ class Development extends Model
     {
         return $this->hasMany(DevelopmentImage::class);
     }
-
-    public $timestamps = false;
 }

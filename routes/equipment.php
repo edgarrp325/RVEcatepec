@@ -15,7 +15,7 @@ $editors = [
 
 $alumn = RoleEnum::ALUMN->value;
 
-Route::middleware(['auth', 'verified', 'role:' . implode(',', $editors)])->group(function () {
+Route::middleware(['auth', 'verified', 'role:' . implode(',', $editors)])->prefix('dashboard')->group(function () {
     Route::resource('equipment', EquipmentController::class)->except([
         'create',
         'show',
@@ -30,14 +30,14 @@ Route::middleware(['auth', 'verified', 'role:' . implode(',', $editors)])->group
 });
 
 // Admin
-Route::middleware(['auth', 'verified', 'role:' . $editors['admin']])->group(function () {
+Route::middleware(['auth', 'verified', 'role:' . $editors['admin']])->prefix('dashboard')->group(function () {
     Route::delete('equipment-loans/destroy-all', [EquipmentLoanController::class, 'destroyAll'])->name('equipment-loans.destroy-all');
     Route::resource('equipment-loans', EquipmentLoanController::class)->only([
         'index',
     ]);
 });
 
-Route::middleware(['auth', 'verified', 'role:' . implode(',', array_merge($editors, [$alumn]))])->group(function () {
+Route::middleware(['auth', 'verified', 'role:' . implode(',', array_merge($editors, [$alumn]))])->prefix('dashboard')->group(function () {
     Route::resource('equipment-loans', EquipmentLoanController::class)->only([
         'update',
     ]);

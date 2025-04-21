@@ -8,7 +8,7 @@ import { LoaderCircle } from 'lucide-react';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'One-Time Passwords',
-        href: '/one-time-passwords',
+        href: '/dashboard/one-time-passwords',
     },
 ];
 

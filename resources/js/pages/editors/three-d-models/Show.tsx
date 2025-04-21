@@ -31,11 +31,11 @@ export default function Show({ model }: ShowProps) {
     const breadcrumb: BreadcrumbItem[] = [
         {
             title: '3D Models',
-            href: '/three-d-models',
+            href: '/dashboard/three-d-models',
         },
         {
             title: model.name,
-            href: '/three-d-models/' + model.id,
+            href: '/dashboard/three-d-models/' + model.id,
         },
     ];
 

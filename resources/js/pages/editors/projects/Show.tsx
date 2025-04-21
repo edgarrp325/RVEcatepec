@@ -34,11 +34,11 @@ export default function Show({ project }: ShowProps) {
     const breadcrumb: BreadcrumbItem[] = [
         {
             title: 'Projects',
-            href: '/projects',
+            href: '/dashboard/projects',
         },
         {
             title: project.title,
-            href: '/tutorials/' + project.id,
+            href: '/dashboard/tutorials/' + project.id,
         },
     ];
 

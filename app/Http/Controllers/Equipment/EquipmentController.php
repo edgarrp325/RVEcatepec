@@ -18,7 +18,7 @@ class EquipmentController extends Controller
      */
     public function index()
     {
-        return Inertia::render('equipment/index', [
+        return Inertia::render('editors/equipment/index', [
             'equipment' => Equipment::with('usersInUse')->with('equipmentType')->with('laboratory')->orderBy('label', 'asc')->get(),
             'equipmentTypes' => EquipmentType::all(),
             'laboratories' => Laboratory::all(),
