@@ -43,7 +43,6 @@ export default function Show({ tutorial }: ShowProps) {
         },
     ];
 
-    console.log(tutorial);
     const deleteTutorial = () => {
         destroy(route('tutorials.destroy', tutorial.id), {
             onSuccess: () => {

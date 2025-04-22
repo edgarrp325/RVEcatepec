@@ -27,7 +27,7 @@ export default function Index({ models }: ThreeDModelsProps) {
                         return (
                             <Link key={model.id} className="w-fit" href={route('resources.three-d-models.show', model.id)}>
                                 <Card className="relative h-full w-xs overflow-hidden transition-all duration-300 hover:scale-105">
-                                    <ShineBorder shineColor={['#A07CFE', '#FE8FB5', '#FFBE7B']} />
+                                    <ShineBorder shineColor={['#679240', '#C3A701']} borderWidth={1}/>
                                     <CardHeader>
                                         <img className="aspect-video object-contain" src={`/storage/${model.img_url}`} alt={model.name} />
                                         <CardDescription> {cn('Poligons:', getCompactNumber(model.poligons))}</CardDescription>
