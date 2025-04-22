@@ -71,8 +71,6 @@ export default function Create({ tutorial }: EditProps) {
         );
     };
 
-    console.log(data);
-
     return (
         <AppLayout breadcrumbs={breadcrumb}>
             <Head title="Edit tutorial" />

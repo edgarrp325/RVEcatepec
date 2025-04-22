@@ -61,8 +61,6 @@ export default function Create({ tutorialTypes }: CreateProps) {
         });
     };
 
-    console.log(data);
-
     return (
         <AppLayout breadcrumbs={breadcrumb}>
             <Head title="Create tutorial" />
