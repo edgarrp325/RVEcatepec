@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import { ShineBorder } from '@/components/magicui/shine-border';
+=======
+>>>>>>> 6e638b3bc009e73d49281a535afa6f261d803951
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 import AppPublicLayout from '@/layouts/app-public-layout';
@@ -25,9 +28,13 @@ export default function Index({ developments }: DevelopmentsProps) {
                     {developments.data.map((development: DevelopmentResponse) => {
                         return (
                             <Link key={development.id} className="w-fit" href={route('public.developments.show', development.id)}>
+<<<<<<< HEAD
                                 <Card className="relative h-full w-xs transition-all duration-300 hover:scale-105">
                                     <ShineBorder shineColor={['#679240', '#C3A701']} borderWidth={1} />
 
+=======
+                                <Card className="h-full w-xs">
+>>>>>>> 6e638b3bc009e73d49281a535afa6f261d803951
                                     <CardHeader className="">
                                         <img
                                             className="aspect-video object-contain"
