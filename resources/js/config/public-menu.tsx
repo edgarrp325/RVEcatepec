@@ -1,14 +1,16 @@
 import { Box, GraduationCap, Rocket } from 'lucide-react';
 
 export const publicMenu = [
-    { title: 'El laboratorio', url: '#' },
+    {   title: 'El laboratorio', 
+        url: route('laboratory') 
+    },
     {
         title: 'Desarrollos',
-        url: '/developments',
+        url: route('public.developments.index'),
     },
     {
         title: 'Repositorio',
-        url: '#',
+        url: route('resources'),
         items: [
             {
                 title: 'Elementos 3D',
@@ -32,10 +34,10 @@ export const publicMenu = [
     },
     {
         title: 'Servicios',
-        url: '#',
+        url: route('services'),
     },
     {
         title: 'Contacto',
-        url: '#',
+        url: route('contact'),
     },
 ];

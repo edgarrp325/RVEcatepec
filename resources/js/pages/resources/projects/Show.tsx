@@ -17,12 +17,16 @@ interface ShowProps {
 export default function Show({ project }: ShowProps) {
     const breadcrumb: BreadcrumbItem[] = [
         {
+            title: 'Resources',
+            href: '/resources',
+        },
+        {
             title: 'Projects',
             href: '/resources/projects',
         },
         {
             title: project.title,
-            href: '/resources/tutorials/' + project.id,
+            href: '/resources/projects/' + project.id,
         },
     ];
 

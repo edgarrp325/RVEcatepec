@@ -1,6 +1,6 @@
 import { BreadcrumbItem, SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { Box, GraduationCap, Menu, Rocket } from 'lucide-react';
+import { Menu } from 'lucide-react';
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
@@ -14,7 +14,6 @@ import {
 } from '@/components/ui/navigation-menu';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Breadcrumbs } from './breadcrumbs';
-import { NavLink } from './ui/navlink';
 
 interface MenuItem {
     title: string;
@@ -23,6 +22,8 @@ interface MenuItem {
     icon?: React.ReactNode;
     items?: MenuItem[];
 }
+
+const isRouteActive = (currentUrl: string, targetUrl: string) => (targetUrl === '/' ? currentUrl === '/' : currentUrl.startsWith(targetUrl));
 
 interface NavbarProps {
     logo?: {
@@ -68,8 +69,8 @@ const AppPublicHeader = ({
     },
     breadcrumbs = [],
 }: NavbarProps) => {
-    const { auth } = usePage<SharedData>().props;
-    console.log(breadcrumbs);
+    const page = usePage<SharedData>();
+    const { auth } = page.props;
 
     return (
         <>
@@ -82,7 +83,7 @@ const AppPublicHeader = ({
                     </Link>
                     <div className="flex items-center">
                         <NavigationMenu>
-                            <NavigationMenuList>{menu.map((item) => renderMenuItem(item))}</NavigationMenuList>
+                            <NavigationMenuList>{menu?.map((item) => renderMenuItem(item, page.url))}</NavigationMenuList>
                         </NavigationMenu>
                     </div>
                 </div>
@@ -127,7 +128,7 @@ const AppPublicHeader = ({
                             </SheetHeader>
                             <div className="flex flex-col gap-6 p-4">
                                 <Accordion type="single" collapsible className="flex w-full flex-col gap-4">
-                                    {menu.map((item) => renderMobileMenuItem(item))}
+                                    {menu?.map((item) => renderMobileMenuItem(item))}
                                 </Accordion>
 
                                 <div className="flex flex-col gap-3">
@@ -151,22 +152,31 @@ const AppPublicHeader = ({
                     </Sheet>
                 </div>
             </div>
-            {breadcrumbs.length > 1 && (
-                <div className="border-sidebar-border/70 flex w-full border-b">
-                    <div className="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-7xl">
-                        <Breadcrumbs breadcrumbs={breadcrumbs} />
-                    </div>
+            <div className="border-sidebar-border/70 flex w-full border-b">
+                <div className="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-[1920px]">
+                    <Breadcrumbs breadcrumbs={breadcrumbs} />
                 </div>
-            )}
+            </div>
         </>
     );
 };
 
-const renderMenuItem = (item: MenuItem) => {
+const renderMenuItem = (item: MenuItem, url: string) => {
+    const isActive = isRouteActive(url, item.url);
+    const hasActiveChild = item.items?.some((subItem) => isRouteActive(url, subItem.url));
+    const active = isActive || hasActiveChild;
     if (item.items) {
         return (
             <NavigationMenuItem key={item.title}>
-                <NavigationMenuTrigger className="text-md font-normal">{item.title}</NavigationMenuTrigger>
+                <Link href={item.url}>
+                    <NavigationMenuTrigger
+                        className={`hover:cursor-pointer text-md relative px-2 font-normal after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-full after:origin-center after:scale-x-0 after:bg-green-600 after:transition after:duration-500 ${
+                            active ? 'font-bold text-black after:scale-x-100' : 'hover:text-black hover:after:scale-x-100'
+                        }`}
+                    >
+                        {item.title}
+                    </NavigationMenuTrigger>
+                </Link>
                 <NavigationMenuContent>
                     {item.items.map((subItem) => (
                         <NavigationMenuLink asChild key={subItem.title} className="w-120">
@@ -179,9 +189,18 @@ const renderMenuItem = (item: MenuItem) => {
     }
 
     return (
-        <NavLink key={item.title} active={false} href={item.url}>
-            {item.title}
-        </NavLink>
+        <NavigationMenuItem key={item.title}>
+            <Link href={item.url}>
+                <NavigationMenuLink
+                    className={`text-md relative font-normal after:absolute after:bottom-0.5 after:left-0 after:h-[3px] after:w-full after:origin-center after:scale-x-0 after:bg-green-600 after:transition after:duration-500 ${
+                        active ? 'font-bold text-black after:scale-x-100' : 'hover:text-black hover:after:scale-x-100'
+                    }`}
+                    active={url.startsWith(item.url)}
+                >
+                    {item.title}
+                </NavigationMenuLink>
+            </Link>
+        </NavigationMenuItem>
     );
 };
 

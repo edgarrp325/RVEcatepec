@@ -34,7 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::name('public.')->group(function () {
         Route::resource('developments', DevelopmentController::class)->only([
-            'index', 
+            'index',
             'show'
         ]);
     });
@@ -45,6 +45,21 @@ Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
 
+Route::get('/laboratory', function () {
+    return Inertia::render('laboratory');
+})->name('laboratory');
+
+Route::get('/resources', function () {
+    return Inertia::render('resources/repository');
+})->name('resources');
+
+Route::get('/services', function () {
+    return Inertia::render('services');
+})->name('services');
+
+Route::get('/contact', function () {
+    return Inertia::render('contact');
+})->name('contact');
 
 
 require __DIR__ . '/settings.php';

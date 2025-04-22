@@ -7,6 +7,10 @@ import { Head, Link } from '@inertiajs/react';
 
 const breadcrumb: BreadcrumbItem[] = [
     {
+        title: 'Resources',
+        href: '/resources',
+    },
+    {
         title: 'Projects',
         href: '/resources/projects',
     },

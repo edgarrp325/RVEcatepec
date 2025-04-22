@@ -6,6 +6,11 @@ import { BreadcrumbItem, TutorialResponse, TutorialResponsePagination } from '@/
 import { Head, Link } from '@inertiajs/react';
 
 const breadcrumb: BreadcrumbItem[] = [
+    
+    {
+        title: 'Resources',
+        href: '/resources',
+    },
     {
         title: 'Tutorials',
         href: '/resources/tutorials',

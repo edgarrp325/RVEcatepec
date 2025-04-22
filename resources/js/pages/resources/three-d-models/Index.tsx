@@ -8,6 +8,10 @@ import { BreadcrumbItem, ThreeDModelResponse, ThreeDModelResponsePagination } fr
 import { Head, Link } from '@inertiajs/react';
 const breadcrumb: BreadcrumbItem[] = [
     {
+        title: 'Resources',
+        href: '/resources',
+    },
+    {
         title: '3D Models',
         href: '/resources/three-d-models',
     },
