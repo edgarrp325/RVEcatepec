@@ -14,7 +14,7 @@ class ThreeDModelController extends Controller
     public function index()
     {
         return Inertia::render('resources/three-d-models/Index',  [
-            'models' => ThreeDModel::with('format')->orderBy('updated_at', 'desc')->paginate(12),
+            'models' => ThreeDModel::with('format')->latest()->paginate(12),
         ]);
     }
 

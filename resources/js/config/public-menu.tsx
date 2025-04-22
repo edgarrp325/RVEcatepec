@@ -4,7 +4,7 @@ export const publicMenu = [
     { title: 'El laboratorio', url: '#' },
     {
         title: 'Desarrollos',
-        url: '#',
+        url: '/developments',
     },
     {
         title: 'Repositorio',

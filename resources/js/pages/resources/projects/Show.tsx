@@ -1,66 +1,39 @@
-import { Button, buttonVariants } from '@/components/ui/button';
-import AppLayout from '@/layouts/app-layout';
+import { buttonVariants } from '@/components/ui/button';
 import { BreadcrumbItem, Project } from '@/types';
-import { Head, Link, useForm } from '@inertiajs/react';
-import { ArrowUpRight, LoaderCircle } from 'lucide-react';
-import { useState } from 'react';
+import { Head } from '@inertiajs/react';
+import { ArrowUpRight } from 'lucide-react';
 import 'react-quill-new/dist/quill.snow.css';
-import { toast } from 'sonner';
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn, getRelativeTime } from '@/lib/utils';
 import dayjs from 'dayjs';
 
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+import AppPublicLayout from '@/layouts/app-public-layout';
 
 interface ShowProps {
     project: Project;
 }
 
 export default function Show({ project }: ShowProps) {
-    const { delete: destroy, processing } = useForm({});
-
-    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-
     const breadcrumb: BreadcrumbItem[] = [
         {
             title: 'Projects',
-            href: '/dashboard/projects',
+            href: '/resources/projects',
         },
         {
             title: project.title,
-            href: '/dashboard/tutorials/' + project.id,
+            href: '/resources/tutorials/' + project.id,
         },
     ];
 
-    const deleteProject = () => {
-        destroy(route('projects.destroy', project.id), {
-            onSuccess: () => {
-                toast.success('Project deleted successfully');
-            },
-            onError: () => {
-                toast.error('Error deleting project');
-            },
-        });
-    };
-
     return (
-        <AppLayout breadcrumbs={breadcrumb}>
+        <AppPublicLayout breadcrumbs={breadcrumb}>
             <Head title={project.title} />
             <div className="flex h-full flex-col items-center rounded-xl p-4">
                 <div className="flex w-full flex-col items-center">
                     <div className="flex w-full justify-center">
                         <Card className="max-w-3xl">
-                            <CardHeader>
+                            <CardHeader className="relative">
                                 <CardTitle className="w-11/12 text-xl">{project.title}</CardTitle>
                                 <CardDescription className="flex flex-wrap gap-x-2">
                                     <p>{cn('Published', getRelativeTime(project.created_at))}</p>
@@ -94,36 +67,11 @@ export default function Show({ project }: ShowProps) {
                                 >
                                     Github <ArrowUpRight className="ml-2" />
                                 </a>
-                                <div className="flex gap-2">
-                                    <Link className={buttonVariants({ variant: 'outline' })} href={route('projects.edit', project.id)}>
-                                        Edit
-                                    </Link>
-                                    <Button variant="destructive" onClick={() => setIsDeleteDialogOpen(true)}>
-                                        Delete
-                                    </Button>
-                                </div>
                             </CardFooter>
                         </Card>
-
-                        {/* Alert dialog to delete project  */}
-                        <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-                            <AlertDialogContent>
-                                <AlertDialogHeader>
-                                    <AlertDialogTitle>Are you sure to delete this project?</AlertDialogTitle>
-                                    <AlertDialogDescription>This will permanently delete this project</AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                    <AlertDialogCancel onClick={() => setIsDeleteDialogOpen(false)}>Cancel</AlertDialogCancel>
-                                    <AlertDialogAction onClick={deleteProject} disabled={processing}>
-                                        {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                        Delete
-                                    </AlertDialogAction>
-                                </AlertDialogFooter>
-                            </AlertDialogContent>
-                        </AlertDialog>
                     </div>
                 </div>
             </div>
-        </AppLayout>
+        </AppPublicLayout>
     );
 }

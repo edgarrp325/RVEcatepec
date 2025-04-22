@@ -1,15 +1,14 @@
-import { buttonVariants } from '@/components/ui/button';
+import { ShineBorder } from '@/components/magicui/shine-border';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
-import AppLayout from '@/layouts/app-layout';
+import AppPublicLayout from '@/layouts/app-public-layout';
 import { BreadcrumbItem, DevelopmentPagination, DevelopmentResponse } from '@/types';
 import { Head, Link } from '@inertiajs/react';
-import { Plus } from 'lucide-react';
 
 const breadcrumb: BreadcrumbItem[] = [
     {
         title: 'Developments',
-        href: '/dashboard/developments',
+        href: '/developments',
     },
 ];
 interface DevelopmentsProps {
@@ -18,21 +17,17 @@ interface DevelopmentsProps {
 
 export default function Index({ developments }: DevelopmentsProps) {
     return (
-        <AppLayout breadcrumbs={breadcrumb}>
+        <AppPublicLayout breadcrumbs={breadcrumb}>
             <Head title="Developments" />
             <div className="flex h-full flex-1 flex-col justify-start gap-4 rounded-xl p-4">
-                {/* New development button  */}
-                <div className="px-4 md:px-6">
-                    <Link className={buttonVariants({ variant: 'outline' })} href={route('developments.create')}>
-                        <Plus /> New development
-                    </Link>
-                </div>
                 {/* Developments */}
                 <div className="flex flex-wrap gap-4 px-4 lg:px-6">
                     {developments.data.map((development: DevelopmentResponse) => {
                         return (
-                            <Link key={development.id} className="w-fit" href={route('developments.show', development.id)}>
-                                <Card className="h-full w-xs">
+                            <Link key={development.id} className="w-fit" href={route('public.developments.show', development.id)}>
+                                <Card className="relative h-full w-xs transition-all duration-300 hover:scale-105">
+                                    <ShineBorder shineColor={['#679240', '#C3A701']} borderWidth={1} />
+
                                     <CardHeader className="">
                                         <img
                                             className="aspect-video object-contain"
@@ -84,6 +79,6 @@ export default function Index({ developments }: DevelopmentsProps) {
                     </div>
                 </Pagination>
             </div>
-        </AppLayout>
+        </AppPublicLayout>
     );
 }

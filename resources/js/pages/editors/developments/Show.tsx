@@ -35,11 +35,11 @@ export default function Show({ development }: ShowProps) {
     const breadcrumb: BreadcrumbItem[] = [
         {
             title: 'Developments',
-            href: '/developments',
+            href: '/dashboard/developments',
         },
         {
             title: development.title,
-            href: '/developments/' + development.id,
+            href: '/dashboard/developments/' + development.id,
         },
     ];
 
@@ -59,7 +59,6 @@ export default function Show({ development }: ShowProps) {
         image: 'http://127.0.0.1:8000/storage/' + image.image_url,
         title: development.title + '-' + (index + 1),
     }));
-    console.log(images);
 
     return (
         <AppLayout breadcrumbs={breadcrumb}>

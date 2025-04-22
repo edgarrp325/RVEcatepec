@@ -18,7 +18,7 @@ class TutorialController extends Controller
     public function index()
     {
         return Inertia::render('editors/tutorials/Index', [
-            'tutorials' => Tutorial::with('tutorialType')->orderBy('updated_at', 'desc')->paginate(12),
+            'tutorials' => Tutorial::with('tutorialType')->latest()->paginate(12),
         ]);
     }
 

@@ -16,7 +16,7 @@ class ProjectController extends Controller
     public function index()
     {
         return Inertia::render('editors/projects/Index', [
-            'projects' => Project::orderBy('updated_at', 'desc')->paginate(12),
+            'projects' => Project::latest()->paginate(12),
         ]);
     }
 
