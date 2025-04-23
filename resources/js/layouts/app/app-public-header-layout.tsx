@@ -16,7 +16,7 @@ export default function AppHeaderLayout({ children, breadcrumbs }: AppHeaderLayo
                 <AppPublicHeader breadcrumbs={breadcrumbs} menu={publicMenu} />
             </header>
             <AppContent variant="public">{children}</AppContent>
-            <footer className="h-48 bg-yellow-500"></footer>
+            <footer className="h-48 bg-yellow-500 mt-16"></footer>
         </AppShell>
     );
 }

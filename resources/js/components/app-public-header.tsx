@@ -3,7 +3,9 @@ import { Link, usePage } from '@inertiajs/react';
 import { Menu } from 'lucide-react';
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -13,7 +15,10 @@ import {
     NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { RoleEnum } from '@/enums';
+import { useInitials } from '@/hooks/use-initials';
 import { Breadcrumbs } from './breadcrumbs';
+import { UserMenuContent } from './user-menu-content';
 
 interface MenuItem {
     title: string;
@@ -71,7 +76,7 @@ const AppPublicHeader = ({
 }: NavbarProps) => {
     const page = usePage<SharedData>();
     const { auth } = page.props;
-
+    const getInitials = useInitials();
     return (
         <>
             {/* Desktop Menu */}
@@ -89,11 +94,12 @@ const AppPublicHeader = ({
                 </div>
 
                 <div className="flex items-center gap-2">
-                    {auth.user ? (
+                    {auth.user && auth.user.role_id.toString() !== RoleEnum.USER && (
                         <Button asChild variant="outline" size="sm">
                             <Link href={route(authButtons.dashboard.url)}>{authButtons.dashboard.text}</Link>
                         </Button>
-                    ) : (
+                    )}
+                    {!auth.user && (
                         <>
                             <Button asChild variant="outline" size="sm">
                                 <Link href={route(authButtons.login.url)}>{authButtons.login.text}</Link>
@@ -102,6 +108,23 @@ const AppPublicHeader = ({
                                 <Link href={route(authButtons.signup.url)}>{authButtons.signup.text}</Link>
                             </Button>
                         </>
+                    )}
+                    {auth.user && (
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="size-10 rounded-full p-1">
+                                    <Avatar className="size-8 overflow-hidden rounded-full">
+                                        <AvatarImage src={auth.user.avatar} alt={auth.user.name} />
+                                        <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
+                                            {getInitials(auth.user.name)}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="w-56" align="end">
+                                <UserMenuContent user={auth.user} />
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     )}
                 </div>
             </nav>
@@ -152,11 +175,13 @@ const AppPublicHeader = ({
                     </Sheet>
                 </div>
             </div>
-            <div className="border-sidebar-border/70 flex w-full border-b">
-                <div className="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-[1920px]">
-                    <Breadcrumbs breadcrumbs={breadcrumbs} />
+            {breadcrumbs.length > 0 && (
+                <div className="border-sidebar-border/70 flex w-full border-b px-4 lg:px-6">
+                    <div className="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-[1920px]">
+                        <Breadcrumbs breadcrumbs={breadcrumbs} />
+                    </div>
                 </div>
-            </div>
+            )}
         </>
     );
 };
@@ -170,7 +195,7 @@ const renderMenuItem = (item: MenuItem, url: string) => {
             <NavigationMenuItem key={item.title}>
                 <Link href={item.url}>
                     <NavigationMenuTrigger
-                        className={`hover:cursor-pointer text-md relative px-2 font-normal after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-full after:origin-center after:scale-x-0 after:bg-green-600 after:transition after:duration-500 ${
+                        className={`text-md relative px-2 font-normal after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-full after:origin-center after:scale-x-0 after:bg-green-600 after:transition after:duration-500 hover:cursor-pointer ${
                             active ? 'font-bold text-black after:scale-x-100' : 'hover:text-black hover:after:scale-x-100'
                         }`}
                     >

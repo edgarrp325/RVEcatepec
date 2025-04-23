@@ -1,10 +1,11 @@
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 
 import AppearanceTabs from '@/components/appearance-tabs';
 import HeadingSmall from '@/components/heading-small';
-import { type BreadcrumbItem } from '@/types';
+import { SharedData, type BreadcrumbItem } from '@/types';
 
-import AppLayout from '@/layouts/app-layout';
+import { RoleEnum } from '@/enums';
+import AppPublicLayout from '@/layouts/app-public-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -15,8 +16,19 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Appearance() {
+    const { auth } = usePage<SharedData>().props;
+
+    const Layout = ({ breadcrumbs, children }: { breadcrumbs: BreadcrumbItem[]; children: React.ReactNode }) => {
+        if (auth.user.role_id.toString() === RoleEnum.USER) {
+            return (
+                <AppPublicLayout breadcrumbs={breadcrumbs}>
+                    <div className="max-w-[1920px] px-4 lg:px-6">{children}</div>
+                </AppPublicLayout>
+            );
+        }
+    };
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <Layout breadcrumbs={breadcrumbs}>
             <Head title="Appearance settings" />
 
             <SettingsLayout>
@@ -25,6 +37,6 @@ export default function Appearance() {
                     <AppearanceTabs />
                 </div>
             </SettingsLayout>
-        </AppLayout>
+        </Layout>
     );
 }
