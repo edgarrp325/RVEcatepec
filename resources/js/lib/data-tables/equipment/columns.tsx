@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { cn, formatMinutes, getBadgeColor } from '@/lib/utils';
-import { Equipment, EquipmentTable } from '@/types';
+import { Equipment, EquipmentTable, EquipmentTablePublic } from '@/types';
 import { useForm } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
 import { LogOut, MoreHorizontal } from 'lucide-react';
@@ -16,13 +16,17 @@ interface GetColumnsProps {
 }
 
 interface ButtonFinishLoanProps {
-    loan_id: number;
+    id: number;
 }
-function ButtonFinishLoan({ loan_id }: ButtonFinishLoanProps) {
+interface ButtonStartLoanProps {
+    id: string;
+}
+function ButtonFinishLoan({ id }: ButtonFinishLoanProps) {
     const { put, processing } = useForm({});
 
     const finishLoan = () => {
-        put(route('equipment-loans.update', loan_id), {
+        put(route('equipment-loans.update', id), {
+            preserveScroll: true,
             onSuccess: () => {
                 toast.success('Loan finished successfully');
             },
@@ -32,6 +36,26 @@ function ButtonFinishLoan({ loan_id }: ButtonFinishLoanProps) {
     return (
         <Button variant="ghost" onClick={() => finishLoan()} disabled={processing}>
             <LogOut className="h-4 w-4" />
+        </Button>
+    );
+}
+
+function ButtonStartLoan({ id }: ButtonStartLoanProps) {
+    const { post, processing } = useForm({
+        equipment_id: id,
+    });
+
+    const startLoan = () => {
+        post(route('equipment-loans.store'), {
+            onSuccess: () => {
+                toast.success('Equipment loan started successfully');
+            },
+            onError: () => toast.error('Something went wrong'),
+        });
+    };
+    return (
+        <Button onClick={() => startLoan()} disabled={processing}>
+            Use
         </Button>
     );
 }
@@ -84,7 +108,7 @@ export function getColumns({ setSelectedEquipment, openDialog, setIsDeleteDialog
                 row.original.status === 'In use' ? (
                     <span className="flex items-center gap-2">
                         {row.original.user_full_name}
-                        <ButtonFinishLoan loan_id={row.original.loan_id as number} />
+                        <ButtonFinishLoan id={row.original.loan_id as number} />
                     </span>
                 ) : (
                     <span className="">N/A</span>
@@ -123,6 +147,39 @@ export function getColumns({ setSelectedEquipment, openDialog, setIsDeleteDialog
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </>
+                );
+            },
+        },
+    ];
+}
+export function getPublicColumns(): ColumnDef<EquipmentTablePublic>[] {
+    return [
+        {
+            accessorKey: 'id',
+            header: 'No. bien',
+        },
+        {
+            accessorKey: 'equipment_type_name',
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Type" />,
+        },
+        {
+            accessorKey: 'label',
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Label" />,
+        },
+        {
+            accessorKey: 'laboratory_name',
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Laboratory" />,
+            filterFn: (row, id, value) => {
+                return value.includes(row.getValue(id));
+            },
+        },
+        {
+            id: 'actions',
+            cell: ({ row }) => {
+                return (
+                    <span className="flex items-center gap-2">
+                        <ButtonStartLoan id={row.original.id} />
+                    </span>
                 );
             },
         },

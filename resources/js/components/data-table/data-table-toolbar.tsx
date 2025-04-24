@@ -4,10 +4,10 @@ import { Table } from '@tanstack/react-table';
 import { Download, X } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { exportTableToCSV } from '@/lib/export';
 import { FilterOption } from '@/types';
 import { Input } from '../ui/input';
 import { DataTableFacetedFilter } from './data-table-faceted-filter';
-import { exportTableToCSV } from '@/lib/export';
 
 interface DataTableToolbarProps<TData> {
     table: Table<TData>;
@@ -15,15 +15,22 @@ interface DataTableToolbarProps<TData> {
     setGlobalFilter: (value: string) => void;
     filters?: { columnKey: string; title: string; options: FilterOption[] }[];
     filename?: string;
+    hideExportButton?: boolean;
 }
 
-export function DataTableToolbar<TData>({ table, globalFilter, setGlobalFilter, filters = [], filename }: DataTableToolbarProps<TData>) {
+export function DataTableToolbar<TData>({ table, globalFilter, setGlobalFilter, filters = [], filename, hideExportButton = false}: DataTableToolbarProps<TData>) {
     const isFiltered = table.getState().columnFilters.length > 0;
     return (
         <div className="flex items-center justify-between">
             <div className="flex flex-1 items-center space-x-2">
                 {/* 🔍 Global filter field */}
-                <Input id='search' placeholder="Search..." value={globalFilter} onChange={(e) => setGlobalFilter(e.target.value)} className="max-w-sm" />
+                <Input
+                    id="search"
+                    placeholder="Search..."
+                    value={globalFilter}
+                    onChange={(e) => setGlobalFilter(e.target.value)}
+                    className="max-w-sm"
+                />
 
                 {/*  🎛  Dinamic render of filters*/}
                 {filters.map(({ columnKey, title, options }) =>
@@ -40,9 +47,17 @@ export function DataTableToolbar<TData>({ table, globalFilter, setGlobalFilter, 
                     </Button>
                 )}
             </div>
-            <div>
-                <Button variant={'outline'} size='sm' onClick={()=>exportTableToCSV(table, {filename:filename, excludeColumns:["is_active", "actions"]})}><Download/> Export</Button>
-            </div>
+            {!hideExportButton && (
+                <div>
+                    <Button
+                        variant={'outline'}
+                        size="sm"
+                        onClick={() => exportTableToCSV(table, { filename: filename, excludeColumns: ['is_active', 'actions'] })}
+                    >
+                        <Download /> Export
+                    </Button>
+                </div>
+            )}
         </div>
     );
 }

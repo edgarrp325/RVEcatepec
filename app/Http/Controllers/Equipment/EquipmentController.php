@@ -23,9 +23,8 @@ class EquipmentController extends Controller
             'equipmentTypes' => EquipmentType::all(),
             'laboratories' => Laboratory::all(),
         ]);
-        
     }
-    
+
     /**
      * Store a newly created resource in storage.
      */
@@ -53,11 +52,11 @@ class EquipmentController extends Controller
         ]);
 
         $equipment->update(
-           [
-            'label' => $validated['label'],
-            'equipment_type_id' => $validated['equipment_type_id'],
-            'laboratory_id' => $validated['laboratory_id'],
-           ]
+            [
+                'label' => $validated['label'],
+                'equipment_type_id' => $validated['equipment_type_id'],
+                'laboratory_id' => $validated['laboratory_id'],
+            ]
         );
     }
 

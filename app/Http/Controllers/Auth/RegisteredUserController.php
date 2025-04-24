@@ -123,6 +123,6 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         //if rol is user return to the last page before login
-        return $isSelectedUser ? redirect()->intended() : to_route('dashboard');
+        return redirect()->intended();
     }
 }

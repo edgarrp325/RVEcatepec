@@ -149,6 +149,16 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
         clearErrors();
         reset();
     };
+
+    const finishLoan = (id: number) => {
+        put(route('equipment-loans.update', id), {
+            preserveScroll: true,
+            onSuccess: () => {
+                toast.success('Loan finished successfully');
+            },
+            onError: () => toast.error('Something went wrong'),
+        });
+    };
     useEffect(() => {
         if (selectedEquipment) {
             setData({
@@ -207,10 +217,12 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
                                             </div>
                                         </CardContent>
                                         <CardFooter className="flex justify-between gap-4">
-                                            {iMac.status === 'In use' && (
+                                            {iMac.status === 'In use' && iMac.loan_id && (
                                                 <>
                                                     <CardTitle>{iMac.user_full_name}</CardTitle>
-                                                    <LogOut className="size-8" />
+                                                    <Button variant="ghost" onClick={() => finishLoan(iMac.loan_id)} disabled={processing}>
+                                                        <LogOut className="size-8" />
+                                                    </Button>
                                                 </>
                                             )}
                                         </CardFooter>

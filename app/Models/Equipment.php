@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Equipment extends Model
 {
 
-     /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
@@ -32,8 +32,8 @@ class Equipment extends Model
     }
 
     /**
-    * Relashionship with the Laboratory model.
-    */
+     * Relashionship with the Laboratory model.
+     */
     public function laboratory()
     {
         return $this->belongsTo(Laboratory::class);
@@ -53,10 +53,10 @@ class Equipment extends Model
     public function usersInUse()
     {
         return $this->belongsToMany(User::class)
-        ->wherePivotNull('end_time')
-        ->withPivot('id', 'date', 'start_time', 'end_time');
+            ->wherePivotNull('end_time')
+            ->withPivot('id', 'date', 'start_time', 'end_time');
     }
-    
+
     /**
      * Get the equipment type iMacs.
      */
@@ -71,7 +71,6 @@ class Equipment extends Model
     public function scopeInUse()
     {
         return $this->where('status', 'In use');
-
     }
     protected $keyType = 'string'; // 
     public $timestamps = false;

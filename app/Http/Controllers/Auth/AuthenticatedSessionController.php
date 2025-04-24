@@ -38,6 +38,10 @@ class AuthenticatedSessionController extends Controller
         if ($user->role_id == RoleEnum::USER->value) {
             return redirect()->intended(route('resources', absolute: false));
         }
+
+        if ($user->role_id == RoleEnum::ALUMN->value){
+            return redirect()->intended(route('attendance.create', absolute: false));
+        }
         return redirect()->intended(route('dashboard', absolute: false));
     }
 

@@ -1,7 +1,9 @@
 <?php
 
+use App\Enums\RoleEnum;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DevelopmentController;
+use App\Http\Controllers\Equipment\EquipmentLoanController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ThreeDModelController;
 use App\Http\Controllers\TutorialController;
@@ -38,6 +40,27 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'show'
         ]);
     });
+});
+
+// Social service, internship and alumns
+$roles = [
+    'alumn' => RoleEnum::ALUMN->value,
+    'social_service' => RoleEnum::SOCIALSERVICE->value,
+    'internship' => RoleEnum::INTERNSHIP->value,
+];
+
+
+Route::middleware(['auth', 'verified', 'role:' . implode(',', $roles)])->prefix('dashboard')->group(function () {
+
+    Route::resource('attendance', AttendanceController::class)->only(
+        'create',
+        'store',
+    );
+
+    Route::resource('equipment-loans', EquipmentLoanController::class)->only(
+        'create',
+        'store',
+    );
 });
 
 // Public routes

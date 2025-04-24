@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Equipment;
 
+use App\Enums\EquipmentStatusEnum;
 use App\Http\Controllers\Controller;
 
 use App\Models\Equipment;
+use App\Models\EquipmentType;
+use App\Models\Laboratory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
@@ -27,7 +31,9 @@ class EquipmentLoanController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('alumn/choose-equipment', [
+            'equipment' => Equipment::with('equipmentType')->with('laboratory')->orderBy('label', 'asc')->where('status', 'Available')->get(),
+        ]);
     }
 
     /**
@@ -35,7 +41,19 @@ class EquipmentLoanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $equipment = $request->equipment_id;
+        $now = Carbon::now();
+
+        $user->equipment()->attach($equipment, [
+            'date' => $now->toDateString(),
+            'start_time' => $now->format('H:i'),
+            'end_time' => null,
+        ]);
+
+        $equipmentBD = Equipment::findOrFail($equipment);
+        $equipmentBD->status = EquipmentStatusEnum::USING->label();
+        $equipmentBD->save();
     }
 
     /**

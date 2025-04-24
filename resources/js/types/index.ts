@@ -129,12 +129,21 @@ export interface EquipmentResponse extends Equipment {
     laboratory: Laboratory;
     equipment_type: EquipmentType;
 }
+export type EquipmentResponseWithoutUser = Omit<EquipmentResponse, 'users_in_use'>;
 
 export interface EquipmentTable extends Equipment {
     laboratory_name: string;
     equipment_type_name: string;
     user_full_name: string | null;
     loan_id: number | null;
+}
+
+export interface EquipmentTablePublic {
+    id: string;
+    label: string;
+    laboratory_name: string;
+    equipment_type_id: number;
+    equipment_type_name: string;
 }
 
 export interface EquipmentLoansResponse extends Equipment {
@@ -231,7 +240,7 @@ export interface Project {
     updated_at: string;
 }
 
-export interface Development{
+export interface Development {
     id: number;
     title: string;
     description: string;
@@ -239,11 +248,11 @@ export interface Development{
     updated_at: string;
 }
 
-export interface DevelopmentResponse extends Development{
+export interface DevelopmentResponse extends Development {
     images: DevelopmentImage[];
 }
 
-export interface DevelopmentImage{
+export interface DevelopmentImage {
     id: number;
     development_id: number;
     image_url: string;

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Laboratory;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class AttendanceController extends Controller
 {
@@ -22,7 +25,9 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('alumn/choose-lab',[
+            'laboratories' => Laboratory::all(),
+        ]);
     }
 
     /**
@@ -30,7 +35,16 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $now = Carbon::now();
+
+        $user->laboratories()->attach($request->laboratory_id, [
+            'date' => $now->toDateString(),
+            'start_time' => $now->format('H:i'),
+            'end_time' => null,
+        ]);
+
+        return to_route('equipment-loans.create')->with('success', 'Attendance started successfully.');
     }
 
     /**

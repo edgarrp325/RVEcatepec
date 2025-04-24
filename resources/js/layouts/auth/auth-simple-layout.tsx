@@ -1,4 +1,5 @@
 import AppLogoIcon from '@/components/app-logo-icon';
+import { cn } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
 
 interface AuthLayoutProps {
@@ -6,12 +7,15 @@ interface AuthLayoutProps {
     name?: string;
     title?: string;
     description?: string;
+    variant?: 'sm' | 'full';
 }
 
-export default function AuthSimpleLayout({ children, title, description }: AuthLayoutProps) {
+export default function AuthSimpleLayout({ children, title, description, variant = 'sm' }: AuthLayoutProps) {
+    const maxWidth = { sm: 'max-w-sm', full: 'max-w-[1920px]' };
+
     return (
         <div className="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
-            <div className="w-full max-w-sm">
+            <div className={cn('w-full', maxWidth[variant])}>
                 <div className="flex flex-col gap-8">
                     <div className="flex flex-col items-center gap-4">
                         <Link href={route('home')} className="flex flex-col items-center gap-2 font-medium">
