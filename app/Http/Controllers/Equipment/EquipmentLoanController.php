@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Equipment;
 
 use App\Enums\EquipmentStatusEnum;
+use App\Enums\EquipmentTypeEnum;
 use App\Http\Controllers\Controller;
 
 use App\Models\Equipment;
@@ -31,8 +32,13 @@ class EquipmentLoanController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $isUsingMac = $user->isUsingEquipmentType(EquipmentTypeEnum::IMAC->value);
+        $isUsingPC = $user->isUsingEquipmentType(EquipmentTypeEnum::PC->value);
+
         return Inertia::render('alumn/choose-equipment', [
-            'equipment' => Equipment::with('equipmentType')->with('laboratory')->orderBy('label', 'asc')->where('status', 'Available')->get(),
+            'equipment' => Equipment::with('equipmentType')->with('laboratory')->orderBy('label', 'desc')->where('status', 'Available')->get(),
+            'isUsingComputer' => $isUsingMac || $isUsingPC,
         ]);
     }
 

@@ -14,12 +14,16 @@ interface GetColumnsProps {
     openDialog: (variant: 'create' | 'edit', equipment?: Equipment) => void;
     setIsDeleteDialogOpen: (isDeleteDialogOpen: boolean) => void;
 }
+interface GetPublicColumnsProps {
+    isUsingComputer: boolean;
+}
 
 interface ButtonFinishLoanProps {
     id: number;
 }
 interface ButtonStartLoanProps {
     id: string;
+    disabled: boolean;
 }
 function ButtonFinishLoan({ id }: ButtonFinishLoanProps) {
     const { put, processing } = useForm({});
@@ -40,7 +44,7 @@ function ButtonFinishLoan({ id }: ButtonFinishLoanProps) {
     );
 }
 
-function ButtonStartLoan({ id }: ButtonStartLoanProps) {
+function ButtonStartLoan({ id, disabled }: ButtonStartLoanProps) {
     const { post, processing } = useForm({
         equipment_id: id,
     });
@@ -54,7 +58,7 @@ function ButtonStartLoan({ id }: ButtonStartLoanProps) {
         });
     };
     return (
-        <Button onClick={() => startLoan()} disabled={processing}>
+        <Button onClick={() => startLoan()} disabled={processing || disabled}>
             Use
         </Button>
     );
@@ -152,7 +156,7 @@ export function getColumns({ setSelectedEquipment, openDialog, setIsDeleteDialog
         },
     ];
 }
-export function getPublicColumns(): ColumnDef<EquipmentTablePublic>[] {
+export function getPublicColumns({ isUsingComputer }: GetPublicColumnsProps): ColumnDef<EquipmentTablePublic>[] {
     return [
         {
             accessorKey: 'id',
@@ -178,7 +182,10 @@ export function getPublicColumns(): ColumnDef<EquipmentTablePublic>[] {
             cell: ({ row }) => {
                 return (
                     <span className="flex items-center gap-2">
-                        <ButtonStartLoan id={row.original.id} />
+                        <ButtonStartLoan
+                            id={row.original.id}
+                            disabled={isUsingComputer && (row.original.equipment_type_name === 'PC' || row.original.equipment_type_name === 'iMac')}
+                        />
                     </span>
                 );
             },

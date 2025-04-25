@@ -89,4 +89,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Equipment::class)->withPivot('id', 'date', 'start_time', 'end_time');
     }
+
+    /**
+     * If the user is using a equipment of equipment type imac or pc
+     */
+    public function isUsingEquipmentType(string $typeId): bool{
+        return $this->equipment()
+        ->where('equipment_type_id', $typeId)
+        ->wherePivot('end_time', null)
+        ->exists();
+    }
 }

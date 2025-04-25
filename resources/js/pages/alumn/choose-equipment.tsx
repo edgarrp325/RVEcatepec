@@ -1,18 +1,19 @@
 import { DataTable } from '@/components/data-table/data-table';
 import ImacIcon from '@/components/imac-icon';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import AuthLayout from '@/layouts/auth-layout';
 import { getPublicColumns } from '@/lib/data-tables/equipment/columns';
 import { laboratoryFilter } from '@/lib/data-tables/equipment/filters';
 import { transformPublicEquipmentData } from '@/lib/data-tables/equipment/transformer';
 import { EquipmentResponseWithoutUser } from '@/types';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
 
 interface ChooseEquipmentProps {
     equipment: EquipmentResponseWithoutUser[];
+    isUsingComputer: boolean;
 }
 
 interface ChooseEquipmentForm {
@@ -20,7 +21,7 @@ interface ChooseEquipmentForm {
     [key: string]: null | string;
 }
 
-export default function ChooseEquipment({ equipment }: ChooseEquipmentProps) {
+export default function ChooseEquipment({ equipment, isUsingComputer }: ChooseEquipmentProps) {
     const { post, processing, data, setData, reset } = useForm<ChooseEquipmentForm>({
         equipment_id: null,
     });
@@ -47,10 +48,14 @@ export default function ChooseEquipment({ equipment }: ChooseEquipmentProps) {
     const equipmentData = transformPublicEquipmentData(equipment);
     const iMacs = equipmentData.filter((equipment) => equipment.equipment_type_id === 1);
 
-    const columns = getPublicColumns();
+    const columns = getPublicColumns({ isUsingComputer });
 
     return (
-        <AuthLayout title="Choose equipment" description="Click on Use button to select the equipment you need" size="full">
+        <AuthLayout
+            title="Choose equipment"
+            description="Click on Use button to select the equipment you need. You only can choose one computer"
+            size="full"
+        >
             <Head title="Equipments" />
             <div className="flex h-full flex-1 flex-col justify-start gap-4 rounded-xl p-4">
                 <div className="@container/main flex flex-1 flex-col gap-2">
@@ -73,7 +78,7 @@ export default function ChooseEquipment({ equipment }: ChooseEquipmentProps) {
                                                 onClick={() => {
                                                     setData('equipment_id', iMac.id);
                                                 }}
-                                                disabled={processing}
+                                                disabled={processing || isUsingComputer}
                                             >
                                                 Use
                                             </Button>
@@ -91,6 +96,11 @@ export default function ChooseEquipment({ equipment }: ChooseEquipmentProps) {
                                 filters={[laboratoryFilter]}
                                 hideExportButton
                             />
+                        </div>
+                        <div className="ml-auto px-4 md:px-6">
+                            <Link href={route('dashboard')} className={buttonVariants({ variant: 'default' })}>
+                                Continue
+                            </Link>
                         </div>
                     </div>
                 </div>
