@@ -79,7 +79,7 @@ class User extends Authenticatable
      */
     public function laboratories()
     {
-        return $this->belongsToMany(Laboratory::class)->withPivot('id','date','start_time', 'end_time');
+        return $this->belongsToMany(Laboratory::class)->withPivot('id', 'date', 'start_time', 'end_time');
     }
 
     /**
@@ -93,10 +93,31 @@ class User extends Authenticatable
     /**
      * If the user is using a equipment of equipment type imac or pc
      */
-    public function isUsingEquipmentType(string $typeId): bool{
+    public function isUsingEquipmentType(string $typeId): bool
+    {
         return $this->equipment()
-        ->where('equipment_type_id', $typeId)
-        ->wherePivot('end_time', null)
-        ->exists();
+            ->where('equipment_type_id', $typeId)
+            ->wherePivotNull('end_time')
+            ->exists();
+    }
+
+    /** 
+     * Determine whether the user has an activated attendance
+     */
+    public function hasActiveAttendance(): bool
+    {
+        return $this->laboratories()
+            ->wherePivotNull('end_time')
+            ->exists();
+    }
+
+    /**
+     * Determine whether the user has an equipment using 
+     */
+    public function hasActiveEquipmentLoan(): bool
+    {
+        return $this->equipment()
+            ->wherePivotNull('end_time')
+            ->exists();
     }
 }

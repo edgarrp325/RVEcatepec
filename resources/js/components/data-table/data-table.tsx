@@ -16,7 +16,6 @@ import {
 import * as React from 'react';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-
 import { Filter } from '@/types';
 import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
@@ -24,16 +23,27 @@ import { DataTableToolbar } from './data-table-toolbar';
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
-    searchableColumns: (keyof TData)[];
+    searchableColumns: (keyof TData | string)[];
     filters?: Filter[];
     filename?: string;
     hideExportButton?: boolean;
 }
 
-export function DataTable<TData, TValue>({ columns, data, searchableColumns, filters = [], filename, hideExportButton }: DataTableProps<TData, TValue>) {
+// Función auxiliar para acceder a propiedades anidadas
+const resolvePath = (obj: any, path: string): any => {
+    return path.split('.').reduce((acc, part) => acc?.[part], obj);
+};
+
+export function DataTable<TData, TValue>({
+    columns,
+    data,
+    searchableColumns,
+    filters = [],
+    filename,
+    hideExportButton,
+}: DataTableProps<TData, TValue>) {
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
     const [globalFilter, setGlobalFilter] = React.useState('');
-
     const [sorting, setSorting] = React.useState<SortingState>([]);
 
     const table = useReactTable({
@@ -55,7 +65,10 @@ export function DataTable<TData, TValue>({ columns, data, searchableColumns, fil
         getFacetedUniqueValues: getFacetedUniqueValues(),
         globalFilterFn: (row, columnId, filterValue) => {
             const valuesToSearch = searchableColumns
-                .map((key) => row.original[key]?.toString() ?? '')
+                .map((key) => {
+                    const value = resolvePath(row.original, key as string);
+                    return value?.toString() ?? '';
+                })
                 .join(' ')
                 .toLowerCase();
 
@@ -65,24 +78,29 @@ export function DataTable<TData, TValue>({ columns, data, searchableColumns, fil
 
     return (
         <div className="space-y-4">
-            <DataTableToolbar table={table} globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} filters={filters} filename={filename} hideExportButton = {hideExportButton} />
+            <DataTableToolbar
+                table={table}
+                globalFilter={globalFilter}
+                setGlobalFilter={setGlobalFilter}
+                filters={filters}
+                filename={filename}
+                hideExportButton={hideExportButton}
+            />
             <div className="rounded-md border">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => {
-                                    return (
-                                        <TableHead key={header.id} colSpan={header.colSpan}>
-                                            {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                                        </TableHead>
-                                    );
-                                })}
+                                {headerGroup.headers.map((header) => (
+                                    <TableHead key={header.id} colSpan={header.colSpan}>
+                                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                                    </TableHead>
+                                ))}
                             </TableRow>
                         ))}
                     </TableHeader>
                     <TableBody>
-                        {table.getRowModel().rows?.length ? (
+                        {table.getRowModel().rows.length ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow key={row.id}>
                                     {row.getVisibleCells().map((cell) => (

@@ -1,12 +1,11 @@
 import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { RoleEnum } from '@/enums';
 import { NavGroup, SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 
 export function NavMain({ groups }: { groups: NavGroup[] }) {
     const url = usePage().url;
     const { auth } = usePage<SharedData>().props;
-    const currentRole = auth.user.role_id.toString() || RoleEnum.ALUMN;
+    const currentRole = auth.user.role_id.toString();
     return (
         <>
             {groups.map(({ title, items }) => {

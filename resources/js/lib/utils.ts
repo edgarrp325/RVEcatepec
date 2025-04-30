@@ -1,8 +1,8 @@
 import { type ClassValue, clsx } from 'clsx';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
-import { twMerge } from 'tailwind-merge';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
@@ -14,14 +14,19 @@ export const formatMinutes = (minutes: number): string => {
     return dayjs.duration(minutes, 'minutes').format('H [h] m [m]');
 };
 
+export const formatTime = (time: string): string => {
+    const date = dayjs(time);
+    return date.format('HH[:]mm');
+};
+
 export const getRelativeTime = (date: string) => {
-    const diffInDays = dayjs().diff(dayjs(date), "day");
+    const diffInDays = dayjs().diff(dayjs(date), 'day');
 
     if (diffInDays <= 3) {
         dayjs.extend(relativeTime);
         return dayjs().to(dayjs(date));
     } else {
-        return dayjs(date).format("DD/MM/YY");
+        return dayjs(date).format('DD/MM/YY');
     }
 };
 
@@ -38,10 +43,10 @@ export const getBadgeColor = (status: 'In use' | 'Available' | 'Maintenance') =>
     return badgeColors[status];
 };
 
-export const downloadFile  = (url:string) =>{
+export const downloadFile = (url: string) => {
     const link = document.createElement('a');
     link.href = url;
-    link.download = "";
+    link.download = '';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

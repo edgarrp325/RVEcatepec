@@ -25,7 +25,13 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        return Inertia::render('alumn/choose-lab',[
+        $user = Auth::user();
+
+        if ($user->hasActiveAttendance() || $user->hasActiveEquipmentLoan()) {
+            return redirect()->route('dashboard');
+        }
+
+        return Inertia::render('alumn/choose-lab', [
             'laboratories' => Laboratory::all(),
         ]);
     }
@@ -44,6 +50,9 @@ class AttendanceController extends Controller
             'end_time' => null,
         ]);
 
+        if ($user->hasActiveEquipmentLoan()) {
+            return to_route('dashboard')->with('success', 'Attendance started successfully.');
+        }
         return to_route('equipment-loans.create')->with('success', 'Attendance started successfully.');
     }
 
@@ -70,11 +79,25 @@ class AttendanceController extends Controller
     {
 
         // Verify if the register exist 
-            DB::table('laboratory_user')
-                ->where('id', $id)
-                ->update([
-                    'end_time' => Carbon::now('America/Mexico_City')->format('H:i'),
-                ]);        
+        DB::table('laboratory_user')
+            ->where('id', $id)
+            ->update([
+                'end_time' => Carbon::now('America/Mexico_City')->format('H:i'),
+            ]);
+    }
+
+    public function finish()
+    {
+        $user = Auth::user();
+
+        DB::table('laboratory_user')
+            ->where('user_id', $user->id)
+            ->where('end_time', null)
+            ->update([
+                'end_time' => Carbon::now('America/Mexico_City')->format('H:i'),
+            ]);
+
+        return to_route('dashboard')->with('success', 'Attendance finished successfully.');
     }
 
     /**
@@ -88,7 +111,7 @@ class AttendanceController extends Controller
     public function destroyAll()
     {
         $finished_attendance = DB::table('laboratory_user')
-        ->whereNotNull('end_time');
+            ->whereNotNull('end_time');
 
         $finished_attendance->delete();
 

@@ -93,6 +93,17 @@ export interface AttendanceResponse extends Laboratory {
     users: UserWithAttendance[];
 }
 
+export interface LaboratoryWithAttendance extends Laboratory {
+    pivot: {
+        id: number;
+        date: string;
+        start_time: string;
+        end_time: string | null;
+        laboratory_id: number;
+        user_id: number;
+    };
+}
+
 // the equipment types is the same that the response from the model equipment types
 export interface EquipmentType {
     id: number;
@@ -149,6 +160,10 @@ export interface EquipmentTablePublic {
 export interface EquipmentLoansResponse extends Equipment {
     equipment_type: EquipmentType;
     users: UserWithLoans[];
+}
+export interface EquipmentLoansResponseWithoutUser extends Equipment {
+    equipment_type: EquipmentType;
+    pivot: Loan;
 }
 
 export interface EquipmentLoansTable {

@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RoleEnum } from '@/enums';
+import AppLayout from '@/layouts/app-layout';
 import AppPublicLayout from '@/layouts/app-public-layout';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -19,8 +20,20 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
+const Layout = ({ breadcrumbs, children, role }: { breadcrumbs: BreadcrumbItem[]; children: React.ReactNode; role: string }) => {
+    if (role === RoleEnum.USER) {
+        return (
+            <AppPublicLayout breadcrumbs={breadcrumbs}>
+                <div className="max-w-[1920px] px-4 lg:px-6">{children}</div>
+            </AppPublicLayout>
+        );
+    }
+    return <AppLayout>{children}</AppLayout>;
+};
+
 export default function Password() {
     const { auth } = usePage<SharedData>().props;
+    const role = auth.user.role_id.toString();
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
 
@@ -50,18 +63,8 @@ export default function Password() {
         });
     };
 
-    const Layout = ({ breadcrumbs, children }: { breadcrumbs: BreadcrumbItem[]; children: React.ReactNode }) => {
-        if (auth.user.role_id.toString() === RoleEnum.USER) {
-            return (
-                <AppPublicLayout breadcrumbs={breadcrumbs}>
-                    <div className="max-w-[1920px] px-4 lg:px-6">{children}</div>
-                </AppPublicLayout>
-            );
-        }
-    };
-
     return (
-        <Layout breadcrumbs={breadcrumbs}>
+        <Layout breadcrumbs={breadcrumbs} role={role}>
             <Head title="Profile settings" />
 
             <SettingsLayout>

@@ -17,10 +17,6 @@ $editors = [
 
 
 Route::middleware(['auth', 'verified', 'role:' . implode(',', $editors)])->prefix('dashboard')->group(function () {
-    
-    Route::get('/', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
 
     Route::resource('three-d-models', ThreeDModelController::class);
 

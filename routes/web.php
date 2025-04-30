@@ -2,6 +2,7 @@
 
 use App\Enums\RoleEnum;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DevelopmentController;
 use App\Http\Controllers\Equipment\EquipmentLoanController;
 use App\Http\Controllers\ProjectController;
@@ -52,10 +53,14 @@ $roles = [
 
 Route::middleware(['auth', 'verified', 'role:' . implode(',', $roles)])->prefix('dashboard')->group(function () {
 
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::resource('attendance', AttendanceController::class)->only(
         'create',
         'store',
     );
+
+    Route::put('attendance/finish', [AttendanceController::class, 'finish'])->name('attendance.finish');
 
     Route::resource('equipment-loans', EquipmentLoanController::class)->only(
         'create',

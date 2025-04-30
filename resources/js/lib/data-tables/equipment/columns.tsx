@@ -156,7 +156,7 @@ export function getColumns({ setSelectedEquipment, openDialog, setIsDeleteDialog
         },
     ];
 }
-export function getPublicColumns({ isUsingComputer }: GetPublicColumnsProps): ColumnDef<EquipmentTablePublic>[] {
+export function getPublicColumns({ isUsingComputer}: GetPublicColumnsProps): ColumnDef<EquipmentTablePublic>[] {
     return [
         {
             accessorKey: 'id',
