@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -119,5 +120,17 @@ class User extends Authenticatable
         return $this->equipment()
             ->wherePivotNull('end_time')
             ->exists();
+    }
+
+    /**
+     * Get the total service hours of the user
+     */
+    public function totalServiceMinutes(): int
+    {
+        return $this->laboratories()
+            ->wherePivotNotNull('end_time')
+            ->sum(
+                DB::raw('TIMESTAMPDIFF(MINUTE, start_time, end_time)')
+            );
     }
 }

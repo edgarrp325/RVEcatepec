@@ -50,10 +50,11 @@ $roles = [
     'internship' => RoleEnum::INTERNSHIP->value,
 ];
 
+$admin = RoleEnum::ADMIN->value;
+
 
 Route::middleware(['auth', 'verified', 'role:' . implode(',', $roles)])->prefix('dashboard')->group(function () {
 
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('attendance', AttendanceController::class)->only(
         'create',
@@ -67,6 +68,11 @@ Route::middleware(['auth', 'verified', 'role:' . implode(',', $roles)])->prefix(
         'store',
     );
 });
+
+Route::middleware(['auth', 'verified', 'role:' . $admin . ',' . implode(',', $roles)])->prefix('dashboard')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+});
+
 
 // Public routes
 Route::get('/', function () {

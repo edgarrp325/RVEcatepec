@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\OTPController;
 use App\Http\Controllers\Admin\LaboratoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'role:' . RoleEnum::ADMIN->value])->prefix('dashboard')->group(function () {
