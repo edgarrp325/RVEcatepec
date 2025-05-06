@@ -33,6 +33,7 @@ class AttendanceController extends Controller
 
         return Inertia::render('alumn/choose-lab', [
             'laboratories' => Laboratory::all(),
+            'totalServiceMinutes' => $user->totalServiceMinutes(),
         ]);
     }
 
@@ -42,7 +43,19 @@ class AttendanceController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        $laboratory = Laboratory::find($request->laboratory_id);
+
         $now = Carbon::now();
+
+        // Verify if is a weekday
+        if ($now->isWeekend()) {
+            return back()->with('error', 'You can not attend on weekends.');
+        }
+
+        // Verify it is on laboratory hours
+        if ($now->lt($laboratory->opening_time) || $now->gt($laboratory->closing_time)) {
+            return back()->with('error', 'You can not attend out of laboratory hours.');
+        }
 
         $user->laboratories()->attach($request->laboratory_id, [
             'date' => $now->toDateString(),
