@@ -17,7 +17,7 @@ class RestrictWeekendAccess
     public function handle(Request $request, Closure $next): Response
     {
         // Check if it's a weekend
-        if (!Carbon::now()->isWeekend()) {
+        if (Carbon::now()->isWeekend()) {
             abort(403, 'Unauthorized weekend access.');
         }
 
