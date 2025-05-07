@@ -97,7 +97,13 @@ const AttendanceDashboard = ({ attendance, laboratories }: AttendanceDashboardPr
                                         <SelectContent>
                                             {laboratories?.map((laboratory) => (
                                                 <SelectItem key={laboratory.id} value={laboratory.id.toString()}>
-                                                    {laboratory.name.charAt(0).toUpperCase() + laboratory.name.slice(1)}
+                                                    {laboratory.name.charAt(0).toUpperCase() +
+                                                        laboratory.name.slice(1) +
+                                                        ' ( ' +
+                                                        laboratory.opening_time +
+                                                        ' - ' +
+                                                        laboratory.closing_time +
+                                                        ' )'}
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>

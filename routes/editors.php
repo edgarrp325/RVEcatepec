@@ -29,4 +29,3 @@ Route::middleware(['auth', 'verified', 'role:' . implode(',', $editors)])->prefi
         'update',
     ]);
 });
-

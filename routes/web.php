@@ -66,7 +66,7 @@ Route::middleware(['auth', 'verified', 'role:' . implode(',', $roles)])->prefix(
     Route::resource('equipment-loans', EquipmentLoanController::class)->only(
         'create',
         'store',
-    );
+    )->middleware('weekend');
 });
 
 Route::middleware(['auth', 'verified', 'role:' . $admin . ',' . implode(',', $roles)])->prefix('dashboard')->group(function () {

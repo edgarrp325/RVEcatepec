@@ -1,9 +1,33 @@
 import { DataTableSortableHeader } from '@/components/data-table/data-table-sortable-header';
+import { Button } from '@/components/ui/button';
 import { formatTime } from '@/lib/utils';
 import { EquipmentLoansResponseWithoutUser } from '@/types';
+import { useForm } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
 import dayjs from 'dayjs';
+import { toast } from 'sonner';
 
+interface ButtonFinishLoanProps {
+    id: number;
+}
+function ButtonFinishLoan({ id }: ButtonFinishLoanProps) {
+    const { put, processing } = useForm({});
+
+    const finishLoan = () => {
+        put(route('equipment-loans.update', id), {
+            preserveScroll: true,
+            onSuccess: () => {
+                toast.success('Loan finished successfully');
+            },
+            onError: () => toast.error('Something went wrong'),
+        });
+    };
+    return (
+        <Button onClick={() => finishLoan()} disabled={processing}>
+            Return
+        </Button>
+    );
+}
 export function getColumns(): ColumnDef<EquipmentLoansResponseWithoutUser>[] {
     return [
         {
@@ -31,6 +55,16 @@ export function getColumns(): ColumnDef<EquipmentLoansResponseWithoutUser>[] {
             accessorKey: 'pivot.start_time',
             header: ({ column }) => <DataTableSortableHeader column={column} title="Start time" />,
             cell: ({ row }) => formatTime(row.original.pivot.date + row.original.pivot.start_time),
+        },
+        {
+            id: 'actions',
+            cell: ({ row }) => {
+                return (
+                    <span className="flex items-center gap-2">
+                        <ButtonFinishLoan id={row.original.pivot.id} />
+                    </span>
+                );
+            },
         },
     ];
 }
