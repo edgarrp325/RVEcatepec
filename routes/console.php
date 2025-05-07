@@ -10,6 +10,6 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Schedule::job(new FinalizeAttendancesJob())->dailyAt('09:47');
+Schedule::job(new FinalizeAttendancesJob())->dailyAt('23:59');
 
-Schedule::job(new FinalizeEquipmentLoansJob())->dailyAt('09:47');
+Schedule::job(new FinalizeEquipmentLoansJob())->dailyAt('23:59');
