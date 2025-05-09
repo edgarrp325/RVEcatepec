@@ -1,9 +1,10 @@
+import texts from '@/config/texts';
 import AppPublicLayout from '@/layouts/app-public-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 const breadcrumb: BreadcrumbItem[] = [
     {
-        title: 'Laboratory',
+        title: texts.laboratory.title,
         href: '/laboratory',
     },
 ];

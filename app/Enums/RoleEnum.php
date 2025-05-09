@@ -15,11 +15,11 @@ enum RoleEnum: string
     public function label(): string
     {
         return match ($this) {
-            self::ADMIN => 'Administrator',
-            self::USER => 'User',
-            self::ALUMN => 'Alumn',
-            self::SOCIALSERVICE => 'Social Service',
-            self::INTERNSHIP => 'Internship',
+            self::ADMIN => 'Administrador',
+            self::USER => 'Usuario',
+            self::ALUMN => 'Alumno',
+            self::SOCIALSERVICE => 'Servicio Social',
+            self::INTERNSHIP => 'Prácticas Profesionales',
         };
     }
 }

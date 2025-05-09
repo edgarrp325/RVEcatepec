@@ -123,6 +123,6 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         //if rol is user return to the last page before login
-        return redirect()->intended();
+        return redirect()->intended()->with('success', '¡Te has registrado con éxito!');
     }
 }

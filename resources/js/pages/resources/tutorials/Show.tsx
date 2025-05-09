@@ -8,6 +8,7 @@ import '@justinribeiro/lite-youtube';
 import dayjs from 'dayjs';
 
 import AppPublicLayout from '@/layouts/app-public-layout';
+import texts from '@/config/texts';
 
 interface ShowProps {
     tutorial: Tutorial;
@@ -16,11 +17,11 @@ interface ShowProps {
 export default function Show({ tutorial }: ShowProps) {
     const breadcrumb: BreadcrumbItem[] = [
         {
-            title: 'Resources',
+            title: texts.resources.title,
             href: '/resources', 
         },
         {
-            title: 'Tutorials',
+            title: texts.resources.tutorials.title,
             href: '/resources/tutorials',
         },
         {

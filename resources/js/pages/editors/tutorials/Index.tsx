@@ -1,6 +1,6 @@
+import AppPagination from '@/components/app-pagination';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem, TutorialResponse, TutorialResponsePagination } from '@/types';
 import { Head, Link } from '@inertiajs/react';
@@ -53,34 +53,7 @@ export default function Index({ tutorials }: TutorialsProps) {
                     })}
                 </div>
                 {/* Pagination  */}
-                <Pagination className="flex flex-col items-center gap-2">
-                    <PaginationContent>
-                        {tutorials.links.map((link) => {
-                            return (
-                                <PaginationItem key={link.label}>
-                                    {link.label.includes('Previous') && link.url && <PaginationPrevious href={tutorials.prev_page_url || '#'} />}
-
-                                    {link.label.includes('Next') && link.url && <PaginationNext href={tutorials.next_page_url || '#'} />}
-
-                                    {!link.label.includes('Previous') && !link.label.includes('Next') && (
-                                        <PaginationLink href={link.url || '#'} isActive={link.active}>
-                                            {link.label}
-                                        </PaginationLink>
-                                    )}
-                                </PaginationItem>
-                            );
-                        })}
-                    </PaginationContent>
-                    <div className="text-muted-foreground flex items-center justify-center gap-2 text-sm">
-                        <span>
-                            Page <strong>{tutorials.current_page}</strong> of <strong>{tutorials.last_page}</strong>
-                        </span>
-                        <span className="hidden sm:inline">|</span>
-                        <span>
-                            Showing <strong>{tutorials.from}</strong> - <strong>{tutorials.to}</strong> of <strong>{tutorials.total}</strong> items
-                        </span>
-                    </div>
-                </Pagination>
+                <AppPagination items={tutorials} />
             </div>
         </AppLayout>
     );

@@ -1,6 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import texts from '@/config/texts';
 import AppPublicLayout from '@/layouts/app-public-layout';
 import { cn, downloadFile, getCompactNumber, getRelativeTime } from '@/lib/utils';
 import { BreadcrumbItem, ThreeDModelResponse } from '@/types';
@@ -17,11 +18,11 @@ interface ShowProps {
 export default function Show({ model }: ShowProps) {
     const breadcrumb: BreadcrumbItem[] = [
         {
-            title: 'Resources',
+            title: texts.resources.title,
             href: '/resources',
         },
         {
-            title: '3D Models',
+            title: texts.resources.threeDModels.title,
             href: '/resources/three-d-models',
         },
         {

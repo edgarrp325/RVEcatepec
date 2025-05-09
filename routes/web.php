@@ -34,13 +34,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'show',
         ]);
     });
-
-    Route::name('public.')->group(function () {
-        Route::resource('developments', DevelopmentController::class)->only([
-            'index',
-            'show'
-        ]);
-    });
 });
 
 // Social service, internship and alumns
@@ -82,7 +75,12 @@ Route::get('/', function () {
 Route::get('/laboratory', function () {
     return Inertia::render('laboratory');
 })->name('laboratory');
-
+Route::name('public.')->group(function () {
+    Route::resource('developments', DevelopmentController::class)->only([
+        'index',
+        'show'
+    ]);
+});
 Route::get('/resources', function () {
     return Inertia::render('resources/repository');
 })->name('resources');

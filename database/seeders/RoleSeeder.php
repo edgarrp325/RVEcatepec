@@ -16,27 +16,27 @@ class RoleSeeder extends Seeder
     {
         DB::table('roles')->insert([
             'name' => RoleEnum::ADMIN->label(),
-            'description' => 'Administrate the system and manage users.',
+            'description' => 'Gestiona el sistema y administra a los usuarios.',
         ]);
 
         DB::table('roles')->insert([
             'name' => RoleEnum::USER->label(),
-            'description' => 'You only need to download resources.',
+            'description' => 'Obten el acceso a la descarga de recursos.',
         ]);
 
         DB::table('roles')->insert([
             'name' => RoleEnum::ALUMN->label(),
-            'description' => 'You need to use a laboratory and equipment from UAEM Ecatepec.',
+            'description' => 'Utiliza los laboratorios y el equipo de UAEM Ecatepec.',
         ]);
 
         DB::table('roles')->insert([
             'name' => RoleEnum::SOCIALSERVICE->label(),
-            'description' => 'You need to do social service in UAEM Ecatepec.',
+            'description' => 'Realiza el servicio social en alguno de los laboratorios de UAEM Ecatepec.',
         ]);
 
         DB::table('roles')->insert([
             'name' => RoleEnum::INTERNSHIP->label(),
-            'description' => 'You need to do internships in UAEM Ecatepec.',
+            'description' => 'Realiza prácticas profesionales en alguno de los laboratorios de UAEM Ecatepec.',
         ]);
     }
 }

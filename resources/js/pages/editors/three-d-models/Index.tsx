@@ -1,7 +1,7 @@
+import AppPagination from '@/components/app-pagination';
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 import AppLayout from '@/layouts/app-layout';
 import { cn, getCompactNumber } from '@/lib/utils';
 import { BreadcrumbItem, ThreeDModelResponse, ThreeDModelResponsePagination } from '@/types';
@@ -56,34 +56,7 @@ export default function Index({ models }: ThreeDModelsProps) {
                     })}
                 </div>
                 {/* Pagination  */}
-                <Pagination className="flex flex-col items-center gap-2">
-                    <PaginationContent>
-                        {models.links.map((link) => {
-                            return (
-                                <PaginationItem key={link.label}>
-                                    {link.label.includes('Previous') && link.url && <PaginationPrevious href={models.prev_page_url || '#'} />}
-
-                                    {link.label.includes('Next') && link.url && <PaginationNext href={models.next_page_url || '#'} />}
-
-                                    {!link.label.includes('Previous') && !link.label.includes('Next') && (
-                                        <PaginationLink href={link.url || '#'} isActive={link.active}>
-                                            {link.label}
-                                        </PaginationLink>
-                                    )}
-                                </PaginationItem>
-                            );
-                        })}
-                    </PaginationContent>
-                    <div className="text-muted-foreground flex items-center justify-center gap-2 text-sm">
-                        <span>
-                            Page <strong>{models.current_page}</strong> of <strong>{models.last_page}</strong>
-                        </span>
-                        <span className="hidden sm:inline">|</span>
-                        <span>
-                            Showing <strong>{models.from}</strong> - <strong>{models.to}</strong> of <strong>{models.total}</strong> items
-                        </span>
-                    </div>
-                </Pagination>
+                <AppPagination items={models} />
             </div>
         </AppLayout>
     );

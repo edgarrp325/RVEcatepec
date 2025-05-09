@@ -1,13 +1,14 @@
+import AppPagination from '@/components/app-pagination';
 import { ShineBorder } from '@/components/magicui/shine-border';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
+import texts from '@/config/texts';
 import AppPublicLayout from '@/layouts/app-public-layout';
 import { BreadcrumbItem, DevelopmentPagination, DevelopmentResponse } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 
 const breadcrumb: BreadcrumbItem[] = [
     {
-        title: 'Developments',
+        title: texts.developments.title,
         href: '/developments',
     },
 ];
@@ -49,35 +50,7 @@ export default function Index({ developments }: DevelopmentsProps) {
                     })}
                 </div>
                 {/* Pagination  */}
-                <Pagination className="flex flex-col items-center gap-2">
-                    <PaginationContent>
-                        {developments.links.map((link) => {
-                            return (
-                                <PaginationItem key={link.label}>
-                                    {link.label.includes('Previous') && link.url && <PaginationPrevious href={developments.prev_page_url || '#'} />}
-
-                                    {link.label.includes('Next') && link.url && <PaginationNext href={developments.next_page_url || '#'} />}
-
-                                    {!link.label.includes('Previous') && !link.label.includes('Next') && (
-                                        <PaginationLink href={link.url || '#'} isActive={link.active}>
-                                            {link.label}
-                                        </PaginationLink>
-                                    )}
-                                </PaginationItem>
-                            );
-                        })}
-                    </PaginationContent>
-                    <div className="text-muted-foreground flex items-center justify-center gap-2 text-sm">
-                        <span>
-                            Page <strong>{developments.current_page}</strong> of <strong>{developments.last_page}</strong>
-                        </span>
-                        <span className="hidden sm:inline">|</span>
-                        <span>
-                            Showing <strong>{developments.from}</strong> - <strong>{developments.to}</strong> of <strong>{developments.total}</strong>{' '}
-                            items
-                        </span>
-                    </div>
-                </Pagination>
+                <AppPagination items={developments} />
             </div>
         </AppPublicLayout>
     );

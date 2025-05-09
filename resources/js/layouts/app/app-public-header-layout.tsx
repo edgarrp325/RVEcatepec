@@ -1,8 +1,9 @@
 import { AppContent } from '@/components/app-content';
+import AppFooter from '@/components/app-footer';
 import AppPublicHeader from '@/components/app-public-header';
 import { AppShell } from '@/components/app-shell';
+import { publicMenu, publicMenuAuthButtons, publicMenuLogo } from '@/config/public-menu';
 import { type BreadcrumbItem } from '@/types';
-import {publicMenu} from '@/config/public-menu';
 
 interface AppHeaderLayoutProps {
     children: React.ReactNode;
@@ -13,10 +14,10 @@ export default function AppHeaderLayout({ children, breadcrumbs }: AppHeaderLayo
     return (
         <AppShell>
             <header className="mb-16 lg:mb-6">
-                <AppPublicHeader breadcrumbs={breadcrumbs} menu={publicMenu} />
+                <AppPublicHeader breadcrumbs={breadcrumbs} menu={publicMenu} logo={publicMenuLogo} authButtons={publicMenuAuthButtons} />
             </header>
             <AppContent variant="public">{children}</AppContent>
-            <footer className="h-48 bg-yellow-500 mt-16"></footer>
+            <AppFooter className="mt-16" />
         </AppShell>
     );
 }

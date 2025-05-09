@@ -31,7 +31,7 @@ interface MenuItem {
 const isRouteActive = (currentUrl: string, targetUrl: string) => (targetUrl === '/' ? currentUrl === '/' : currentUrl.startsWith(targetUrl));
 
 interface NavbarProps {
-    logo?: {
+    logo: {
         url: string;
         src: string;
         alt: string;
@@ -59,21 +59,7 @@ interface NavbarProps {
     breadcrumbs?: BreadcrumbItem[];
 }
 
-const AppPublicHeader = ({
-    logo = {
-        title: 'Realidad Virtual Ecatepec',
-        url: route('home'),
-        src: 'https://realidadvirtualecatepec.com.mx/public/img/isotipo_RV.png',
-        alt: 'Logo RV Ecatepec',
-    },
-    menu,
-    authButtons = {
-        login: { text: 'Log in', url: 'login' },
-        signup: { text: 'Sign up', url: 'register' },
-        dashboard: { text: 'Dashboard', url: 'dashboard' },
-    },
-    breadcrumbs = [],
-}: NavbarProps) => {
+const AppPublicHeader = ({ logo, menu, authButtons, breadcrumbs = [] }: NavbarProps) => {
     const page = usePage<SharedData>();
     const { auth } = page.props;
     const getInitials = useInitials();
@@ -93,40 +79,42 @@ const AppPublicHeader = ({
                     </div>
                 </div>
 
-                <div className="flex items-center gap-2">
-                    {auth.user && auth.user.role_id.toString() !== RoleEnum.USER && (
-                        <Button asChild variant="outline" size="sm">
-                            <Link href={route(authButtons.dashboard.url)}>{authButtons.dashboard.text}</Link>
-                        </Button>
-                    )}
-                    {!auth.user && (
-                        <>
+                {authButtons && (
+                    <div className="flex items-center gap-2">
+                        {auth.user && auth.user.role_id.toString() !== RoleEnum.USER && (
                             <Button asChild variant="outline" size="sm">
-                                <Link href={route(authButtons.login.url)}>{authButtons.login.text}</Link>
+                                <Link href={route(authButtons.dashboard.url)}>{authButtons.dashboard.text}</Link>
                             </Button>
-                            <Button asChild size="sm">
-                                <Link href={route(authButtons.signup.url)}>{authButtons.signup.text}</Link>
-                            </Button>
-                        </>
-                    )}
-                    {auth.user && (
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" className="size-10 rounded-full p-1">
-                                    <Avatar className="size-8 overflow-hidden rounded-full">
-                                        <AvatarImage src={auth.user.avatar} alt={auth.user.name} />
-                                        <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
-                                            {getInitials(auth.user.name)}
-                                        </AvatarFallback>
-                                    </Avatar>
+                        )}
+                        {!auth.user && (
+                            <>
+                                <Button asChild variant="outline" size="sm">
+                                    <Link href={route(authButtons.login.url)}>{authButtons.login.text}</Link>
                                 </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent className="w-56" align="end">
-                                <UserMenuContent user={auth.user} />
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    )}
-                </div>
+                                <Button asChild size="sm">
+                                    <Link href={route(authButtons.signup.url)}>{authButtons.signup.text}</Link>
+                                </Button>
+                            </>
+                        )}
+                        {auth.user && (
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="ghost" className="size-10 rounded-full p-1">
+                                        <Avatar className="size-8 overflow-hidden rounded-full">
+                                            <AvatarImage src={auth.user.avatar} alt={auth.user.name} />
+                                            <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
+                                                {getInitials(auth.user.name)}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent className="w-56" align="end">
+                                    <UserMenuContent user={auth.user} />
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        )}
+                    </div>
+                )}
             </nav>
             {/* Mobile Menu */}
             <div className="block shadow xl:hidden">
@@ -154,22 +142,24 @@ const AppPublicHeader = ({
                                     {menu?.map((item) => renderMobileMenuItem(item))}
                                 </Accordion>
 
-                                <div className="flex flex-col gap-3">
-                                    {auth.user ? (
-                                        <Button asChild variant="outline" size="sm">
-                                            <Link href={route(authButtons.dashboard.url)}>{authButtons.dashboard.text}</Link>
-                                        </Button>
-                                    ) : (
-                                        <>
+                                {authButtons && (
+                                    <div className="flex flex-col gap-3">
+                                        {auth.user ? (
                                             <Button asChild variant="outline" size="sm">
-                                                <Link href={route(authButtons.login.url)}>{authButtons.login.text}</Link>
+                                                <Link href={route(authButtons.dashboard.url)}>{authButtons.dashboard.text}</Link>
                                             </Button>
-                                            <Button asChild size="sm">
-                                                <Link href={route(authButtons.signup.url)}>{authButtons.signup.text}</Link>
-                                            </Button>
-                                        </>
-                                    )}
-                                </div>
+                                        ) : (
+                                            <>
+                                                <Button asChild variant="outline" size="sm">
+                                                    <Link href={route(authButtons.login.url)}>{authButtons.login.text}</Link>
+                                                </Button>
+                                                <Button asChild size="sm">
+                                                    <Link href={route(authButtons.signup.url)}>{authButtons.signup.text}</Link>
+                                                </Button>
+                                            </>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </SheetContent>
                     </Sheet>
@@ -215,16 +205,16 @@ const renderMenuItem = (item: MenuItem, url: string) => {
 
     return (
         <NavigationMenuItem key={item.title}>
-            <Link href={item.url}>
-                <NavigationMenuLink
+            <NavigationMenuLink asChild>
+                <Link
+                    href={item.url}
                     className={`text-md relative font-normal after:absolute after:bottom-0.5 after:left-0 after:h-[3px] after:w-full after:origin-center after:scale-x-0 after:bg-green-600 after:transition after:duration-500 ${
                         active ? 'font-bold text-black after:scale-x-100' : 'hover:text-black hover:after:scale-x-100'
                     }`}
-                    active={url.startsWith(item.url)}
                 >
                     {item.title}
-                </NavigationMenuLink>
-            </Link>
+                </Link>
+            </NavigationMenuLink>
         </NavigationMenuItem>
     );
 };

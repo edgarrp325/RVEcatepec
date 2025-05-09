@@ -1,6 +1,6 @@
+import AppPagination from '@/components/app-pagination';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem, Project, ProjectPagination } from '@/types';
 import { Head, Link } from '@inertiajs/react';
@@ -50,34 +50,7 @@ export default function Index({ projects }: ProjectsProps) {
                     })}
                 </div>
                 {/* Pagination  */}
-                <Pagination className="flex flex-col items-center gap-2">
-                    <PaginationContent>
-                        {projects.links.map((link) => {
-                            return (
-                                <PaginationItem key={link.label}>
-                                    {link.label.includes('Previous') && link.url && <PaginationPrevious href={projects.prev_page_url || '#'} />}
-
-                                    {link.label.includes('Next') && link.url && <PaginationNext href={projects.next_page_url || '#'} />}
-
-                                    {!link.label.includes('Previous') && !link.label.includes('Next') && (
-                                        <PaginationLink href={link.url || '#'} isActive={link.active}>
-                                            {link.label}
-                                        </PaginationLink>
-                                    )}
-                                </PaginationItem>
-                            );
-                        })}
-                    </PaginationContent>
-                    <div className="text-muted-foreground flex items-center justify-center gap-2 text-sm">
-                        <span>
-                            Page <strong>{projects.current_page}</strong> of <strong>{projects.last_page}</strong>
-                        </span>
-                        <span className="hidden sm:inline">|</span>
-                        <span>
-                            Showing <strong>{projects.from}</strong> - <strong>{projects.to}</strong> of <strong>{projects.total}</strong> items
-                        </span>
-                    </div>
-                </Pagination>
+                <AppPagination items={projects} />
             </div>
         </AppLayout>
     );

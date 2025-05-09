@@ -9,6 +9,7 @@ import { cn, getRelativeTime } from '@/lib/utils';
 import dayjs from 'dayjs';
 
 import AppPublicLayout from '@/layouts/app-public-layout';
+import texts from '@/config/texts';
 
 interface ShowProps {
     project: Project;
@@ -17,11 +18,11 @@ interface ShowProps {
 export default function Show({ project }: ShowProps) {
     const breadcrumb: BreadcrumbItem[] = [
         {
-            title: 'Resources',
+            title: texts.resources.title,
             href: '/resources',
         },
         {
-            title: 'Projects',
+            title: texts.resources.projects.title,
             href: '/resources/projects',
         },
         {
