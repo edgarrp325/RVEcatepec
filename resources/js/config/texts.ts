@@ -1,98 +1,42 @@
 const texts = {
-    laboratory: {
-        title: 'El laboratorio',
-    },
-    developments: {
-        title: 'Desarrollos',
-    },
-    resources: {
-        title: 'Repositorio',
-        threeDModels: { title: 'Elementos 3D' },
-        projects: { title: 'Proyectos' },
-        tutorials: { title: 'Tutoriales' },
-    },
-    services: {
-        title: 'Servicios',
-    },
-    contact: {
-        title: 'Contacto',
-    },
-    login: {
-        title: 'Accede a tu cuenta',
-        description: 'Utiliza tu correo y contraseña que registraste para acceder a tu cuenta.',
-        forgotPassword: '¿Olvidaste tu contraseña?',
-        rememberMe: 'Recordar mi contraseña',
-        button: 'Iniciar sesión',
-        noAccount: '¿No tienes una cuenta?',
-    },
-    register: {
-        title: 'Regístrate',
-        description: 'Los datos que proporciones serán usados exclusivamente para fines de autenticación.',
-        info: 'Para más información, consulta nuestros',
+    common: {
+        accountNumber: 'Número de cuenta UAEMex',
+        back: 'Atrás',
+        cancel: 'Cancelar',
+        confirmNewPassword: 'Confirmar nueva contraseña',
+        confirmPassword: 'Confirmar contraseña',
+        currentPassword: 'Contraseña actual',
+        description: 'Descripción',
+        email: 'Correo electrónico',
+        enter: 'Ingresar',
+        logout: 'Cerrar sesión',
+        major: 'Carrera',
+        maternalSurname: 'Apellido materno',
+        name: 'Nombre(s)',
+        newPassword: 'Nueva contraseña',
+        of: 'de',
+        origin: 'Origen',
+        other: 'Ingresa otra carrera',
+        password: 'Contraseña',
+        paternalSurname: 'Apellido paterno',
         placeHolderAccountNumber: 'máximo 8 caracteres',
         placeHolderConfirmPassword: 'contraseña',
-        placeHolderPaternalSurname: 'Apellido Paterno',
+        placeHolderEmail: 'correo@ejemplo.com',
         placeHolderMaternalSurname: 'Apellido Materno',
         placeHolderName: 'Nombre(s)',
         placeHolderOrigin: 'Institución educativa, organización, etc.',
-        placeHolderMajor: 'Selecciona tu carrera',
-        placeHolderRole: 'Selecciona tu rol',
-        placeHolderOtherMajor: 'UAEMex Nezahualcóyotl, Mecatrónica',
-        button: 'Regístrate',
-        alreadyHaveAccount: '¿Ya tienes una cuenta?',
-    },
-    modals: {
-        otp: {
-            title: 'Código de verificación',
-            description: 'Ingresa el código de verificación dado por el administrador.',
-        },
-    },
-    toast: {
-        register: {
-            success: 'Registrado con éxito',
-        },
-    },
-    forgotPassword: {
-        title: 'Restablece tu contraseña',
-        description: 'Ingresa tu correo para recibir un enlace para restablecer tu contraseña.',
-        button: 'Enviar enlace de restablecimiento',
-        returnLogin: 'O bien, vuelve al apartado de',
-    },
-    common: {
-        of: 'de',
-        enter: 'Ingresar',
-        password: 'Contraseña',
-        newPassword: 'Nueva contraseña',
-        currentPassword: 'Contraseña actual',
-        confirmNewPassword: 'Confirmar nueva contraseña',
-        email: 'Correo electrónico',
-        placeHolderEmail: 'correo@ejemplo.com',
         placeHolderPassword: 'contraseña',
-        termsAndConditions: 'Términos y condiciones',
-        typeUser: 'Tipo de usuario',
-        description: 'Descripción',
-        accountNumber: 'Número de cuenta UAEMex',
-        paternalSurname: 'Apellido paterno',
-        maternalSurname: 'Apellido materno',
-        name: 'Nombre(s)',
-        origin: 'Origen',
-        major: 'Carrera',
-        role: 'Rol',
-        other: 'Ingresa otra carrera',
-        confirmPassword: 'Confirmar contraseña',
-        settings: 'Ajustes',
-        logout: 'Cerrar sesión',
-        cancel: 'Cancelar',
+        placeHolderRole: 'Selecciona tu rol',
         save: 'Guardar',
         saved: 'Guardado',
         send: 'Enviar',
-        back: 'Atrás',
+        settings: 'Ajustes',
+        termsAndConditions: 'Términos y condiciones',
+        typeUser: 'Tipo de usuario',
         warning: 'Advertencia',
     },
-    verification: {
-        unverified: 'No has verificado tu correo electrónico',
-        resend: 'Reenviar correo de verificación',
-        linkSent: 'Un nuevo enlace de verificación ha sido enviado a tu correo electrónico',
+    contact: {
+        title: 'Contacto',
     },
     deleteAccount: {
         title: 'Eliminar cuenta',
@@ -105,13 +49,69 @@ const texts = {
                 'Una vez borrada tu cuenta, toda la información asociada será permanentemente borrada. Por favor, ingresa tu contraseña para confirmar que quieres borrar permanentemente tu cuenta',
         },
     },
+    developments: {
+        title: 'Desarrollos',
+    },
+    footer: {
+        copyright: '© 2025 Todos los Derechos Reservados',
+        useDisclaimer:
+            'Esta página puede ser reproducida con fines no lucrativos, siempre y cuando se cite la fuente completa y su dirección electrónica, y no se mutile.',
+    },
+    forgotPassword: {
+        title: 'Restablece tu contraseña',
+        description: 'Ingresa tu correo para recibir un enlace para restablecer tu contraseña.',
+        button: 'Enviar enlace de restablecimiento',
+        returnLogin: 'O bien, vuelve al apartado de',
+    },
+    laboratory: {
+        title: 'El laboratorio',
+    },
+    login: {
+        title: 'Accede a tu cuenta',
+        description: 'Utiliza tu correo y contraseña que registraste para acceder a tu cuenta.',
+        forgotPassword: '¿Olvidaste tu contraseña?',
+        rememberMe: 'Recordar mi contraseña',
+        button: 'Iniciar sesión',
+        noAccount: '¿No tienes una cuenta?',
+    },
+    modals: {
+        otp: {
+            title: 'Código de verificación',
+            description: 'Ingresa el código de verificación dado por el administrador.',
+        },
+    },
+    pagination: {
+        items: 'elementos',
+        page: 'Página',
+        showing: 'Mostrando',
+    },
+    register: {
+        title: 'Regístrate',
+        description: 'Los datos que proporciones serán usados exclusivamente para fines de autenticación.',
+        info: 'Para más información, consulta nuestros',
+        placeHolderOtherMajor: 'UAEMex Nezahualcóyotl, Mecatrónica',
+        button: 'Regístrate',
+        alreadyHaveAccount: '¿Ya tienes una cuenta?',
+    },
+    resources: {
+        title: 'Repositorio',
+        projects: { title: 'Proyectos' },
+        threeDModels: { title: 'Elementos 3D' },
+        tutorials: { title: 'Tutoriales' },
+    },
+    services: {
+        title: 'Servicios',
+    },
     settings: {
         title: 'Ajustes',
         description: 'Administra tu perfil y la configuración de tu cuenta',
-        profile: {
-            title: 'Perfil',
-            subtitle: 'Información de tu perfil',
-            description: 'Actualiza la información de tu perfil',
+        appearance: {
+            title: 'Apariencia',
+            subtitle: 'Personaliza tu apariencia',
+            description: 'Escoje tu tema preferido',
+            dark: 'Oscuro',
+            light: 'Claro',
+            system: 'Igual que el Sistema',
         },
         password: {
             title: 'Contraseña',
@@ -121,24 +121,21 @@ const texts = {
             success: 'Contraseña cambiada con éxito',
             error: 'Ha ocurrido un error al cambiar tu contraseña',
         },
-        appearance: {
-            title: 'Apariencia',
-            subtitle: 'Personaliza tu apariencia',
-            description: 'Escoje tu tema preferido',
-            dark: 'Oscuro',
-            light: 'Claro',
-            system: 'Igual que el Sistema',
+        profile: {
+            title: 'Perfil',
+            subtitle: 'Información de tu perfil',
+            description: 'Actualiza la información de tu perfil',
         },
     },
-    footer: {
-        useDisclaimer:
-            'Esta página puede ser reproducida con fines no lucrativos, siempre y cuando se cite la fuente completa y su dirección electrónica, y no se mutile.',
-        copyright: '© 2025 Todos los Derechos Reservados',
+    toast: {
+        register: {
+            success: 'Registrado con éxito',
+        },
     },
-    pagination: {
-        page: 'Página',
-        showing: 'Mostrando',
-        items: 'elementos',
+    verification: {
+        linkSent: 'Un nuevo enlace de verificación ha sido enviado a tu correo electrónico',
+        resend: 'Reenviar correo de verificación',
+        unverified: 'No has verificado tu correo electrónico',
     },
 };
 
