@@ -22,13 +22,14 @@ import { LoaderCircle, Plus, Trash } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
 import { toast } from 'sonner';
 
+import texts from '@/config/texts';
 import { columns } from '@/lib/data-tables/attendance/columns';
 import { isActiveFilter, laboratoryFilter } from '@/lib/data-tables/attendance/filters';
 import { transformAttendanceData } from '@/lib/data-tables/attendance/transformer';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Laboratories',
+        title: texts.common.laboratories,
         href: '/dashboard/laboratories',
     },
 ];
@@ -75,14 +76,14 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
 
     const dialogVariants = {
         create: {
-            title: 'New Laboratory',
-            description: 'You can create a new laboratory and set its schedule',
-            button: 'Create',
+            title: texts.laboratories.dialog.create.title,
+            description: texts.laboratories.dialog.create.description,
+            button: texts.common.create,
         },
         edit: {
-            title: 'Edit Laboratory',
-            description: 'You can edit the name and the schedule for this laboratory',
-            button: 'Update',
+            title: texts.laboratories.dialog.edit.title,
+            description: texts.laboratories.dialog.edit.description,
+            button: texts.common.update,
         },
     };
 
@@ -91,7 +92,7 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
         if (isEditSelected) {
             put(route('laboratories.update', currentLaboratory?.id), {
                 onSuccess: () => {
-                    toast.success('Laboratory updated successfully');
+                    toast.success(texts.toast.editLab.success);
                     closeDialog();
                 },
                 onFinish: () => reset(),
@@ -99,7 +100,7 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
         } else {
             post(route('laboratories.store'), {
                 onSuccess: () => {
-                    toast.success('Laboratory created successfully');
+                    toast.success(texts.toast.createLab.success);
                     closeDialog();
                 },
                 onFinish: () => reset(),
@@ -111,10 +112,10 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
         destroy(route('attendance.destroy-all'), {
             onSuccess: () => {
                 setIsDeleteAllDialogOpen(false);
-                toast.success('Attendance history deleted successfully');
+                toast.success(texts.toast.deleteAllAttendance.success);
             },
             onFinish: () => reset(),
-            onError: () => toast.error('Something went wrong'),
+            onError: () => toast.error(texts.toast.somethingWentWrong),
         });
     };
 
@@ -145,12 +146,12 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Laboratories" />
+            <Head title={texts.common.laboratories} />
             <div className="flex h-full flex-1 flex-col justify-start gap-4 rounded-xl p-4">
                 {/* New lab button  */}
                 <div className="px-4 md:px-6">
                     <Button variant={'outline'} onClick={() => openDialog('create')}>
-                        <Plus /> New Laboratory
+                        <Plus /> {texts.laboratories.newLab}
                     </Button>
                 </div>
                 {/* Delete all equipment loans button  */}
@@ -169,7 +170,7 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
                                             </CardTitle>
                                         </CardHeader>
                                         <CardFooter>
-                                            <Button onClick={() => openDialog('edit', laboratory)}>Edit</Button>
+                                            <Button onClick={() => openDialog('edit', laboratory)}>{texts.common.edit}</Button>
                                         </CardFooter>
                                     </Card>
                                 );
@@ -212,7 +213,7 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
                         <form onSubmit={submit}>
                             <div className="grid gap-6">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="lab_name">Laboratory´s name</Label>
+                                    <Label htmlFor="lab_name">{texts.common.labName}</Label>
                                     <Input
                                         id="lab_name"
                                         type="text"
@@ -225,7 +226,7 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
                                     <InputError message={errors.name} />
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="opening_time">Opening time</Label>
+                                    <Label htmlFor="opening_time">{texts.common.openingTime}</Label>
                                     <Input
                                         id="opening_time"
                                         type="time"
@@ -236,7 +237,7 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
                                     <InputError message={errors.opening_time} />
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="closing_time">Closing time</Label>
+                                    <Label htmlFor="closing_time">{texts.common.closingTime}</Label>
                                     <Input
                                         id="closing_time"
                                         type="time"
@@ -251,7 +252,7 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
                             <div className="mt-4 flex justify-end gap-4">
                                 <DialogClose asChild>
                                     <Button variant="secondary" onClick={closeDialog}>
-                                        Cancel
+                                        {texts.common.cancel}
                                     </Button>
                                 </DialogClose>
                                 <Button type="submit" disabled={processing}>
@@ -272,10 +273,10 @@ export default function Laboratories({ laboratories, attendanceResponse }: Labor
                             </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                            <AlertDialogCancel onClick={closeDeleteDialog}>Cancel</AlertDialogCancel>
+                            <AlertDialogCancel onClick={closeDeleteDialog}>{texts.common.cancel}</AlertDialogCancel>
                             <AlertDialogAction className="bg-destructive hover:bg-destructive/90" onClick={deleteAllAttendance} disabled={processing}>
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                Delete permanently
+                                {texts.common.deletePermanently}
                             </AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>

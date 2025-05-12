@@ -1,8 +1,20 @@
 const texts = {
     common: {
+        administrator:'Administrador',
+        labName:'Nombre del laboratorio',        
+        socialService: 'Servicio social',
+        internship: 'Prácticas profesionales',
         accountNumber: 'Número de cuenta UAEMex',
+        deletePermanently: 'Eliminar permanentemente',
         back: 'Atrás',
+        dashboard: 'Panel',
+        openingTime: 'Hora de apertura',
+        closingTime: 'Hora de cierre',
+        create: 'Crear',
+        update: 'Actualizar',
+        clearFilters: 'Limpiar filtros',
         cancel: 'Cancelar',
+        alumn:'Alumno',
         confirmNewPassword: 'Confirmar nueva contraseña',
         confirmPassword: 'Confirmar contraseña',
         currentPassword: 'Contraseña actual',
@@ -27,13 +39,45 @@ const texts = {
         placeHolderOrigin: 'Institución educativa, organización, etc.',
         placeHolderPassword: 'contraseña',
         placeHolderRole: 'Selecciona tu rol',
+        role: 'Rol',
+        editRole: 'Editar rol',
+        registeredAt:'Fecha de registro',
         save: 'Guardar',
+        users: 'Usuarios',
+        user:'Usuario',
         saved: 'Guardado',
         send: 'Enviar',
         settings: 'Ajustes',
         termsAndConditions: 'Términos y condiciones',
         typeUser: 'Tipo de usuario',
         warning: 'Advertencia',
+        laboratory: 'Laboratorio',
+        continue: 'Continuar',
+        goHome: 'Regresar al inicio',
+        use: 'Usar',
+        noResults: 'No hay resultados',
+        search: 'Buscar',
+        delete:'Eliminar',
+        reset: 'Reiniciar',
+        edit:'Editar',
+        export: 'Exportar',
+        type: 'Tipo',
+        label: 'Etiqueta',
+        status: 'Estado',
+        laboratories: 'Laboratorios',
+        available: 'Disponible',
+        inUse: 'En uso',
+        maintenance: 'Mantenimiento',
+        return: 'Regresar',
+        date: 'Fecha',
+        startTime: 'Hora de inicio',
+        today: 'Hoy',
+        active: 'Activo',
+        finished: 'Finalizado',
+        minutes: 'minutos',
+        total: 'Total',
+        administration: 'Administración',
+
     },
     contact: {
         title: 'Contacto',
@@ -51,6 +95,18 @@ const texts = {
     },
     developments: {
         title: 'Desarrollos',
+    },
+    users:{
+        dialog:{
+            role:{
+                title:'Editar rol',
+                description: 'Puedes editar el rol del usuario para ',
+            },
+            delete:{
+                title:'¿Estás seguro que quieres eliminar este usuario?',
+                description: 'Esto eliminará permanentemente este usuario y la información asociada a él.',
+            }
+        }
     },
     footer: {
         copyright: '© 2025 Todos los Derechos Reservados',
@@ -84,6 +140,11 @@ const texts = {
         items: 'elementos',
         page: 'Página',
         showing: 'Mostrando',
+        rowsPerPage: 'Resultados por página',
+        goToPreviousPage: 'Ir a la página anterior',
+        goToNextPage: 'Ir a la siguiente página',
+        goToFirstPage: 'Ir a la primera página',
+        goToLastPage: 'Ir a la última página',
     },
     register: {
         title: 'Regístrate',
@@ -131,11 +192,58 @@ const texts = {
         register: {
             success: 'Registrado con éxito',
         },
+        loanEquipment: {
+            success: 'Préstamo de equipo iniciado correctamente',
+        },
+        somethingWentWrong: 'Ocurrió un error inesperado, intente más tarde',
+        createLab:{
+            success: "Se creó el laboratorio correctamente"
+        },
+        editLab:{
+            success:"Se actualizó el laboratorio correctamente"
+        },
+        deleteAllAttendance:{
+            success: 'Historial de asistencias eliminado correctamente',
+        }
     },
     verification: {
         linkSent: 'Un nuevo enlace de verificación ha sido enviado a tu correo electrónico',
         resend: 'Reenviar correo de verificación',
         unverified: 'No has verificado tu correo electrónico',
+    },
+    chooseLab: {
+        title: 'Elige un laboratorio',
+        description: 'Selecciona el laboratorio donde estarás trabajando',
+        totalServiceHours: 'Total de horas de servicio'
+    },
+    chooseEquipment: {
+        title: 'Elige equipo',
+        description: 'Da click en el boton Usar para seleccionar el equipo que necesitas. Solo puedes elegir una computadora',
+    },
+    dashboard: {
+        welcome: 'Bienvenido a tu panel',
+        availableEquipment: 'Equipos disponibles',
+        currentAttendance: 'Asistencia activa',
+        attendanceStart: 'Inicio de asistencia',
+        finishAttendance: 'Finalizar asistencia',
+        chooseLaboratory: 'Elegir laboratorio',
+        myEquipmentLoans: 'Mis préstamos',
+    },
+    oneTimePasswords:{
+        title: 'Códigos de registro',
+    },
+    laboratories:{
+        dialog:{
+            create:{
+                title:'Nuevo laboratorio',
+                description: 'Tu puedes crear un nuevo laboratorio y configurar su horario',
+            },
+            edit:{
+                title: "Editar laboratorio",
+                description:'Tu puedes editar el nombre y horario del laboratorio',
+            },
+        },
+        newLab: 'Nuevo laboratorio'
     },
 };
 

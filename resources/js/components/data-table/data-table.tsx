@@ -16,6 +16,7 @@ import {
 import * as React from 'react';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import texts from '@/config/texts';
 import { Filter } from '@/types';
 import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
@@ -111,7 +112,7 @@ export function DataTable<TData, TValue>({
                         ) : (
                             <TableRow>
                                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    No results.
+                                    {texts.common.noResults}
                                 </TableCell>
                             </TableRow>
                         )}

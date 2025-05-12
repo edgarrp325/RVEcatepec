@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import texts from '@/config/texts';
 import AppLayout from '@/layouts/app-layout';
 import { getColumns } from '@/lib/data-tables/equipment-types/columns';
 import { EquipmentType, type BreadcrumbItem } from '@/types';
@@ -190,7 +191,7 @@ export default function EquipmentTypes({ equipmentTypes }: EquipmentTypesProps) 
                             <div className="mt-4 flex justify-end gap-4">
                                 <DialogClose asChild>
                                     <Button variant="secondary" onClick={closeDialog}>
-                                        Cancel
+                                        {texts.common.cancel}
                                     </Button>
                                 </DialogClose>
                                 <Button type="submit" disabled={processing}>

@@ -1,6 +1,7 @@
 import { DataTableSortableHeader } from '@/components/data-table/data-table-sortable-header';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import texts from '@/config/texts';
 import { UsersTable } from '@/types';
 import { ColumnDef } from '@tanstack/react-table';
 import dayjs from 'dayjs';
@@ -15,25 +16,25 @@ export function getColumns({ setSelectedUser, openDialog, setIsDeleteDialogOpen 
     return [
         {
             accessorKey: 'account_number',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Account Number" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title={texts.common.accountNumber} />,
             cell: ({ row }) => (row.original.account_number ? row.original.account_number : 'N/A'),
         },
         {
             accessorKey: 'name',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Name" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title={texts.common.name} />,
         },
         {
             accessorKey: 'paternal_surname',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Paternal Surname" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title={texts.common.paternalSurname} />,
         },
         {
             accessorKey: 'maternal_surname',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Maternal Surname" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title={texts.common.maternalSurname} />,
             cell: ({ row }) => (row.original.maternal_surname ? row.original.maternal_surname : '-'),
         },
         {
             accessorKey: 'major_origin',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Major / Origin" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title={texts.common.major + '-' + texts.common.origin} />,
             cell: ({ row }) => {
                 const major = row.original.major;
                 const origin = row.original.origin;
@@ -43,18 +44,18 @@ export function getColumns({ setSelectedUser, openDialog, setIsDeleteDialogOpen 
         },
         {
             accessorKey: 'email',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Email" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title={texts.common.email} />,
         },
         {
             accessorKey: 'role',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Role" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title={texts.common.role} />,
             filterFn: (row, id, value) => {
                 return value.includes(row.getValue(id));
             },
         },
         {
             accessorKey: 'created_at',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Registered At" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title={texts.common.registeredAt} />,
             cell: ({ row }) => dayjs(row.original.created_at).format('D/MM/YYYY'),
         },
         {
@@ -77,7 +78,7 @@ export function getColumns({ setSelectedUser, openDialog, setIsDeleteDialogOpen 
                                         openDialog();
                                     }}
                                 >
-                                    Edit role
+                                    {texts.common.editRole}
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
                                     onSelect={() => {
@@ -85,7 +86,7 @@ export function getColumns({ setSelectedUser, openDialog, setIsDeleteDialogOpen 
                                         setSelectedUser(user);
                                     }}
                                 >
-                                    Delete
+                                    {texts.common.delete}
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>

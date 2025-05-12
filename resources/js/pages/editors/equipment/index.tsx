@@ -18,6 +18,7 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, Di
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import texts from '@/config/texts';
 import AppLayout from '@/layouts/app-layout';
 import { getColumns } from '@/lib/data-tables/equipment/columns';
 import { laboratoryFilter, statusFilter } from '@/lib/data-tables/equipment/filters';
@@ -316,7 +317,7 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
                                     <div className="mt-4 flex justify-end gap-4">
                                         <DialogClose asChild>
                                             <Button variant="secondary" onClick={closeDialog}>
-                                                Cancel
+                                                {texts.common.cancel}
                                             </Button>
                                         </DialogClose>
                                         <Button type="submit" disabled={processing}>

@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import texts from '@/config/texts';
 import { RoleEnum } from '@/enums';
 import AppLayout from '@/layouts/app-layout';
 import { getColumns } from '@/lib/data-tables/users/columns';
@@ -27,7 +28,7 @@ import { toast } from 'sonner';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Users',
+        title: texts.common.users,
         href: '/dashboard/users',
     },
 ];
@@ -133,16 +134,16 @@ export default function Users({ users, roles }: UsersProps) {
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle>Role</DialogTitle>
+                            <DialogTitle>{texts.users.dialog.role.title}</DialogTitle>
                             <DialogDescription>
-                                You can edit the user role for{' '}
+                                {texts.users.dialog.role.description}{' '}
                                 {cn(selectedUser?.name, selectedUser?.paternal_surname, selectedUser?.maternal_surname)}
                             </DialogDescription>
                         </DialogHeader>
                         <form onSubmit={submit}>
                             <div className="grid gap-6">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="equipment_types">Roles</Label>
+                                    <Label htmlFor="equipment_types">{texts.common.role}</Label>
                                     <Select value={data.role_id.toString()} onValueChange={(value) => setData('role_id', value)}>
                                         <SelectTrigger>
                                             <SelectValue placeholder="Select the role" />
@@ -161,12 +162,12 @@ export default function Users({ users, roles }: UsersProps) {
                             <div className="mt-4 flex justify-end gap-4">
                                 <DialogClose asChild>
                                     <Button variant="secondary" onClick={closeDialog}>
-                                        Cancel
+                                        {texts.common.cancel}
                                     </Button>
                                 </DialogClose>
                                 <Button type="submit" disabled={processing}>
                                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                    Edit
+                                    {texts.common.edit}
                                 </Button>
                             </div>
                         </form>
@@ -176,14 +177,14 @@ export default function Users({ users, roles }: UsersProps) {
                 <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
                     <AlertDialogContent>
                         <AlertDialogHeader>
-                            <AlertDialogTitle>Are you sure to delete this user?</AlertDialogTitle>
-                            <AlertDialogDescription>This will permanently delete this user and the associated information.</AlertDialogDescription>
+                            <AlertDialogTitle>{texts.users.dialog.delete.title}</AlertDialogTitle>
+                            <AlertDialogDescription>{texts.users.dialog.delete.description}</AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                            <AlertDialogCancel onClick={closeDeleteDialog}>Cancel</AlertDialogCancel>
+                            <AlertDialogCancel onClick={closeDeleteDialog}>{texts.common.cancel}</AlertDialogCancel>
                             <AlertDialogAction onClick={deleteUser} disabled={processing}>
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                Delete
+                                {texts.common.delete}
                             </AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>

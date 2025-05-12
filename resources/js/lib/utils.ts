@@ -1,3 +1,4 @@
+import texts from '@/config/texts';
 import { type ClassValue, clsx } from 'clsx';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
@@ -10,7 +11,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export const formatMinutes = (minutes: number): string => {
     dayjs.extend(duration);
-    if (minutes < 60) return `${minutes} minutes`; // Less than 1 hour
+    if (minutes < 60) return `${minutes} ${texts.common.minutes}`; // Less than 1 hour
     return dayjs.duration(minutes, 'minutes').format('H [h] m [m]');
 };
 

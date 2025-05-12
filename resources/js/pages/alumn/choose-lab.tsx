@@ -9,6 +9,7 @@ import { Laboratory, SharedData } from '@/types';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import texts from '@/config/texts';
 import { RoleEnum } from '@/enums';
 import { formatMinutes } from '@/lib/utils';
 
@@ -33,22 +34,21 @@ export default function ChooseLab({ laboratories, totalServiceMinutes }: ChooseL
         e.preventDefault();
         post(route('attendance.store'));
     };
-    console.log(currentRole);
 
     return (
-        <AuthLayout title="Choose a laboratory" description="Select the laboratory you are going to stay">
+        <AuthLayout title={texts.chooseLab.title} description={texts.chooseLab.description}>
             <Head title="Register" />
 
             <form className="flex flex-col gap-6" onSubmit={submit}>
                 {(currentRole === RoleEnum.SOCIALSERVICE || currentRole === RoleEnum.INTERNSHIP) && (
                     <Card className="w-full max-w-lg border-emerald-200 bg-emerald-50">
                         <CardHeader>
-                            <CardTitle className="text-xl tracking-tight">Total service hours</CardTitle>
+                            <CardTitle className="text-xl tracking-tight">{texts.chooseLab.totalServiceHours}</CardTitle>
                         </CardHeader>
                         <CardContent className="pt-0">
                             <div className="grid gap-4">
                                 <div>
-                                    <p className="text-muted-foreground text-sm">Total</p>
+                                    <p className="text-muted-foreground text-sm">{texts.common.total}</p>
                                     <p className="text-2xl font-semibold tabular-nums @[250px]/card:text-5xl">{formatMinutes(totalServiceMinutes)}</p>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@ export default function ChooseLab({ laboratories, totalServiceMinutes }: ChooseL
                 )}
                 <div className="grid gap-6">
                     <div className="grid gap-2">
-                        <Label htmlFor="laboratories">Laboratory</Label>
+                        <Label htmlFor="laboratories">{texts.common.laboratory}</Label>
                         <Select value={data.laboratory_id.toString()} onValueChange={(value) => setData('laboratory_id', Number(value))}>
                             <SelectTrigger>
                                 <SelectValue placeholder="Select the laboratory you are going to stay" />
@@ -80,10 +80,10 @@ export default function ChooseLab({ laboratories, totalServiceMinutes }: ChooseL
 
                     <Button type="submit" className="mt-2 w-full" disabled={processing}>
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                        Continue
+                        {texts.common.continue}
                     </Button>
                     <Link href={route('home')} className={buttonVariants({ variant: 'link' })}>
-                        Go home
+                        {texts.common.goHome}
                     </Link>
                 </div>
             </form>

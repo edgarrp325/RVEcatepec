@@ -4,6 +4,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
+import texts from '@/config/texts';
 import AppLayout from '@/layouts/app-layout';
 import { getColumns } from '@/lib/data-tables/active-equipment-loans/columns';
 import { laboratoryFilter } from '@/lib/data-tables/attendance/filters';
@@ -17,7 +18,7 @@ import { FormEventHandler } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Dashboard',
+        title: texts.common.dashboard,
         href: '/dashboard',
     },
 ];
@@ -59,39 +60,39 @@ const AttendanceDashboard = ({ attendance, laboratories }: AttendanceDashboardPr
             {attendance ? (
                 <Card className="max-w-lg">
                     <CardHeader className="">
-                        <CardTitle className="text-xl tracking-tight">Asistencia Activa</CardTitle>
+                        <CardTitle className="text-xl tracking-tight">{texts.dashboard.currentAttendance}</CardTitle>
                     </CardHeader>
                     <CardContent className="pt-0">
                         <div className="grid gap-4">
                             <div>
-                                <p className="text-muted-foreground text-sm">Laboratorio</p>
+                                <p className="text-muted-foreground text-sm">{texts.common.laboratory}</p>
                                 <p className="text-2xl font-semibold">{attendance.name}</p>
                             </div>
                             <div>
-                                <p className="text-muted-foreground text-sm">Inicio de asistencia</p>
+                                <p className="text-muted-foreground text-sm">{texts.dashboard.attendanceStart}</p>
                                 <p className="text-2xl font-semibold">{formatTime(attendance.pivot.date + attendance.pivot.start_time)}</p>
                             </div>
                         </div>
                     </CardContent>
                     <CardFooter>
                         <Button size="lg" className="w-full" onClick={finishAttendance} disabled={processing}>
-                            Finalizar Asistencia
+                            {texts.dashboard.finishAttendance}
                         </Button>
                     </CardFooter>
                 </Card>
             ) : (
                 <Card className="max-w-lg">
                     <CardHeader className="">
-                        <CardTitle className="text-xl tracking-tight">Elegir Laboratorio</CardTitle>
+                        <CardTitle className="text-xl tracking-tight">{texts.dashboard.chooseLaboratory}</CardTitle>
                     </CardHeader>
                     <CardContent className="pt-0">
                         <form className="flex flex-col gap-6" onSubmit={submit}>
                             <div className="grid gap-6">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="laboratories">Laboratory</Label>
+                                    <Label htmlFor="laboratories">{texts.common.laboratory}</Label>
                                     <Select value={data.laboratory_id.toString()} onValueChange={(value) => setData('laboratory_id', Number(value))}>
                                         <SelectTrigger>
-                                            <SelectValue placeholder="Select the laboratory you are going to stay" />
+                                            <SelectValue placeholder={texts.common.laboratory} />
                                         </SelectTrigger>
                                         <SelectContent>
                                             {laboratories?.map((laboratory) => (
@@ -105,7 +106,7 @@ const AttendanceDashboard = ({ attendance, laboratories }: AttendanceDashboardPr
 
                                 <Button type="submit" className="mt-2 w-full" disabled={processing}>
                                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                    Continue
+                                    {texts.common.continue}
                                 </Button>
                             </div>
                         </form>
@@ -117,19 +118,18 @@ const AttendanceDashboard = ({ attendance, laboratories }: AttendanceDashboardPr
 };
 
 export default function AlumnDashboard({ attendance, laboratories, equipmentLoans, availableEquipment, isUsingComputer }: AlumnDashboardProps) {
-    console.log(equipmentLoans);
     const equipmentData = transformPublicEquipmentData(availableEquipment ?? []);
     const columns = getPublicColumns({ isUsingComputer });
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                <h2 className="text-xl font-bold">Bienvenido a tu dashboard</h2>
+                <h2 className="text-xl font-bold">{texts.dashboard.welcome}</h2>
                 <AttendanceDashboard attendance={attendance} laboratories={laboratories} />
                 <Separator className="my-4" />
                 {/* Equipment loans table */}
                 <div className="@container/main flex flex-1 flex-col gap-4 p-6">
-                    <h3 className="text-xl font-bold">My equipment loans</h3>
+                    <h3 className="text-xl font-bold">{texts.dashboard.myEquipmentLoans}</h3>
                     <DataTable
                         data={equipmentLoans ?? []}
                         columns={getColumns()}
@@ -140,7 +140,7 @@ export default function AlumnDashboard({ attendance, laboratories, equipmentLoan
                 <Separator className="my-4" />
                 {/* Available equipment table */}
                 <div className="@container/main flex flex-1 flex-col gap-4 p-6">
-                    <h3 className="text-xl font-bold">Available equipment</h3>
+                    <h3 className="text-xl font-bold">{texts.dashboard.availableEquipment}</h3>
                     <DataTable
                         data={equipmentData}
                         columns={columns}

@@ -4,6 +4,7 @@ import { Table } from '@tanstack/react-table';
 import { Download, X } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import texts from '@/config/texts';
 import { exportTableToCSV } from '@/lib/export';
 import { FilterOption } from '@/types';
 import { Input } from '../ui/input';
@@ -18,7 +19,14 @@ interface DataTableToolbarProps<TData> {
     hideExportButton?: boolean;
 }
 
-export function DataTableToolbar<TData>({ table, globalFilter, setGlobalFilter, filters = [], filename, hideExportButton = false}: DataTableToolbarProps<TData>) {
+export function DataTableToolbar<TData>({
+    table,
+    globalFilter,
+    setGlobalFilter,
+    filters = [],
+    filename,
+    hideExportButton = false,
+}: DataTableToolbarProps<TData>) {
     const isFiltered = table.getState().columnFilters.length > 0;
     return (
         <div className="flex items-center justify-between">
@@ -26,7 +34,7 @@ export function DataTableToolbar<TData>({ table, globalFilter, setGlobalFilter, 
                 {/* 🔍 Global filter field */}
                 <Input
                     id="search"
-                    placeholder="Search..."
+                    placeholder={texts.common.search}
                     value={globalFilter}
                     onChange={(e) => setGlobalFilter(e.target.value)}
                     className="max-w-sm"
@@ -42,7 +50,7 @@ export function DataTableToolbar<TData>({ table, globalFilter, setGlobalFilter, 
                 {/* ❌ Clean filters */}
                 {isFiltered && (
                     <Button variant="ghost" onClick={() => table.resetColumnFilters()} className="h-8 px-2 lg:px-3">
-                        Reset
+                        {texts.common.reset}
                         <X />
                     </Button>
                 )}
@@ -54,7 +62,7 @@ export function DataTableToolbar<TData>({ table, globalFilter, setGlobalFilter, 
                         size="sm"
                         onClick={() => exportTableToCSV(table, { filename: filename, excludeColumns: ['is_active', 'actions'] })}
                     >
-                        <Download /> Export
+                        <Download /> {texts.common.export}
                     </Button>
                 </div>
             )}

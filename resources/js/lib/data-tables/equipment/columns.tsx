@@ -2,6 +2,7 @@ import { DataTableSortableHeader } from '@/components/data-table/data-table-sort
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import texts from '@/config/texts';
 import { cn, formatMinutes, getBadgeColor } from '@/lib/utils';
 import { Equipment, EquipmentTable, EquipmentTablePublic } from '@/types';
 import { useForm } from '@inertiajs/react';
@@ -52,14 +53,14 @@ function ButtonStartLoan({ id, disabled }: ButtonStartLoanProps) {
     const startLoan = () => {
         post(route('equipment-loans.store'), {
             onSuccess: () => {
-                toast.success('Equipment loan started successfully');
+                toast.success(texts.toast.loanEquipment.success);
             },
-            onError: () => toast.error('Something went wrong'),
+            onError: () => toast.error(texts.toast.somethingWentWrong),
         });
     };
     return (
         <Button onClick={() => startLoan()} disabled={processing || disabled}>
-            Use
+            {texts.common.use}
         </Button>
     );
 }
@@ -156,7 +157,7 @@ export function getColumns({ setSelectedEquipment, openDialog, setIsDeleteDialog
         },
     ];
 }
-export function getPublicColumns({ isUsingComputer}: GetPublicColumnsProps): ColumnDef<EquipmentTablePublic>[] {
+export function getPublicColumns({ isUsingComputer }: GetPublicColumnsProps): ColumnDef<EquipmentTablePublic>[] {
     return [
         {
             accessorKey: 'id',
@@ -164,15 +165,15 @@ export function getPublicColumns({ isUsingComputer}: GetPublicColumnsProps): Col
         },
         {
             accessorKey: 'equipment_type_name',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Type" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title={texts.common.type} />,
         },
         {
             accessorKey: 'label',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Label" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title={texts.common.label} />,
         },
         {
             accessorKey: 'laboratory_name',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Laboratory" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title={texts.common.laboratory} />,
             filterFn: (row, id, value) => {
                 return value.includes(row.getValue(id));
             },

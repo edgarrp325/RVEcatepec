@@ -1,8 +1,9 @@
+import texts from '@/config/texts';
 import { Filter } from '@/types';
 
 export const laboratoryFilter: Filter = {
     columnKey: 'laboratory_name',
-    title: 'Labs',
+    title: texts.common.laboratories,
     options: [
         { value: 'Realidad virtual', label: 'Realidad virtual' },
         { value: 'Software', label: 'Software' },
@@ -13,10 +14,10 @@ export const laboratoryFilter: Filter = {
 
 export const statusFilter: Filter = {
     columnKey: 'status',
-    title: 'Status',
+    title: texts.common.status,
     options: [
-        { value: 'Available', label: 'Available' },
-        { value: 'In use', label: 'In use' },
-        { value: 'Maintenance', label: 'Maintenance' },
+        { value: 'Available', label: texts.common.available },
+        { value: 'In use', label: texts.common.inUse },
+        { value: 'Maintenance', label: texts.common.maintenance },
     ],
 };

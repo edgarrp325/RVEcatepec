@@ -13,30 +13,31 @@ import {
     Rocket,
     UserRoundCog,
 } from 'lucide-react';
+import texts from './texts';
 
 export const groupedNavItems: NavGroup[] = [
     {
-        title: 'Administration',
+        title: texts.common.administration,
         items: [
             {
-                title: 'Dashboard',
+                title: texts.common.dashboard,
                 url: '/dashboard',
                 icon: LayoutGrid,
             },
             {
-                title: 'One-time Passwords',
+                title: texts.oneTimePasswords.title,
                 url: '/dashboard/one-time-passwords',
                 icon: RectangleEllipsis,
                 canView: [RoleEnum.ADMIN],
             },
             {
-                title: 'Users',
+                title: texts.common.users,
                 url: '/dashboard/users',
                 icon: UserRoundCog,
                 canView: [RoleEnum.ADMIN],
             },
             {
-                title: 'Laboratories',
+                title: texts.common.laboratories,
                 url: '/dashboard/laboratories',
                 icon: Bot,
                 canView: [RoleEnum.ADMIN],

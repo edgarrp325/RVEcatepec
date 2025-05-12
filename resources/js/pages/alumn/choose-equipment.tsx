@@ -2,6 +2,7 @@ import { DataTable } from '@/components/data-table/data-table';
 import ImacIcon from '@/components/imac-icon';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import texts from '@/config/texts';
 import AuthLayout from '@/layouts/auth-layout';
 import { getPublicColumns } from '@/lib/data-tables/equipment/columns';
 import { laboratoryFilter } from '@/lib/data-tables/equipment/filters';
@@ -29,11 +30,11 @@ export default function ChooseEquipment({ equipment, isUsingComputer }: ChooseEq
     const startLoan = () => {
         post(route('equipment-loans.store'), {
             onSuccess: () => {
-                toast.success('Equipment loan started successfully');
+                toast.success(texts.toast.loanEquipment.success);
                 reset('equipment_id');
             },
             onError: () => {
-                toast.error('Something went wrong');
+                toast.error(texts.toast.somethingWentWrong);
                 reset('equipment_id');
             },
         });
@@ -51,11 +52,7 @@ export default function ChooseEquipment({ equipment, isUsingComputer }: ChooseEq
     const columns = getPublicColumns({ isUsingComputer });
 
     return (
-        <AuthLayout
-            title="Choose equipment"
-            description="Click on Use button to select the equipment you need. You only can choose one computer"
-            size="full"
-        >
+        <AuthLayout title={texts.chooseEquipment.title} description={texts.chooseEquipment.description} size="full">
             <Head title="Equipments" />
             <div className="flex h-full flex-1 flex-col justify-start gap-4 rounded-xl p-4">
                 <div className="@container/main flex flex-1 flex-col gap-2">
@@ -80,7 +77,7 @@ export default function ChooseEquipment({ equipment, isUsingComputer }: ChooseEq
                                                 }}
                                                 disabled={processing || isUsingComputer}
                                             >
-                                                Use
+                                                {texts.common.use}
                                             </Button>
                                         </CardFooter>
                                     </Card>
@@ -99,7 +96,7 @@ export default function ChooseEquipment({ equipment, isUsingComputer }: ChooseEq
                         </div>
                         <div className="ml-auto px-4 md:px-6">
                             <Link href={route('dashboard')} className={buttonVariants({ variant: 'default' })}>
-                                Continue
+                                {texts.common.continue}
                             </Link>
                         </div>
                     </div>
