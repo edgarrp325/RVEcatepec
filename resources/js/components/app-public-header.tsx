@@ -17,6 +17,7 @@ import {
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { RoleEnum } from '@/enums';
 import { useInitials } from '@/hooks/use-initials';
+import { useState } from 'react';
 import { Breadcrumbs } from './breadcrumbs';
 import { UserMenuContent } from './user-menu-content';
 
@@ -63,6 +64,7 @@ const AppPublicHeader = ({ logo, menu, authButtons, breadcrumbs = [] }: NavbarPr
     const page = usePage<SharedData>();
     const { auth } = page.props;
     const getInitials = useInitials();
+    const [isSheetOpen, setIsSheetOpen] = useState(false);
     return (
         <>
             {/* Desktop Menu */}
@@ -123,7 +125,7 @@ const AppPublicHeader = ({ logo, menu, authButtons, breadcrumbs = [] }: NavbarPr
                         <img src={logo.src} className="w-8" alt={logo.alt} />
                         <span className="text-lg font-semibold">{logo.title}</span>
                     </Link>
-                    <Sheet>
+                    <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
                         <SheetTrigger asChild>
                             <Button variant="outline" size="icon">
                                 <Menu className="size-4" />
@@ -145,9 +147,19 @@ const AppPublicHeader = ({ logo, menu, authButtons, breadcrumbs = [] }: NavbarPr
                                 {authButtons && (
                                     <div className="flex flex-col gap-3">
                                         {auth.user ? (
-                                            <Button asChild variant="outline" size="sm">
-                                                <Link href={route(authButtons.dashboard.url)}>{authButtons.dashboard.text}</Link>
-                                            </Button>
+                                            <>
+                                                <Button asChild variant="outline" size="sm">
+                                                    <Link href={route(authButtons.dashboard.url)}>{authButtons.dashboard.text}</Link>
+                                                </Button>
+                                                <Button asChild variant="outline" size="sm">
+                                                    <Link method="post" href={route('logout')} onClick={() => setIsSheetOpen(false)}>
+                                                        Cerrar sesión
+                                                    </Link>
+                                                </Button>
+                                                <Button asChild variant="outline" size="sm">
+                                                    <Link href={route('profile.edit')}>Ajustes</Link>
+                                                </Button>
+                                            </>
                                         ) : (
                                             <>
                                                 <Button asChild variant="outline" size="sm">

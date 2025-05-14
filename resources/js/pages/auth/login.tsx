@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import texts from '@/config/texts';
 import AuthLayout from '@/layouts/auth-layout';
 
 interface LoginForm {
@@ -38,13 +37,13 @@ export default function Login({ status, canResetPassword }: LoginProps) {
     };
 
     return (
-        <AuthLayout title={texts.login.title} description={texts.login.description}>
-            <Head title={texts.login.title} />
+        <AuthLayout title="Accede a tu cuenta" description="Utiliza tu correo y contraseña que registraste para acceder a tu cuenta.">
+            <Head title="Accede a tu cuenta" />
 
             <form className="flex flex-col gap-6" onSubmit={submit}>
                 <div className="grid gap-6">
                     <div className="grid gap-2">
-                        <Label htmlFor="email">{texts.common.email}</Label>
+                        <Label htmlFor="email">Correo electrónico</Label>
                         <Input
                             id="email"
                             type="email"
@@ -53,17 +52,17 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             autoComplete="email"
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
-                            placeholder={texts.common.placeHolderEmail}
+                            placeholder="correo@ejemplo.com"
                         />
                         <InputError message={errors.email} />
                     </div>
 
                     <div className="grid gap-2">
                         <div className="flex items-center">
-                            <Label htmlFor="password">{texts.common.password}</Label>
+                            <Label htmlFor="password">Contraseña</Label>
                             {canResetPassword && (
                                 <TextLink href={route('password.request')} className="ml-auto text-sm" tabIndex={5}>
-                                    {texts.login.forgotPassword}
+                                    ¿Olvidaste tu contraseña?
                                 </TextLink>
                             )}
                         </div>
@@ -74,27 +73,26 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             autoComplete="current-password"
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
-                            placeholder={texts.common.placeHolderPassword}
+                            placeholder="contraseña"
                         />
                         <InputError message={errors.password} />
                     </div>
 
                     <div className="flex items-center space-x-3">
                         <Checkbox id="remember" name="remember" tabIndex={3} />
-                        <Label htmlFor="remember">{texts.login.rememberMe}</Label>
+                        <Label htmlFor="remember">Recordar mi contraseña</Label>
                     </div>
 
                     <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                        {texts.login.button}
+                        Iniciar sesión
                     </Button>
                 </div>
 
                 <div className="text-muted-foreground text-center text-sm">
-                    {texts.login.noAccount}
-                    {'  '}
+                    ¿No tienes una cuenta?{' '}
                     <TextLink href={route('register')} tabIndex={5}>
-                        {texts.register.button}
+                        Regístrate
                     </TextLink>
                 </div>
             </form>

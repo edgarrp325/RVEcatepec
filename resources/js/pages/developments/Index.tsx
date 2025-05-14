@@ -1,17 +1,17 @@
 import AppPagination from '@/components/app-pagination';
 import { ShineBorder } from '@/components/magicui/shine-border';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import texts from '@/config/texts';
 import AppPublicLayout from '@/layouts/app-public-layout';
 import { BreadcrumbItem, DevelopmentPagination, DevelopmentResponse } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 
 const breadcrumb: BreadcrumbItem[] = [
     {
-        title: texts.developments.title,
+        title: 'Desarrollos',
         href: '/developments',
     },
 ];
+
 interface DevelopmentsProps {
     developments: DevelopmentPagination;
 }
@@ -19,9 +19,9 @@ interface DevelopmentsProps {
 export default function Index({ developments }: DevelopmentsProps) {
     return (
         <AppPublicLayout breadcrumbs={breadcrumb}>
-            <Head title="Developments" />
+            <Head title="Desarrollos" />
             <div className="flex h-full flex-1 flex-col justify-start gap-4 rounded-xl p-4">
-                {/* Developments */}
+                {/* Desarrollos */}
                 <div className="flex flex-wrap gap-4 px-4 lg:px-6">
                     {developments.data.map((development: DevelopmentResponse) => {
                         return (
@@ -49,7 +49,7 @@ export default function Index({ developments }: DevelopmentsProps) {
                         );
                     })}
                 </div>
-                {/* Pagination  */}
+                {/* Paginación */}
                 <AppPagination items={developments} />
             </div>
         </AppPublicLayout>

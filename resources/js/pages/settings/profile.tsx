@@ -9,7 +9,6 @@ import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import texts from '@/config/texts';
 import { RoleEnum } from '@/enums';
 import AppLayout from '@/layouts/app-layout';
 import AppPublicLayout from '@/layouts/app-public-layout';
@@ -17,7 +16,7 @@ import SettingsLayout from '@/layouts/settings/layout';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: texts.settings.profile.title,
+        title: 'Profile Settings',
         href: '/settings/profile',
     },
 ];
@@ -52,15 +51,15 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
 
     return (
         <Layout breadcrumbs={breadcrumbs} role={role}>
-            <Head title={texts.settings.profile.title} />
+            <Head title="Profile Settings" />
 
             <SettingsLayout>
                 <div className="space-y-6">
-                    <HeadingSmall title={texts.settings.profile.subtitle} description={texts.settings.profile.description} />
+                    <HeadingSmall title="Edit Your Profile" description="Update your name and email address below." />
 
                     <form onSubmit={submit} className="space-y-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="name">{texts.common.name}</Label>
+                            <Label htmlFor="name">Name</Label>
 
                             <Input
                                 id="name"
@@ -69,14 +68,14 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                 onChange={(e) => setData('name', e.target.value)}
                                 required
                                 autoComplete="name"
-                                placeholder={texts.register.placeHolderName}
+                                placeholder="Enter your full name"
                             />
 
                             <InputError className="mt-2" message={errors.name} />
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="email">{texts.common.email}</Label>
+                            <Label htmlFor="email">Email Address</Label>
 
                             <Input
                                 id="email"
@@ -86,7 +85,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                 onChange={(e) => setData('email', e.target.value)}
                                 required
                                 autoComplete="username"
-                                placeholder={texts.common.placeHolderEmail}
+                                placeholder="Enter your email address"
                             />
 
                             <InputError className="mt-2" message={errors.email} />
@@ -95,25 +94,25 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                         {mustVerifyEmail && auth.user.email_verified_at === null && (
                             <div>
                                 <p className="text-muted-foreground -mt-4 text-sm">
-                                    {texts.verification.unverified}{' '}
+                                    Your email address is not verified.{' '}
                                     <Link
                                         href={route('verification.send')}
                                         method="post"
                                         as="button"
                                         className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
                                     >
-                                        {texts.verification.resend}
+                                        Resend Verification Email
                                     </Link>
                                 </p>
 
                                 {status === 'verification-link-sent' && (
-                                    <div className="mt-2 text-sm font-medium text-green-600">{texts.verification.linkSent}</div>
+                                    <div className="mt-2 text-sm font-medium text-green-600">A verification link has been sent to your email.</div>
                                 )}
                             </div>
                         )}
 
                         <div className="flex items-center gap-4">
-                            <Button disabled={processing}>{texts.common.save}</Button>
+                            <Button disabled={processing}>Save Changes</Button>
 
                             <Transition
                                 show={recentlySuccessful}
@@ -122,7 +121,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                 leave="transition ease-in-out"
                                 leaveTo="opacity-0"
                             >
-                                <p className="text-sm text-neutral-600">{texts.common.saved}</p>
+                                <p className="text-sm text-neutral-600">Your profile has been updated!</p>
                             </Transition>
                         </div>
                     </form>

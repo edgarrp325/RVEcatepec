@@ -9,7 +9,6 @@ import { Label } from '@/components/ui/label';
 import HeadingSmall from '@/components/heading-small';
 
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import texts from '@/config/texts';
 
 export default function DeleteUser() {
     const passwordInput = useRef<HTMLInputElement>(null);
@@ -33,24 +32,27 @@ export default function DeleteUser() {
 
     return (
         <div className="space-y-6">
-            <HeadingSmall title={texts.deleteAccount.title} description={texts.deleteAccount.description} />
+            <HeadingSmall title="Eliminar cuenta" description="Esto eliminará permanentemente tu cuenta" />
             <div className="space-y-4 rounded-lg border border-red-100 bg-red-50 p-4 dark:border-red-200/10 dark:bg-red-700/10">
                 <div className="relative space-y-0.5 text-red-600 dark:text-red-100">
-                    <p className="font-medium">{texts.common.warning}</p>
-                    <p className="text-sm">{texts.deleteAccount.advertence}</p>
+                    <p className="font-medium">Advertencia</p>
+                    <p className="text-sm">Por favor, procede con cautela, esta acción es irreversible.</p>
                 </div>
 
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button variant="destructive">{texts.deleteAccount.button}</Button>
+                        <Button variant="destructive">Eliminar cuenta</Button>
                     </DialogTrigger>
                     <DialogContent>
-                        <DialogTitle>{texts.deleteAccount.dialog.title}</DialogTitle>
-                        <DialogDescription>{texts.deleteAccount.dialog.description}</DialogDescription>
+                        <DialogTitle>¿Estás seguro que quieres eliminar tu cuenta?</DialogTitle>
+                        <DialogDescription>
+                            Una vez borrada tu cuenta, toda la información asociada será permanentemente borrada. Por favor, ingresa tu contraseña
+                            para confirmar que quieres borrar permanentemente tu cuenta.
+                        </DialogDescription>
                         <form className="space-y-6" onSubmit={deleteUser}>
                             <div className="grid gap-2">
                                 <Label htmlFor="password" className="sr-only">
-                                    {texts.common.password}
+                                    Contraseña
                                 </Label>
 
                                 <Input
@@ -60,7 +62,7 @@ export default function DeleteUser() {
                                     ref={passwordInput}
                                     value={data.password}
                                     onChange={(e) => setData('password', e.target.value)}
-                                    placeholder={texts.common.password}
+                                    placeholder="Contraseña"
                                     autoComplete="current-password"
                                 />
 
@@ -70,12 +72,12 @@ export default function DeleteUser() {
                             <DialogFooter className="gap-2">
                                 <DialogClose asChild>
                                     <Button variant="secondary" onClick={closeModal}>
-                                        {texts.common.cancel}
+                                        Cancelar
                                     </Button>
                                 </DialogClose>
 
                                 <Button variant="destructive" disabled={processing} asChild>
-                                    <button type="submit">{texts.deleteAccount.button}</button>
+                                    <button type="submit">Eliminar cuenta</button>
                                 </Button>
                             </DialogFooter>
                         </form>

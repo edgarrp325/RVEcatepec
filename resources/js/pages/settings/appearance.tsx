@@ -4,7 +4,6 @@ import AppearanceTabs from '@/components/appearance-tabs';
 import HeadingSmall from '@/components/heading-small';
 import { SharedData, type BreadcrumbItem } from '@/types';
 
-import texts from '@/config/texts';
 import { RoleEnum } from '@/enums';
 import AppLayout from '@/layouts/app-layout';
 import AppPublicLayout from '@/layouts/app-public-layout';
@@ -12,7 +11,7 @@ import SettingsLayout from '@/layouts/settings/layout';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: texts.settings.appearance.title,
+        title: 'Apariencia',
         href: '/settings/appearance',
     },
 ];
@@ -34,11 +33,11 @@ export default function Appearance() {
 
     return (
         <Layout breadcrumbs={breadcrumbs} role={role}>
-            <Head title="Appearance settings" />
+            <Head title="Configuración de apariencia" />
 
             <SettingsLayout>
                 <div className="space-y-6">
-                    <HeadingSmall title={texts.settings.appearance.subtitle} description={texts.settings.appearance.description} />
+                    <HeadingSmall title="Ajustes de Apariencia" description="Aquí puedes personalizar la apariencia de tu interfaz." />
                     <AppearanceTabs />
                 </div>
             </SettingsLayout>

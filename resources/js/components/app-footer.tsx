@@ -1,5 +1,4 @@
 import { footerItems, footerSocialItems } from '@/config/footer-items';
-import texts from '@/config/texts';
 import { cn } from '@/lib/utils';
 
 export default function AppFooter({ className }: { className?: string }) {
@@ -15,7 +14,13 @@ export default function AppFooter({ className }: { className?: string }) {
 
                         <div className="mt-2 flex flex-wrap items-center justify-center gap-2 md:justify-start">
                             {footerSocialItems.map((item, index) => (
-                                <a key={index} href={item.url} target="_blank" rel="noopener noreferrer" className="block transition-all hover:opacity-80">
+                                <a
+                                    key={index}
+                                    href={item.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block transition-all hover:opacity-80"
+                                >
                                     {item.icon}
                                 </a>
                             ))}
@@ -25,7 +30,10 @@ export default function AppFooter({ className }: { className?: string }) {
                     {/* Center column - Logo */}
                     <div className="flex justify-center">
                         <div className="size-20">
-                            <img src="https://realidadvirtualecatepec.com.mx/public/img/isotipo_RV.png" alt="" />
+                            <img
+                                src="https://realidadvirtualecatepec.com.mx/public/img/isotipo_RV.png"
+                                alt="Logo del Laboratorio de Realidad Virtual"
+                            />
                         </div>
                     </div>
 
@@ -48,8 +56,8 @@ export default function AppFooter({ className }: { className?: string }) {
                 </div>
 
                 <div className="mt-8 border-t border-white/20 pt-4 text-center text-xs">
-                    <p>{texts.footer.useDisclaimer}</p>
-                    <p>{texts.footer.copyright}</p>
+                    <p>Todos los derechos reservados. Uso exclusivo del Laboratorio de Realidad Virtual.</p>
+                    <p>&copy; 2025 Universidad Autónoma del Estado de México.</p>
                 </div>
             </div>
         </footer>

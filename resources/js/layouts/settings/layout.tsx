@@ -1,24 +1,23 @@
 import Heading from '@/components/heading';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import texts from '@/config/texts';
 import { cn } from '@/lib/utils';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 
 const sidebarNavItems: NavItem[] = [
     {
-        title: texts.settings.profile.title,
+        title: 'Perfil',
         url: '/settings/profile',
         icon: null,
     },
     {
-        title: texts.settings.password.title,
+        title: 'Contraseña',
         url: '/settings/password',
         icon: null,
     },
     {
-        title: texts.settings.appearance.title,
+        title: 'Apariencia',
         url: '/settings/appearance',
         icon: null,
     },
@@ -29,7 +28,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
 
     return (
         <div className="px-4 py-6">
-            <Heading title={texts.settings.title} description={texts.settings.description} />
+            <Heading title="Ajustes" description="Administra tu perfil y la configuración de tu cuenta" />
 
             <div className="flex flex-col space-y-8 lg:flex-row lg:space-y-0 lg:space-x-12">
                 <aside className="w-full max-w-xl lg:w-48">

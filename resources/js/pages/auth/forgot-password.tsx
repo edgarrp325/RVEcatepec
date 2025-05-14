@@ -8,7 +8,6 @@ import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import texts from '@/config/texts';
 import AuthLayout from '@/layouts/auth-layout';
 
 export default function ForgotPassword({ status }: { status?: string }) {
@@ -23,7 +22,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
     };
 
     return (
-        <AuthLayout title={texts.forgotPassword.title} description={texts.forgotPassword.description}>
+        <AuthLayout title="Restablece tu contraseña" description="Ingresa tu correo para recibir un enlace para restablecer tu contraseña.">
             <Head title="Forgot password" />
 
             {status && <div className="mb-4 text-center text-sm font-medium text-green-600">{status}</div>}
@@ -31,7 +30,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
             <div className="space-y-6">
                 <form onSubmit={submit}>
                     <div className="grid gap-2">
-                        <Label htmlFor="email">{texts.common.email}</Label>
+                        <Label htmlFor="email">Correo electrónico</Label>
                         <Input
                             id="email"
                             type="email"
@@ -40,7 +39,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
                             value={data.email}
                             autoFocus
                             onChange={(e) => setData('email', e.target.value)}
-                            placeholder={texts.common.placeHolderEmail}
+                            placeholder="correo@ejemplo.com"
                         />
 
                         <InputError message={errors.email} />
@@ -49,14 +48,14 @@ export default function ForgotPassword({ status }: { status?: string }) {
                     <div className="my-6 flex items-center justify-start">
                         <Button className="w-full" disabled={processing}>
                             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                            {texts.forgotPassword.button}
+                            Enviar enlace de restablecimiento
                         </Button>
                     </div>
                 </form>
 
                 <div className="text-muted-foreground space-x-1 text-center text-sm">
-                    <span>{texts.forgotPassword.returnLogin}</span>
-                    <TextLink href={route('login')}>{texts.login.button}</TextLink>
+                    <span>O bien, vuelve al apartado de</span>
+                    <TextLink href={route('login')}>Iniciar sesión</TextLink>
                 </div>
             </div>
         </AuthLayout>

@@ -9,7 +9,6 @@ import { cn, getRelativeTime } from '@/lib/utils';
 import dayjs from 'dayjs';
 
 import AppPublicLayout from '@/layouts/app-public-layout';
-import texts from '@/config/texts';
 
 interface ShowProps {
     project: Project;
@@ -18,11 +17,11 @@ interface ShowProps {
 export default function Show({ project }: ShowProps) {
     const breadcrumb: BreadcrumbItem[] = [
         {
-            title: texts.resources.title,
+            title: 'Recursos',
             href: '/resources',
         },
         {
-            title: texts.resources.projects.title,
+            title: 'Proyectos',
             href: '/resources/projects',
         },
         {
@@ -41,9 +40,9 @@ export default function Show({ project }: ShowProps) {
                             <CardHeader className="relative">
                                 <CardTitle className="w-11/12 text-xl">{project.title}</CardTitle>
                                 <CardDescription className="flex flex-wrap gap-x-2">
-                                    <p>{cn('Published', getRelativeTime(project.created_at))}</p>
+                                    <p>{cn('Publicado', getRelativeTime(project.created_at))}</p>
                                     {!dayjs(project.updated_at).isSame(project.created_at) && (
-                                        <p>{cn('Last update', getRelativeTime(project.updated_at))}</p>
+                                        <p>{cn('Última actualización', getRelativeTime(project.updated_at))}</p>
                                     )}
                                 </CardDescription>
                             </CardHeader>

@@ -14,7 +14,6 @@ import { type Major, type Role } from '@/types';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import texts from '@/config/texts';
 
 interface RegisterForm {
     account_number: string;
@@ -84,22 +83,22 @@ export default function Register({ roles, majors }: RegisterProps) {
     }, [errors]);
 
     return (
-        <AuthLayout title={texts.register.title} description={texts.register.description}>
-            <Head title={texts.register.title} />
+        <AuthLayout title="Regístrate" description="Los datos que proporciones serán usados exclusivamente para fines de autenticación.">
+            <Head title="Regístrate" />
             <div className="text-muted-foreground -mt-4 text-center text-sm">
-                {texts.register.info}
+                Para más información, consulta nuestros
                 {'  '}
                 <TextLink href={route('home')} tabIndex={5}>
-                    {texts.common.termsAndConditions}
+                    Términos y condiciones
                 </TextLink>
             </div>
             <form className="flex flex-col gap-6" onSubmit={submit}>
                 <div className="grid gap-6">
                     <div className="grid gap-2">
-                        <Label htmlFor="roles">{texts.common.typeUser} </Label>
+                        <Label htmlFor="roles">Tipo de usuario</Label>
                         <Select value={data.role_id.toString()} onValueChange={(value) => handleRoleChange(value)}>
                             <SelectTrigger>
-                                <SelectValue placeholder={texts.register.placeHolderRole} />
+                                <SelectValue placeholder="Selecciona tu rol" />
                             </SelectTrigger>
                             <SelectContent>
                                 {roles.map((role) => (
@@ -108,13 +107,13 @@ export default function Register({ roles, majors }: RegisterProps) {
                                     </SelectItem>
                                 ))}
                             </SelectContent>
-                            <small>{texts.common.description + ': ' + roles[parseInt(data.role_id) - 1].description}</small>
+                            <small>{'Descripción: ' + roles[parseInt(data.role_id) - 1].description}</small>
                         </Select>
                     </div>
                     {!isSelectedUser && (
                         <div className="grid gap-2">
                             <Label htmlFor="account_number" required>
-                                {texts.common.accountNumber}
+                                Número de cuenta UAEMex
                             </Label>
                             <Input
                                 id="account_number"
@@ -123,13 +122,15 @@ export default function Register({ roles, majors }: RegisterProps) {
                                 value={data.account_number}
                                 onChange={(e) => setData('account_number', e.target.value)}
                                 disabled={processing}
-                                placeholder={texts.register.placeHolderAccountNumber}
+                                placeholder="máximo 8 caracteres"
                             />
                             <InputError message={errors.account_number} className="mt-2" />
                         </div>
                     )}
                     <div className="grid gap-2">
-                        <Label htmlFor="paternal_surname" required>{texts.common.paternalSurname}</Label>
+                        <Label htmlFor="paternal_surname" required>
+                            Apellido Paterno
+                        </Label>
                         <Input
                             id="paternal_surname"
                             type="text"
@@ -137,13 +138,13 @@ export default function Register({ roles, majors }: RegisterProps) {
                             value={data.paternal_surname}
                             onChange={(e) => setData('paternal_surname', e.target.value)}
                             disabled={processing}
-                            placeholder={texts.register.placeHolderPaternalSurname}
+                            placeholder="Apellido Paterno"
                         />
                         <InputError message={errors.paternal_surname} className="mt-2" />
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="maternal_surname">{texts.common.maternalSurname}</Label>
+                        <Label htmlFor="maternal_surname">Apellido Materno</Label>
                         <Input
                             id="maternal_surname"
                             type="text"
@@ -151,13 +152,15 @@ export default function Register({ roles, majors }: RegisterProps) {
                             value={data.maternal_surname}
                             onChange={(e) => setData('maternal_surname', e.target.value)}
                             disabled={processing}
-                            placeholder={texts.register.placeHolderMaternalSurname}
+                            placeholder="Apellido Materno"
                         />
                         <InputError message={errors.maternal_surname} className="mt-2" />
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="name" required>{texts.common.name}</Label>
+                        <Label htmlFor="name" required>
+                            Nombre(s)
+                        </Label>
                         <Input
                             id="name"
                             type="text"
@@ -165,17 +168,17 @@ export default function Register({ roles, majors }: RegisterProps) {
                             value={data.name}
                             onChange={(e) => setData('name', e.target.value)}
                             disabled={processing}
-                            placeholder={texts.register.placeHolderName}
+                            placeholder="Nombre(s)"
                         />
                         <InputError message={errors.name} className="mt-2" />
                     </div>
 
                     {!isSelectedUser && (
                         <div className="grid gap-2">
-                            <Label htmlFor="majors">{texts.common.major}</Label>
+                            <Label htmlFor="majors">Carrera</Label>
                             <Select value={data.major_id.toString()} onValueChange={(value) => setData('major_id', value)}>
                                 <SelectTrigger>
-                                    <SelectValue placeholder={texts.register.placeHolderMajor} />
+                                    <SelectValue placeholder="Selecciona tu carrera" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {majors.map((major) => (
@@ -184,7 +187,7 @@ export default function Register({ roles, majors }: RegisterProps) {
                                         </SelectItem>
                                     ))}
                                     <SelectItem key={MajorEnum.OTHER} value={MajorEnum.OTHER}>
-                                        {texts.common.other}
+                                        Ingresa otra carrera
                                     </SelectItem>
                                 </SelectContent>
                             </Select>
@@ -193,7 +196,11 @@ export default function Register({ roles, majors }: RegisterProps) {
 
                     {(isSelectedUser || isSelectedOtherMajor) && (
                         <div className="grid gap-2">
-                            {!isSelectedOtherMajor && <Label htmlFor="origin" required>{texts.common.origin}</Label>}
+                            {!isSelectedOtherMajor && (
+                                <Label htmlFor="origin" required>
+                                    Institución educativa, organización, etc.
+                                </Label>
+                            )}
                             <Input
                                 id="origin"
                                 type="text"
@@ -201,14 +208,18 @@ export default function Register({ roles, majors }: RegisterProps) {
                                 value={data.origin}
                                 onChange={(e) => setData('origin', e.target.value)}
                                 disabled={processing}
-                                placeholder={!isSelectedOtherMajor ? texts.register.placeHolderOrigin : texts.register.placeHolderOtherMajor}
+                                placeholder={
+                                    !isSelectedOtherMajor ? 'Institución educativa, organización, etc.' : 'UAEMex Nezahualcóyotl, Mecatrónica'
+                                }
                             />
                             <InputError message={errors.origin} className="mt-2" />
                         </div>
                     )}
 
                     <div className="grid gap-2">
-                        <Label htmlFor="email" required>{texts.common.email}</Label>
+                        <Label htmlFor="email" required>
+                            Correo electrónico
+                        </Label>
                         <Input
                             id="email"
                             type="email"
@@ -216,13 +227,15 @@ export default function Register({ roles, majors }: RegisterProps) {
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
                             disabled={processing}
-                            placeholder={texts.common.placeHolderEmail}
+                            placeholder="correo@ejemplo.com"
                         />
                         <InputError message={errors.email} />
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="password" required>{texts.common.password}</Label>
+                        <Label htmlFor="password" required>
+                            Contraseña
+                        </Label>
                         <Input
                             id="password"
                             type="password"
@@ -230,13 +243,15 @@ export default function Register({ roles, majors }: RegisterProps) {
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
                             disabled={processing}
-                            placeholder={texts.common.placeHolderPassword}
+                            placeholder="contraseña"
                         />
                         <InputError message={errors.password} />
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="password_confirmation" required>{texts.common.confirmPassword}</Label>
+                        <Label htmlFor="password_confirmation" required>
+                            Confirmar contraseña
+                        </Label>
                         <Input
                             id="password_confirmation"
                             type="password"
@@ -244,26 +259,26 @@ export default function Register({ roles, majors }: RegisterProps) {
                             value={data.password_confirmation}
                             onChange={(e) => setData('password_confirmation', e.target.value)}
                             disabled={processing}
-                            placeholder={texts.register.placeHolderConfirmPassword}
+                            placeholder="contraseña"
                         />
                         <InputError message={errors.password_confirmation} />
                     </div>
 
                     <Button type="submit" className="mt-2 w-full" disabled={processing}>
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                        {texts.register.button}
+                        Regístrate
                     </Button>
                 </div>
 
                 <div className="text-muted-foreground text-center text-sm">
-                    {texts.register.alreadyHaveAccount} <TextLink href={route('login')}>{texts.login.button}</TextLink>
+                    ¿Ya tienes una cuenta? <TextLink href={route('login')}>Iniciar sesión</TextLink>
                 </div>
 
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle>{texts.modals.otp.title}</DialogTitle>
-                            <DialogDescription>{texts.modals.otp.description}</DialogDescription>
+                            <DialogTitle>Código de verificación</DialogTitle>
+                            <DialogDescription>Ingresa el código de verificación dado por el administrador.</DialogDescription>
                         </DialogHeader>
                         <div className="w-full flex-col items-center justify-center gap-2 p-4">
                             <InputOTP value={data.code} onChange={(value) => setData('code', value)} maxLength={6} onComplete={sendRegister}>

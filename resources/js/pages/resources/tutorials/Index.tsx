@@ -1,21 +1,21 @@
 import AppPagination from '@/components/app-pagination';
 import { ShineBorder } from '@/components/magicui/shine-border';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import texts from '@/config/texts';
 import AppPublicLayout from '@/layouts/app-public-layout';
 import { BreadcrumbItem, TutorialResponse, TutorialResponsePagination } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 
 const breadcrumb: BreadcrumbItem[] = [
     {
-        title: texts.resources.title,
+        title: 'Recursos',
         href: '/resources',
     },
     {
-        title: texts.resources.tutorials.title,
+        title: 'Tutoriales',
         href: '/resources/tutorials',
     },
 ];
+
 interface TutorialsProps {
     tutorials: TutorialResponsePagination;
 }
@@ -23,9 +23,9 @@ interface TutorialsProps {
 export default function Index({ tutorials }: TutorialsProps) {
     return (
         <AppPublicLayout breadcrumbs={breadcrumb}>
-            <Head title={texts.resources.tutorials.title} />
+            <Head title="Tutoriales" />
             <div className="flex h-full flex-1 flex-col justify-start gap-4 rounded-xl p-4">
-                {/* Tutorials */}
+                {/* Tutoriales */}
                 <div className="flex flex-wrap gap-4 px-4 lg:px-6">
                     {tutorials.data.map((tutorial: TutorialResponse) => {
                         return (
@@ -51,7 +51,7 @@ export default function Index({ tutorials }: TutorialsProps) {
                         );
                     })}
                 </div>
-                {/* Pagination  */}
+                {/* Paginación  */}
                 <AppPagination items={tutorials} />
             </div>
         </AppPublicLayout>

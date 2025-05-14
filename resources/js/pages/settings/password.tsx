@@ -9,14 +9,13 @@ import HeadingSmall from '@/components/heading-small';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import texts from '@/config/texts';
 import { RoleEnum } from '@/enums';
 import AppLayout from '@/layouts/app-layout';
 import AppPublicLayout from '@/layouts/app-public-layout';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: texts.settings.password.title,
+        title: 'Password Settings',
         href: '/settings/password',
     },
 ];
@@ -66,15 +65,15 @@ export default function Password() {
 
     return (
         <Layout breadcrumbs={breadcrumbs} role={role}>
-            <Head title={texts.settings.password.subtitle} />
+            <Head title="Change Password" />
 
             <SettingsLayout>
                 <div className="space-y-6">
-                    <HeadingSmall title={texts.settings.password.subtitle} description={texts.settings.password.description} />
+                    <HeadingSmall title="Change Your Password" description="Please update your password below." />
 
                     <form onSubmit={updatePassword} className="space-y-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="current_password">{texts.common.currentPassword}</Label>
+                            <Label htmlFor="current_password">Current Password</Label>
 
                             <Input
                                 id="current_password"
@@ -84,14 +83,14 @@ export default function Password() {
                                 type="password"
                                 className="mt-1 block w-full"
                                 autoComplete="current-password"
-                                placeholder={texts.common.currentPassword}
+                                placeholder="Enter your current password"
                             />
 
                             <InputError message={errors.current_password} />
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="password">{texts.common.newPassword}</Label>
+                            <Label htmlFor="password">New Password</Label>
 
                             <Input
                                 id="password"
@@ -101,14 +100,14 @@ export default function Password() {
                                 type="password"
                                 className="mt-1 block w-full"
                                 autoComplete="new-password"
-                                placeholder={texts.common.newPassword}
+                                placeholder="Enter a new password"
                             />
 
                             <InputError message={errors.password} />
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="password_confirmation">{texts.common.confirmNewPassword}</Label>
+                            <Label htmlFor="password_confirmation">Confirm New Password</Label>
 
                             <Input
                                 id="password_confirmation"
@@ -117,14 +116,14 @@ export default function Password() {
                                 type="password"
                                 className="mt-1 block w-full"
                                 autoComplete="new-password"
-                                placeholder={texts.common.confirmNewPassword}
+                                placeholder="Confirm your new password"
                             />
 
                             <InputError message={errors.password_confirmation} />
                         </div>
 
                         <div className="flex items-center gap-4">
-                            <Button disabled={processing}>{texts.settings.password.button}</Button>
+                            <Button disabled={processing}>Update Password</Button>
 
                             <Transition
                                 show={recentlySuccessful}
@@ -133,7 +132,7 @@ export default function Password() {
                                 leave="transition ease-in-out"
                                 leaveTo="opacity-0"
                             >
-                                <p className="text-sm text-neutral-600">{texts.settings.password.success}</p>
+                                <p className="text-sm text-neutral-600">Your password has been updated successfully!</p>
                             </Transition>
                         </div>
                     </form>

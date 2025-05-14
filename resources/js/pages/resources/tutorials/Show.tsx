@@ -8,7 +8,6 @@ import '@justinribeiro/lite-youtube';
 import dayjs from 'dayjs';
 
 import AppPublicLayout from '@/layouts/app-public-layout';
-import texts from '@/config/texts';
 
 interface ShowProps {
     tutorial: Tutorial;
@@ -17,11 +16,11 @@ interface ShowProps {
 export default function Show({ tutorial }: ShowProps) {
     const breadcrumb: BreadcrumbItem[] = [
         {
-            title: texts.resources.title,
-            href: '/resources', 
+            title: 'Recursos',
+            href: '/resources',
         },
         {
-            title: texts.resources.tutorials.title,
+            title: 'Tutoriales',
             href: '/resources/tutorials',
         },
         {
@@ -40,9 +39,9 @@ export default function Show({ tutorial }: ShowProps) {
                             <CardHeader>
                                 <CardTitle className="w-11/12 text-xl">{tutorial.title}</CardTitle>
                                 <CardDescription className="flex flex-wrap gap-x-2">
-                                    <p>{cn('Published', getRelativeTime(tutorial.created_at))}</p>
+                                    <p>{cn('Publicado', getRelativeTime(tutorial.created_at))}</p>
                                     {!dayjs(tutorial.updated_at).isSame(tutorial.created_at) && (
-                                        <p>{cn('Last update', getRelativeTime(tutorial.updated_at))}</p>
+                                        <p>{cn('Última actualización', getRelativeTime(tutorial.updated_at))}</p>
                                     )}
                                 </CardDescription>
                             </CardHeader>

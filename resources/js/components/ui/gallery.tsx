@@ -5,7 +5,6 @@ import { ArrowRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel';
-import texts from '@/config/texts';
 
 export interface GalleryItem {
     id: string;
@@ -94,7 +93,7 @@ const Gallery = ({ items, onlyImage = false }: GalleryProps) => {
                                                 <div className="mb-8 line-clamp-2 md:mb-12 lg:mb-9">{item.description}</div>
                                                 {item.href && (
                                                     <div className="flex items-center text-sm">
-                                                        {texts.common.enter}{' '}
+                                                        Ingresar
                                                         <ArrowRight className="ml-2 size-5 transition-transform group-hover:translate-x-1" />
                                                     </div>
                                                 )}
@@ -113,7 +112,7 @@ const Gallery = ({ items, onlyImage = false }: GalleryProps) => {
                         key={index}
                         className={`h-4 w-4 rounded-full transition-colors hover:cursor-pointer ${currentSlide === index ? 'bg-primary' : 'bg-primary/20'}`}
                         onClick={() => carouselApi?.scrollTo(index)}
-                        aria-label={`Go to slide ${index + 1}`}
+                        aria-label={`Ir a la diapositiva ${index + 1}`}
                     />
                 ))}
             </div>

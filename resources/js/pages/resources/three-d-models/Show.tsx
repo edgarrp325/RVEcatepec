@@ -1,7 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import texts from '@/config/texts';
 import AppPublicLayout from '@/layouts/app-public-layout';
 import { cn, downloadFile, getCompactNumber, getRelativeTime } from '@/lib/utils';
 import { BreadcrumbItem, ThreeDModelResponse } from '@/types';
@@ -18,11 +17,11 @@ interface ShowProps {
 export default function Show({ model }: ShowProps) {
     const breadcrumb: BreadcrumbItem[] = [
         {
-            title: texts.resources.title,
+            title: 'Recursos',
             href: '/resources',
         },
         {
-            title: texts.resources.threeDModels.title,
+            title: 'Modelos 3D',
             href: '/resources/three-d-models',
         },
         {
@@ -51,9 +50,9 @@ export default function Show({ model }: ShowProps) {
                             <CardHeader className="relative">
                                 <CardTitle className="w-11/12 text-xl">{model.name}</CardTitle>
                                 <CardDescription className="flex flex-wrap gap-x-2">
-                                    <p>{cn('Published', getRelativeTime(model.created_at))}</p>
+                                    <p>{cn('Publicado', getRelativeTime(model.created_at))}</p>
                                     {!dayjs(model.updated_at).isSame(model.created_at) && (
-                                        <p>{cn('Last update', getRelativeTime(model.updated_at))}</p>
+                                        <p>{cn('Última actualización', getRelativeTime(model.updated_at))}</p>
                                     )}
                                 </CardDescription>
                                 <div className="absolute top-0 right-4 h-fit w-fit">
@@ -62,22 +61,22 @@ export default function Show({ model }: ShowProps) {
                             </CardHeader>
                             <CardContent className="flex flex-wrap items-center justify-between">
                                 <div className="flex gap-2 py-2">
-                                    {model.textures && <Badge>Textured</Badge>}
-                                    {model.animations && <Badge>Animated</Badge>}
-                                    {model.rigged && <Badge>Rigged</Badge>}
+                                    {model.textures && <Badge>Texturizado</Badge>}
+                                    {model.animations && <Badge>Animado</Badge>}
+                                    {model.rigged && <Badge>Con esqueleto</Badge>}
                                 </div>
                                 <p className="text-muted-foreground text-lg tabular-nums @[250px]/card:text-sm">
-                                    {cn('Poligons:', getCompactNumber(model.poligons))}
+                                    {cn('Polígonos:', getCompactNumber(model.poligons))}
                                 </p>
                             </CardContent>
                             <CardFooter className="flex justify-end">
                                 <Button
                                     onClick={() => {
                                         downloadFile(`/storage/${model.download_url}`);
-                                        toast.info('Your download will start automatically.');
+                                        toast.info('Tu descarga comenzará automáticamente.');
                                     }}
                                 >
-                                    Download
+                                    Descargar
                                     <Download className="ml-2 h-4 w-4" />
                                 </Button>
                             </CardFooter>
