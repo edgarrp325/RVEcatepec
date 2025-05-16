@@ -30,7 +30,7 @@ export default function Show({ model }: ShowProps) {
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
     const breadcrumb: BreadcrumbItem[] = [
         {
-            title: '3D Models',
+            title: 'Modelos 3D',
             href: '/dashboard/three-d-models',
         },
         {
@@ -42,10 +42,10 @@ export default function Show({ model }: ShowProps) {
     const deleteModel = () => {
         destroy(route('three-d-models.destroy', model.id), {
             onSuccess: () => {
-                toast.success('3D Model deleted successfully');
+                toast.success('Modelo 3D eliminado con éxito');
             },
             onError: () => {
-                toast.error('Error deleting 3D Model');
+                toast.error('Error al eliminar el Modelo 3D');
             },
         });
     };
@@ -70,9 +70,9 @@ export default function Show({ model }: ShowProps) {
                             <CardHeader className="relative">
                                 <CardTitle className="w-11/12 text-xl">{model.name}</CardTitle>
                                 <CardDescription className="flex flex-wrap gap-x-2">
-                                    <p>{cn('Published', getRelativeTime(model.created_at))}</p>
+                                    <p>{cn('Publicado', getRelativeTime(model.created_at))}</p>
                                     {!dayjs(model.updated_at).isSame(model.created_at) && (
-                                        <p>{cn('Last update', getRelativeTime(model.updated_at))}</p>
+                                        <p>{cn('Última actualización', getRelativeTime(model.updated_at))}</p>
                                     )}
                                 </CardDescription>
                                 <div className="absolute top-0 right-4 h-fit w-fit">
@@ -81,45 +81,45 @@ export default function Show({ model }: ShowProps) {
                             </CardHeader>
                             <CardContent className="flex flex-wrap items-center justify-between">
                                 <div className="flex gap-2 py-2">
-                                    {model.textures && <Badge>Textured</Badge>}
-                                    {model.animations && <Badge>Animated</Badge>}
-                                    {model.rigged && <Badge>Rigged</Badge>}
+                                    {model.textures && <Badge>Texturizado</Badge>}
+                                    {model.animations && <Badge>Animado</Badge>}
+                                    {model.rigged && <Badge>Riggeado</Badge>}
                                 </div>
                                 <p className="text-muted-foreground text-lg tabular-nums @[250px]/card:text-sm">
-                                    {cn('Poligons:', getCompactNumber(model.poligons))}
+                                    {cn('Polígonos:', getCompactNumber(model.poligons))}
                                 </p>
                             </CardContent>
                             <CardFooter className="flex justify-between">
                                 <Button
                                     onClick={() => {
                                         downloadFile(`/storage/${model.download_url}`);
-                                        toast.info('Your download will start automatically.');
+                                        toast.info('Tu descarga comenzará automáticamente.');
                                     }}
                                 >
-                                    Download
+                                    Descargar
                                 </Button>
                                 <div className="flex gap-2">
                                     <Link className={buttonVariants({ variant: 'outline' })} href={route('three-d-models.edit', model.id)}>
-                                        Edit
+                                        Editar
                                     </Link>
                                     <Button variant="destructive" onClick={() => setIsDeleteDialogOpen(true)}>
-                                        Delete
+                                        Eliminar
                                     </Button>
                                 </div>
                             </CardFooter>
                         </Card>
-                        {/* Alert dialog to delete model  */}
+                        {/* Diálogo de confirmación para eliminar modelo */}
                         <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
                             <AlertDialogContent>
                                 <AlertDialogHeader>
-                                    <AlertDialogTitle>Are you sure to delete this 3D model?</AlertDialogTitle>
-                                    <AlertDialogDescription>This will permanently delete this 3D model</AlertDialogDescription>
+                                    <AlertDialogTitle>¿Estás seguro de eliminar este modelo 3D?</AlertDialogTitle>
+                                    <AlertDialogDescription>Esto eliminará permanentemente este modelo 3D</AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                    <AlertDialogCancel onClick={() => setIsDeleteDialogOpen(false)}>Cancel</AlertDialogCancel>
+                                    <AlertDialogCancel onClick={() => setIsDeleteDialogOpen(false)}>Cancelar</AlertDialogCancel>
                                     <AlertDialogAction onClick={deleteModel} disabled={processing}>
                                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                        Delete
+                                        Eliminar
                                     </AlertDialogAction>
                                 </AlertDialogFooter>
                             </AlertDialogContent>

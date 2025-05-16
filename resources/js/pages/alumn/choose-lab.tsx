@@ -33,17 +33,16 @@ export default function ChooseLab({ laboratories, totalServiceMinutes }: ChooseL
         e.preventDefault();
         post(route('attendance.store'));
     };
-    console.log(currentRole);
 
     return (
-        <AuthLayout title="Choose a laboratory" description="Select the laboratory you are going to stay">
-            <Head title="Register" />
+        <AuthLayout title="Elegir laboratorio" description="Selecciona el laboratorio en el que vas a permanecer">
+            <Head title="Registro" />
 
             <form className="flex flex-col gap-6" onSubmit={submit}>
                 {(currentRole === RoleEnum.SOCIALSERVICE || currentRole === RoleEnum.INTERNSHIP) && (
                     <Card className="w-full max-w-lg border-emerald-200 bg-emerald-50">
                         <CardHeader>
-                            <CardTitle className="text-xl tracking-tight">Total service hours</CardTitle>
+                            <CardTitle className="text-xl tracking-tight">Total de horas de servicio</CardTitle>
                         </CardHeader>
                         <CardContent className="pt-0">
                             <div className="grid gap-4">
@@ -57,10 +56,10 @@ export default function ChooseLab({ laboratories, totalServiceMinutes }: ChooseL
                 )}
                 <div className="grid gap-6">
                     <div className="grid gap-2">
-                        <Label htmlFor="laboratories">Laboratory</Label>
+                        <Label htmlFor="laboratories">Laboratorio</Label>
                         <Select value={data.laboratory_id.toString()} onValueChange={(value) => setData('laboratory_id', Number(value))}>
                             <SelectTrigger>
-                                <SelectValue placeholder="Select the laboratory you are going to stay" />
+                                <SelectValue placeholder="Selecciona el laboratorio en el que vas a permanecer" />
                             </SelectTrigger>
                             <SelectContent>
                                 {laboratories.map((laboratory) => (
@@ -80,10 +79,10 @@ export default function ChooseLab({ laboratories, totalServiceMinutes }: ChooseL
 
                     <Button type="submit" className="mt-2 w-full" disabled={processing}>
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                        Continue
+                        Continuar
                     </Button>
                     <Link href={route('home')} className={buttonVariants({ variant: 'link' })}>
-                        Go home
+                        Ir al inicio
                     </Link>
                 </div>
             </form>

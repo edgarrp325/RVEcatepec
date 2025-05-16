@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import dayjs from 'dayjs';
+import 'dayjs/locale/es';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { twMerge } from 'tailwind-merge';
@@ -10,7 +11,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export const formatMinutes = (minutes: number): string => {
     dayjs.extend(duration);
-    if (minutes < 60) return `${minutes} minutes`; // Less than 1 hour
+    if (minutes < 60) return `${minutes} minutos`;
     return dayjs.duration(minutes, 'minutes').format('H [h] m [m]');
 };
 
@@ -20,10 +21,12 @@ export const formatTime = (time: string): string => {
 };
 
 export const getRelativeTime = (date: string) => {
+    dayjs.extend(relativeTime);
+    dayjs.locale('es');
+
     const diffInDays = dayjs().diff(dayjs(date), 'day');
 
     if (diffInDays <= 3) {
-        dayjs.extend(relativeTime);
         return dayjs().to(dayjs(date));
     } else {
         return dayjs(date).format('DD/MM/YY');
@@ -31,7 +34,7 @@ export const getRelativeTime = (date: string) => {
 };
 
 export const getCompactNumber = (number: number) => {
-    const formatter = new Intl.NumberFormat('en', {
+    const formatter = new Intl.NumberFormat('es', {
         notation: 'compact',
     });
 

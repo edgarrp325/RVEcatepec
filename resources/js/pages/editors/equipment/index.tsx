@@ -31,7 +31,7 @@ import { toast } from 'sonner';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Equipment',
+        title: 'Equipos',
         href: '/dashboard/equipment',
     },
 ];
@@ -64,8 +64,8 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
     } = useForm<EquipmentForm>({
         id: '',
         label: '',
-        equipment_type_id: '',
-        laboratory_id: '',
+        equipment_type_id: '1',
+        laboratory_id: '1',
     });
 
     const equipmentData = transformEquipmentData(equipment);
@@ -83,22 +83,23 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
 
     const dialogVariants = {
         create: {
-            title: 'New Equipment',
-            description: 'You can create a new equipment',
-            button: 'Create',
+            title: 'Nuevo equipo',
+            description: 'Puedes crear un nuevo equipo',
+            button: 'Crear',
         },
         edit: {
-            title: 'Edit Equipment',
-            description: 'You can edit the id, label, equipment type and laboratory for this equipment',
-            button: 'Edit',
+            title: 'Editar equipo',
+            description: 'Puedes editar el número, nombre, tipo y laboratorio de este equipo',
+            button: 'Editar',
         },
     };
+
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         if (isEditSelected) {
             put(route('equipment.update', selectedEquipment?.id), {
                 onSuccess: () => {
-                    toast.success('Equipment updated successfully');
+                    toast.success('Equipo actualizado exitosamente');
                     closeDialog();
                 },
                 onFinish: () => reset(),
@@ -106,21 +107,23 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
         } else {
             post(route('equipment.store'), {
                 onSuccess: () => {
-                    toast.success('Equipment created successfully');
+                    toast.success('Equipo creado exitosamente');
                     closeDialog();
                 },
                 onFinish: () => reset(),
             });
         }
     };
+
     const deleteEquipment = () => {
         destroy(route('equipment.destroy', selectedEquipment?.id), {
             onSuccess: () => {
-                toast.success('Equipment type deleted successfully');
+                toast.success('Equipo eliminado exitosamente');
                 closeDialog();
             },
         });
     };
+
     const openDialog = (variant: 'create' | 'edit', equipment?: Equipment) => {
         setDialogLabels(dialogVariants[variant]);
         setIsEditSelected(variant === 'edit');
@@ -154,9 +157,9 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
         put(route('equipment-loans.update', id), {
             preserveScroll: true,
             onSuccess: () => {
-                toast.success('Loan finished successfully');
+                toast.success('Préstamo finalizado correctamente');
             },
-            onError: () => toast.error('Something went wrong'),
+            onError: () => toast.error('Algo salió mal'),
         });
     };
     useEffect(() => {
@@ -182,65 +185,65 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Equipments" />
+            <Head title="Equipos" />
             <div className="flex h-full flex-1 flex-col justify-start gap-4 rounded-xl p-4">
-                {/* New Equipment button  */}
                 <div className="px-4 md:px-6">
                     <Button variant={'outline'} onClick={() => openDialog('create')}>
-                        <Plus /> New Equipment
+                        <Plus /> Nuevo equipo
                     </Button>
                 </div>
+
                 <div className="@container/main flex flex-1 flex-col gap-2">
                     <div className="flex flex-col gap-4 md:gap-6">
-                        {/* iMacs cards grid */}
+                        {/* Tarjetas de iMacs */}
                         <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-2 gap-4 px-4 lg:px-6 @xl/main:grid-cols-3 @5xl/main:grid-cols-6">
-                            {iMacs.map((iMac) => {
-                                return (
-                                    <Card key={iMac.id} className="@container/card">
-                                        <CardHeader className="relative">
-                                            <CardDescription>{'In use for ' + formatMinutes(iMac.used_time)}</CardDescription>
-                                            <div className="absolute top-0 right-4 h-fit w-fit">
-                                                <Badge className={cn('flex size-5 gap-1 rounded-full text-xs', getBadgeColor(iMac.status))} />
-                                            </div>
-                                        </CardHeader>
-                                        <CardContent>
-                                            <div
-                                                className={cn(
-                                                    'relative flex w-full justify-center',
-                                                    iMac.status === 'Maintenance' || iMac.status === 'In use' ? 'opacity-50' : '',
-                                                )}
-                                            >
-                                                <ImacIcon className="size-28" />
-                                                <p className="text-primary-foreground absolute bottom-1/2 z-10 text-2xl font-semibold tabular-nums">
-                                                    {iMac.label}
-                                                </p>
-                                            </div>
-                                        </CardContent>
-                                        <CardFooter className="flex justify-between gap-4">
-                                            {iMac.status === 'In use' && iMac.loan_id && (
-                                                <>
-                                                    <CardTitle>{iMac.user_full_name}</CardTitle>
-                                                    <Button variant="ghost" onClick={() => finishLoan(iMac.loan_id)} disabled={processing}>
-                                                        <LogOut className="size-8" />
-                                                    </Button>
-                                                </>
+                            {iMacs.map((iMac) => (
+                                <Card key={iMac.id} className="@container/card">
+                                    <CardHeader className="relative">
+                                        <CardDescription>{'En uso por ' + formatMinutes(iMac.used_time)}</CardDescription>
+                                        <div className="absolute top-0 right-4 h-fit w-fit">
+                                            <Badge className={cn('flex size-5 gap-1 rounded-full text-xs', getBadgeColor(iMac.status))} />
+                                        </div>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <div
+                                            className={cn(
+                                                'relative flex w-full justify-center',
+                                                iMac.status === 'Maintenance' || iMac.status === 'In use' ? 'opacity-50' : '',
                                             )}
-                                        </CardFooter>
-                                    </Card>
-                                );
-                            })}
+                                        >
+                                            <ImacIcon className="size-28" />
+                                            <p className="text-primary-foreground absolute bottom-1/2 z-10 text-2xl font-semibold tabular-nums">
+                                                {iMac.label}
+                                            </p>
+                                        </div>
+                                    </CardContent>
+                                    <CardFooter className="flex justify-between gap-4">
+                                        {iMac.status === 'In use' && iMac.loan_id && (
+                                            <>
+                                                <CardTitle>{iMac.user_full_name}</CardTitle>
+                                                <Button variant="ghost" onClick={() => finishLoan(iMac.loan_id)} disabled={processing}>
+                                                    <LogOut className="size-8" />
+                                                </Button>
+                                            </>
+                                        )}
+                                    </CardFooter>
+                                </Card>
+                            ))}
                         </div>
-                        {/* Equipment table */}
+
+                        {/* Tabla de equipos */}
                         <div className="@container/main flex flex-1 flex-col gap-4 p-6">
                             <DataTable
                                 data={equipmentData}
                                 columns={columns}
                                 searchableColumns={['id', 'equipment_type_name', 'label', 'user_full_name']}
                                 filters={[statusFilter, laboratoryFilter]}
-                                filename="Equipment"
+                                filename="Equipos"
                             />
                         </div>
-                        {/* Dialog to edit Equipment  */}
+
+                        {/* Diálogo para editar equipo */}
                         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                             <DialogContent>
                                 <DialogHeader>
@@ -259,14 +262,14 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
                                                     value={data.id}
                                                     onChange={(e) => setData('id', e.target.value)}
                                                     disabled={processing}
-                                                    placeholder="Enter the equipment id"
+                                                    placeholder="Ingresa el número del equipo"
                                                 />
                                                 <InputError message={errors.id} />
                                             </div>
                                         )}
 
                                         <div className="grid gap-2">
-                                            <Label htmlFor="equipment_label">Label</Label>
+                                            <Label htmlFor="equipment_label">Nombre</Label>
                                             <Input
                                                 id="equipment_label"
                                                 type="text"
@@ -274,38 +277,40 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
                                                 value={data.label}
                                                 onChange={(e) => setData('label', e.target.value)}
                                                 disabled={processing}
-                                                placeholder="Enter the equipment label (Model - number)"
+                                                placeholder="Ingresa el nombre del equipo (modelo - número)"
                                             />
                                             <InputError message={errors.label} />
                                         </div>
+
                                         <div className="grid gap-2">
-                                            <Label htmlFor="equipment_types">Equipment type</Label>
+                                            <Label htmlFor="equipment_types">Tipo de equipo</Label>
                                             <Select
                                                 value={data.equipment_type_id.toString()}
                                                 onValueChange={(value) => setData('equipment_type_id', value)}
                                             >
                                                 <SelectTrigger>
-                                                    <SelectValue placeholder="Select the type of equipment you need" />
+                                                    <SelectValue placeholder="Selecciona el tipo de equipo" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    {equipmentTypes.map((equipmentType) => (
-                                                        <SelectItem key={equipmentType.id} value={equipmentType.id.toString()}>
-                                                            {equipmentType.name.charAt(0).toUpperCase() + equipmentType.name.slice(1)}
+                                                    {equipmentTypes.map((type) => (
+                                                        <SelectItem key={type.id} value={type.id.toString()}>
+                                                            {type.name.charAt(0).toUpperCase() + type.name.slice(1)}
                                                         </SelectItem>
                                                     ))}
                                                 </SelectContent>
                                             </Select>
                                         </div>
+
                                         <div className="grid gap-2">
-                                            <Label htmlFor="laboratories">Laboratory</Label>
+                                            <Label htmlFor="laboratories">Laboratorio</Label>
                                             <Select value={data.laboratory_id.toString()} onValueChange={(value) => setData('laboratory_id', value)}>
                                                 <SelectTrigger>
-                                                    <SelectValue placeholder="Select the laboratory where the equipment is located" />
+                                                    <SelectValue placeholder="Selecciona el laboratorio donde está el equipo" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    {laboratories.map((laboratory) => (
-                                                        <SelectItem key={laboratory.id} value={laboratory.id.toString()}>
-                                                            {laboratory.name.charAt(0).toUpperCase() + laboratory.name.slice(1)}
+                                                    {laboratories.map((lab) => (
+                                                        <SelectItem key={lab.id} value={lab.id.toString()}>
+                                                            {lab.name.charAt(0).toUpperCase() + lab.name.slice(1)}
                                                         </SelectItem>
                                                     ))}
                                                 </SelectContent>
@@ -316,7 +321,7 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
                                     <div className="mt-4 flex justify-end gap-4">
                                         <DialogClose asChild>
                                             <Button variant="secondary" onClick={closeDialog}>
-                                                Cancel
+                                                Cancelar
                                             </Button>
                                         </DialogClose>
                                         <Button type="submit" disabled={processing}>
@@ -327,20 +332,21 @@ export default function Equipments({ equipment, equipmentTypes, laboratories }: 
                                 </form>
                             </DialogContent>
                         </Dialog>
-                        {/* Alert dialog to delete Equipment  */}
+
+                        {/* Diálogo de confirmación para eliminar equipo */}
                         <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
                             <AlertDialogContent>
                                 <AlertDialogHeader>
-                                    <AlertDialogTitle>Are you sure to delete this equipment?</AlertDialogTitle>
+                                    <AlertDialogTitle>¿Estás seguro de eliminar este equipo?</AlertDialogTitle>
                                     <AlertDialogDescription>
-                                        This will permanently delete this equipment and the associated loans.
+                                        Esto eliminará permanentemente el equipo y sus préstamos asociados.
                                     </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                    <AlertDialogCancel onClick={closeDeleteDialog}>Cancel</AlertDialogCancel>
+                                    <AlertDialogCancel onClick={closeDeleteDialog}>Cancelar</AlertDialogCancel>
                                     <AlertDialogAction onClick={deleteEquipment} disabled={processing}>
                                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                        Delete
+                                        Eliminar
                                     </AlertDialogAction>
                                 </AlertDialogFooter>
                             </AlertDialogContent>

@@ -34,7 +34,7 @@ export default function Show({ development }: ShowProps) {
 
     const breadcrumb: BreadcrumbItem[] = [
         {
-            title: 'Developments',
+            title: 'Desarrollos',
             href: '/dashboard/developments',
         },
         {
@@ -46,10 +46,10 @@ export default function Show({ development }: ShowProps) {
     const deleteProject = () => {
         destroy(route('developments.destroy', development.id), {
             onSuccess: () => {
-                toast.success('Development deleted successfully');
+                toast.success('Desarrollo eliminado exitosamente');
             },
             onError: () => {
-                toast.error('Error deleting development');
+                toast.error('Error al eliminar el desarrollo');
             },
         });
     };
@@ -70,43 +70,44 @@ export default function Show({ development }: ShowProps) {
                             <CardHeader className="relative">
                                 <CardTitle className="w-11/12 text-xl">{development.title}</CardTitle>
                                 <CardDescription className="flex flex-wrap gap-x-2">
-                                    <p>{cn('Published', getRelativeTime(development.created_at))}</p>
+                                    <p>{cn('Publicado', getRelativeTime(development.created_at))}</p>
                                     {!dayjs(development.updated_at).isSame(development.created_at) && (
-                                        <p>{cn('Last update', getRelativeTime(development.updated_at))}</p>
+                                        <p>{cn('Última actualización', getRelativeTime(development.updated_at))}</p>
                                     )}
                                 </CardDescription>
                             </CardHeader>
+
                             <CardContent className="flex flex-col gap-8 p-6">
-                                {/* Description */}
+                                {/* Descripción */}
                                 <div className="prose prose-p:m-0 prose-headings:first:mt-0 quill-content">
                                     <div dangerouslySetInnerHTML={{ __html: development.description }} />
                                 </div>
 
-                                {/* Gallery */}
+                                {/* Galería */}
                                 <Gallery items={images} onlyImage />
                             </CardContent>
 
                             <CardFooter className="flex justify-between">
                                 <div className="flex gap-2">
                                     <Button variant="destructive" onClick={() => setIsDeleteDialogOpen(true)}>
-                                        Delete
+                                        Eliminar
                                     </Button>
                                 </div>
                             </CardFooter>
                         </Card>
 
-                        {/* Alert dialog to delete project  */}
+                        {/* Diálogo de confirmación de eliminación */}
                         <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
                             <AlertDialogContent>
                                 <AlertDialogHeader>
-                                    <AlertDialogTitle>Are you sure to delete this development?</AlertDialogTitle>
-                                    <AlertDialogDescription>This will permanently delete this development</AlertDialogDescription>
+                                    <AlertDialogTitle>¿Estás seguro de eliminar este desarrollo?</AlertDialogTitle>
+                                    <AlertDialogDescription>Esto eliminará permanentemente este desarrollo.</AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                    <AlertDialogCancel onClick={() => setIsDeleteDialogOpen(false)}>Cancel</AlertDialogCancel>
+                                    <AlertDialogCancel onClick={() => setIsDeleteDialogOpen(false)}>Cancelar</AlertDialogCancel>
                                     <AlertDialogAction onClick={deleteProject} disabled={processing}>
                                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                        Delete
+                                        Eliminar
                                     </AlertDialogAction>
                                 </AlertDialogFooter>
                             </AlertDialogContent>

@@ -15,12 +15,12 @@ import { toast } from 'sonner';
 
 const breadcrumb: BreadcrumbItem[] = [
     {
-        title: 'Tutorials',
+        title: 'Tutoriales',
         href: '/dashboard/tutorials',
     },
     {
-        title: 'Create',
-        href: '/dashboard/tutorials/Create',
+        title: 'Crear',
+        href: '/dashboard/tutorials/create',
     },
 ];
 
@@ -33,9 +33,11 @@ interface TutorialFormData {
     tutorial_type_id: number;
     [key: string]: string | number | File | null;
 }
+
 interface CreateProps {
     tutorialTypes: TutorialType[];
 }
+
 export default function Create({ tutorialTypes }: CreateProps) {
     const { data, setData, post, errors, processing } = useForm<TutorialFormData>({
         title: '',
@@ -53,32 +55,34 @@ export default function Create({ tutorialTypes }: CreateProps) {
         e.preventDefault();
         post(route('tutorials.store'), {
             onSuccess: () => {
-                toast.success('Tutorial created successfully');
+                toast.success('Tutorial creado correctamente');
             },
             onError: () => {
-                toast.error('Error creating tutorial');
+                toast.error('Error al crear el tutorial');
             },
         });
     };
+    console.log(tutorialTypes);
 
     return (
         <AppLayout breadcrumbs={breadcrumb}>
-            <Head title="Create tutorial" />
+            <Head title="Crear tutorial" />
             <div className="flex h-full flex-col items-center rounded-xl p-4">
                 <form onSubmit={submit} className="my-4 w-full max-w-5xl space-y-6" encType="multipart/form-data">
                     <div className="grid gap-2">
-                        <Label htmlFor="tutorial_title">Title</Label>
+                        <Label htmlFor="tutorial_title">Título</Label>
                         <Input
                             id="tutorial_title"
                             className="mt-1 block w-full"
                             value={data.title}
                             onChange={(e) => setData('title', e.target.value)}
-                            placeholder="Tutorial title"
+                            placeholder="Título del tutorial"
                         />
                         <InputError className="mt-2" message={errors.title} />
                     </div>
+
                     <div className="grid gap-4 pb-10 text-wrap">
-                        <Label htmlFor="tutorial_description">Description</Label>
+                        <Label htmlFor="tutorial_description">Descripción</Label>
                         <ReactQuill
                             id="tutorial_description"
                             theme="snow"
@@ -88,9 +92,10 @@ export default function Create({ tutorialTypes }: CreateProps) {
                         />
                         <InputError className="mt-10" message={errors.description} />
                     </div>
+
                     <div className="grid gap-2">
-                        <Label htmlFor="tutorial_image">Preview Image</Label>
-                        {imagePreview && <img src={imagePreview} alt="Tutorial Image Preview" className="aspect-video w-3xl object-contain" />}
+                        <Label htmlFor="tutorial_image">Imagen de vista previa</Label>
+                        {imagePreview && <img src={imagePreview} alt="Vista previa del tutorial" className="aspect-video w-3xl object-contain" />}
                         <Input
                             id="tutorial_image"
                             type="file"
@@ -105,11 +110,12 @@ export default function Create({ tutorialTypes }: CreateProps) {
                         />
                         <InputError className="mt-2" message={errors.image} />
                     </div>
+
                     <div className="grid gap-2">
-                        <Label htmlFor="tutorial_type">Tutorial Type</Label>
+                        <Label htmlFor="tutorial_type">Tipo de tutorial</Label>
                         <Select value={data.tutorial_type_id.toString()} onValueChange={(value) => setData('tutorial_type_id', Number(value))}>
                             <SelectTrigger>
-                                <SelectValue placeholder="Select the tutorial type" />
+                                <SelectValue placeholder="Selecciona el tipo de tutorial" />
                             </SelectTrigger>
                             <SelectContent>
                                 {tutorialTypes.map((tutorialType) => (
@@ -123,13 +129,13 @@ export default function Create({ tutorialTypes }: CreateProps) {
 
                     {data.tutorial_type_id === 2 && (
                         <div className="grid gap-2">
-                            <Label htmlFor="tutorial_embed_url">File</Label>
+                            <Label htmlFor="tutorial_embed_url">Archivo PDF</Label>
                             {pdfPreview && (
                                 <embed
                                     className="mt-4 flex aspect-video w-11/12 items-center justify-center"
                                     src={pdfPreview}
                                     type="application/pdf"
-                                ></embed>
+                                />
                             )}
                             <Input
                                 id="tutorial_embed_url"
@@ -149,7 +155,7 @@ export default function Create({ tutorialTypes }: CreateProps) {
 
                     {data.tutorial_type_id === 1 && (
                         <div className="grid gap-2">
-                            <Label htmlFor="tutorial_embed_url">Embed URL</Label>
+                            <Label htmlFor="tutorial_embed_url">URL para insertar (Embed)</Label>
                             <lite-youtube className="mt-4 flex aspect-video w-full items-center justify-center md:w-9/12" videoId={data.embed_url} />
                             <Input
                                 id="tutorial_embed_url"
@@ -157,7 +163,7 @@ export default function Create({ tutorialTypes }: CreateProps) {
                                 className="mt-1 block w-full"
                                 value={data.embed_url}
                                 onChange={(e) => setData('embed_url', e.target.value)}
-                                placeholder="Youtube Embed URL"
+                                placeholder="URL de inserción de YouTube"
                             />
                             <InputError className="mt-2" message={errors.embed_url} />
                         </div>
@@ -166,7 +172,7 @@ export default function Create({ tutorialTypes }: CreateProps) {
                     <div className="flex items-center gap-4">
                         <Button type="submit" disabled={processing}>
                             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                            Create
+                            Crear
                         </Button>
                     </div>
                 </form>

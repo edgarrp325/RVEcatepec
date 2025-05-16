@@ -11,29 +11,30 @@ interface GetColumnsProps {
     openDialog: () => void;
     setIsDeleteDialogOpen: (isDeleteDialogOpen: boolean) => void;
 }
+
 export function getColumns({ setSelectedUser, openDialog, setIsDeleteDialogOpen }: GetColumnsProps): ColumnDef<UsersTable>[] {
     return [
         {
             accessorKey: 'account_number',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Account Number" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Número de cuenta" />,
             cell: ({ row }) => (row.original.account_number ? row.original.account_number : 'N/A'),
         },
         {
             accessorKey: 'name',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Name" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Nombre" />,
         },
         {
             accessorKey: 'paternal_surname',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Paternal Surname" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Apellido paterno" />,
         },
         {
             accessorKey: 'maternal_surname',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Maternal Surname" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Apellido materno" />,
             cell: ({ row }) => (row.original.maternal_surname ? row.original.maternal_surname : '-'),
         },
         {
             accessorKey: 'major_origin',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Major / Origin" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Carrera / Procedencia" />,
             cell: ({ row }) => {
                 const major = row.original.major;
                 const origin = row.original.origin;
@@ -43,18 +44,18 @@ export function getColumns({ setSelectedUser, openDialog, setIsDeleteDialogOpen 
         },
         {
             accessorKey: 'email',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Email" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Correo electrónico" />,
         },
         {
             accessorKey: 'role',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Role" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Rol" />,
             filterFn: (row, id, value) => {
                 return value.includes(row.getValue(id));
             },
         },
         {
             accessorKey: 'created_at',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Registered At" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Registrado el" />,
             cell: ({ row }) => dayjs(row.original.created_at).format('D/MM/YYYY'),
         },
         {
@@ -62,34 +63,32 @@ export function getColumns({ setSelectedUser, openDialog, setIsDeleteDialogOpen 
             cell: ({ row }) => {
                 const user = row.original;
                 return (
-                    <>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant={'ghost'} className="h-8 w-8 p-0">
-                                    <span className="sr-only">Open menu</span>
-                                    <MoreHorizontal className="h-4 w-4" />
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                                <DropdownMenuItem
-                                    onSelect={() => {
-                                        setSelectedUser(user);
-                                        openDialog();
-                                    }}
-                                >
-                                    Edit role
-                                </DropdownMenuItem>
-                                <DropdownMenuItem
-                                    onSelect={() => {
-                                        setIsDeleteDialogOpen(true);
-                                        setSelectedUser(user);
-                                    }}
-                                >
-                                    Delete
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant={'ghost'} className="h-8 w-8 p-0">
+                                <span className="sr-only">Abrir menú</span>
+                                <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem
+                                onSelect={() => {
+                                    setSelectedUser(user);
+                                    openDialog();
+                                }}
+                            >
+                                Editar rol
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                                onSelect={() => {
+                                    setIsDeleteDialogOpen(true);
+                                    setSelectedUser(user);
+                                }}
+                            >
+                                Eliminar
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 );
             },
         },

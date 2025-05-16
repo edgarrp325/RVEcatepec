@@ -29,11 +29,11 @@ export default function ChooseEquipment({ equipment, isUsingComputer }: ChooseEq
     const startLoan = () => {
         post(route('equipment-loans.store'), {
             onSuccess: () => {
-                toast.success('Equipment loan started successfully');
+                toast.success('Préstamo de equipo iniciado correctamente');
                 reset('equipment_id');
             },
             onError: () => {
-                toast.error('Something went wrong');
+                toast.error('Ocurrió un error');
                 reset('equipment_id');
             },
         });
@@ -52,15 +52,15 @@ export default function ChooseEquipment({ equipment, isUsingComputer }: ChooseEq
 
     return (
         <AuthLayout
-            title="Choose equipment"
-            description="Click on Use button to select the equipment you need. You only can choose one computer"
+            title="Elegir equipo"
+            description="Haz clic en el botón Usar para seleccionar el equipo que necesitas. Solo puedes elegir una computadora"
             size="full"
         >
-            <Head title="Equipments" />
+            <Head title="Equipos" />
             <div className="flex h-full flex-1 flex-col justify-start gap-4 rounded-xl p-4">
                 <div className="@container/main flex flex-1 flex-col gap-2">
                     <div className="flex flex-col gap-4 md:gap-6">
-                        {/* iMacs cards grid */}
+                        {/* Rejilla de tarjetas de iMacs */}
                         <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-2 gap-4 px-4 lg:px-6 @xl/main:grid-cols-3 @5xl/main:grid-cols-6">
                             {iMacs.map((iMac) => {
                                 return (
@@ -80,14 +80,14 @@ export default function ChooseEquipment({ equipment, isUsingComputer }: ChooseEq
                                                 }}
                                                 disabled={processing || isUsingComputer}
                                             >
-                                                Use
+                                                Usar
                                             </Button>
                                         </CardFooter>
                                     </Card>
                                 );
                             })}
                         </div>
-                        {/* Equipment table */}
+                        {/* Tabla de equipos */}
                         <div className="@container/main flex flex-1 flex-col gap-4 p-6">
                             <DataTable
                                 data={equipmentData}
@@ -99,7 +99,7 @@ export default function ChooseEquipment({ equipment, isUsingComputer }: ChooseEq
                         </div>
                         <div className="ml-auto px-4 md:px-6">
                             <Link href={route('dashboard')} className={buttonVariants({ variant: 'default' })}>
-                                Continue
+                                Continuar
                             </Link>
                         </div>
                     </div>

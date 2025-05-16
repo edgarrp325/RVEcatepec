@@ -16,7 +16,7 @@ import SettingsLayout from '@/layouts/settings/layout';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Profile Settings',
+        title: 'Ajustes de perfil',
         href: '/settings/profile',
     },
 ];
@@ -51,15 +51,15 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
 
     return (
         <Layout breadcrumbs={breadcrumbs} role={role}>
-            <Head title="Profile Settings" />
+            <Head title="Ajustes de perfil" />
 
             <SettingsLayout>
                 <div className="space-y-6">
-                    <HeadingSmall title="Edit Your Profile" description="Update your name and email address below." />
+                    <HeadingSmall title="Editar tu perfil" description="Actualiza tu nombre y correo electrónico a continuación." />
 
                     <form onSubmit={submit} className="space-y-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="name">Name</Label>
+                            <Label htmlFor="name">Nombre(s)</Label>
 
                             <Input
                                 id="name"
@@ -68,14 +68,14 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                 onChange={(e) => setData('name', e.target.value)}
                                 required
                                 autoComplete="name"
-                                placeholder="Enter your full name"
+                                placeholder="Ingresa tu nombre completo"
                             />
 
                             <InputError className="mt-2" message={errors.name} />
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="email">Email Address</Label>
+                            <Label htmlFor="email">Correo electrónico</Label>
 
                             <Input
                                 id="email"
@@ -85,7 +85,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                 onChange={(e) => setData('email', e.target.value)}
                                 required
                                 autoComplete="username"
-                                placeholder="Enter your email address"
+                                placeholder="Ingresa tu correo electrónico"
                             />
 
                             <InputError className="mt-2" message={errors.email} />
@@ -94,25 +94,27 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                         {mustVerifyEmail && auth.user.email_verified_at === null && (
                             <div>
                                 <p className="text-muted-foreground -mt-4 text-sm">
-                                    Your email address is not verified.{' '}
+                                    Tu correo electrónico no está verificado.{' '}
                                     <Link
                                         href={route('verification.send')}
                                         method="post"
                                         as="button"
                                         className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
                                     >
-                                        Resend Verification Email
+                                        Reenviar correo de verificación
                                     </Link>
                                 </p>
 
                                 {status === 'verification-link-sent' && (
-                                    <div className="mt-2 text-sm font-medium text-green-600">A verification link has been sent to your email.</div>
+                                    <div className="mt-2 text-sm font-medium text-green-600">
+                                        Se ha enviado un enlace de verificación a tu correo electrónico.
+                                    </div>
                                 )}
                             </div>
                         )}
 
                         <div className="flex items-center gap-4">
-                            <Button disabled={processing}>Save Changes</Button>
+                            <Button disabled={processing}>Guardar cambios</Button>
 
                             <Transition
                                 show={recentlySuccessful}
@@ -121,7 +123,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                 leave="transition ease-in-out"
                                 leaveTo="opacity-0"
                             >
-                                <p className="text-sm text-neutral-600">Your profile has been updated!</p>
+                                <p className="text-sm text-neutral-600">¡Tu perfil ha sido actualizado!</p>
                             </Transition>
                         </div>
                     </form>

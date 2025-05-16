@@ -27,7 +27,7 @@ import { toast } from 'sonner';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Users',
+        title: 'Usuarios',
         href: '/dashboard/users',
     },
 ];
@@ -41,6 +41,7 @@ interface UserForm {
     [key: string]: string;
     role_id: string;
 }
+
 export default function Users({ users, roles }: UsersProps) {
     const usersData = transformUsersData(users);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -63,20 +64,22 @@ export default function Users({ users, roles }: UsersProps) {
         e.preventDefault();
         put(route('users.update', selectedUser?.id), {
             onSuccess: () => {
-                toast.success('User role updated successfully');
+                toast.success('Rol del usuario actualizado correctamente');
                 closeDialog();
             },
             onFinish: () => reset(),
         });
     };
+
     const deleteUser = () => {
         destroy(route('users.destroy', selectedUser?.id), {
             onSuccess: () => {
-                toast.success('User deleted successfully');
+                toast.success('Usuario eliminado correctamente');
                 closeDialog();
             },
         });
     };
+
     const openDialog = () => {
         setData({
             role_id: selectedUser?.role_id.toString() || RoleEnum.ALUMN,
@@ -84,12 +87,14 @@ export default function Users({ users, roles }: UsersProps) {
 
         setIsDialogOpen(true);
     };
+
     const closeDialog = () => {
         setIsDialogOpen(false);
         setSelectedUser(null);
         clearErrors();
         reset();
     };
+
     const closeDeleteDialog = () => {
         setIsDeleteDialogOpen(false);
         setSelectedUser(null);
@@ -117,25 +122,26 @@ export default function Users({ users, roles }: UsersProps) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Users" />
+            <Head title="Usuarios" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                {/* Users table */}
+                {/* Tabla de usuarios */}
                 <div className="@container/main flex flex-1 flex-col gap-4 p-6">
                     <DataTable
                         data={usersData}
                         columns={columns}
                         searchableColumns={['account_number', 'name', 'paternal_surname', 'maternal_surname', 'email']}
                         filters={[roleFilter]}
-                        filename="users"
+                        filename="usuarios"
                     />
                 </div>
-                {/* Dialog to edit user role  */}
+
+                {/* Diálogo para editar el rol del usuario */}
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle>Role</DialogTitle>
+                            <DialogTitle>Rol</DialogTitle>
                             <DialogDescription>
-                                You can edit the user role for{' '}
+                                Puedes editar el rol del usuario{' '}
                                 {cn(selectedUser?.name, selectedUser?.paternal_surname, selectedUser?.maternal_surname)}
                             </DialogDescription>
                         </DialogHeader>
@@ -145,7 +151,7 @@ export default function Users({ users, roles }: UsersProps) {
                                     <Label htmlFor="equipment_types">Roles</Label>
                                     <Select value={data.role_id.toString()} onValueChange={(value) => setData('role_id', value)}>
                                         <SelectTrigger>
-                                            <SelectValue placeholder="Select the role" />
+                                            <SelectValue placeholder="Selecciona el rol" />
                                         </SelectTrigger>
                                         <SelectContent>
                                             {roles.map((role) => (
@@ -161,29 +167,30 @@ export default function Users({ users, roles }: UsersProps) {
                             <div className="mt-4 flex justify-end gap-4">
                                 <DialogClose asChild>
                                     <Button variant="secondary" onClick={closeDialog}>
-                                        Cancel
+                                        Cancelar
                                     </Button>
                                 </DialogClose>
                                 <Button type="submit" disabled={processing}>
                                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                    Edit
+                                    Editar
                                 </Button>
                             </div>
                         </form>
                     </DialogContent>
                 </Dialog>
-                {/* Alert dialog to delete user  */}
+
+                {/* Diálogo de confirmación para eliminar usuario */}
                 <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
                     <AlertDialogContent>
                         <AlertDialogHeader>
-                            <AlertDialogTitle>Are you sure to delete this user?</AlertDialogTitle>
-                            <AlertDialogDescription>This will permanently delete this user and the associated information.</AlertDialogDescription>
+                            <AlertDialogTitle>¿Estás seguro de eliminar este usuario?</AlertDialogTitle>
+                            <AlertDialogDescription>Esto eliminará permanentemente al usuario y su información asociada.</AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                            <AlertDialogCancel onClick={closeDeleteDialog}>Cancel</AlertDialogCancel>
+                            <AlertDialogCancel onClick={closeDeleteDialog}>Cancelar</AlertDialogCancel>
                             <AlertDialogAction onClick={deleteUser} disabled={processing}>
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                Delete
+                                Eliminar
                             </AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>

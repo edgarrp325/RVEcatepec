@@ -48,7 +48,7 @@ export default function Edit({ model, formats }: EditProps) {
 
     const breadcrumb: BreadcrumbItem[] = [
         {
-            title: '3D Models',
+            title: 'Modelos 3D',
             href: '/dashboard/three-d-models',
         },
         {
@@ -56,7 +56,7 @@ export default function Edit({ model, formats }: EditProps) {
             href: '/dashboard/three-d-models/' + model.id,
         },
         {
-            title: 'Edit',
+            title: 'Editar',
             href: '/dashboard/three-d-models/' + model.id + '/edit',
         },
     ];
@@ -71,10 +71,10 @@ export default function Edit({ model, formats }: EditProps) {
             },
             {
                 onSuccess: () => {
-                    toast.success('3D Model updated successfully');
+                    toast.success('Modelo 3D actualizado correctamente');
                 },
                 onError: () => {
-                    toast.error('Error updating 3D Model');
+                    toast.error('Error al actualizar el modelo 3D');
                 },
             },
         );
@@ -86,22 +86,21 @@ export default function Edit({ model, formats }: EditProps) {
             <div className="flex h-full flex-col items-center rounded-xl p-4">
                 <form onSubmit={submit} className="my-4 max-w-xl space-y-6" encType="multipart/form-data">
                     <div className="grid gap-2">
-                        <Label htmlFor="model_name">Name</Label>
+                        <Label htmlFor="model_name">Nombre</Label>
                         <Input
                             id="model_name"
                             className="mt-1 block w-full"
                             value={data.name}
                             onChange={(e) => setData({ ...data, name: e.target.value })}
-                            placeholder="3D model name"
+                            placeholder="Nombre del modelo 3D"
                         />
-
                         <InputError className="mt-2" message={errors.name} />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="laboratories">Format</Label>
+                        <Label htmlFor="laboratories">Formato</Label>
                         <Select value={data.format_id.toString()} onValueChange={(value) => setData({ ...data, format_id: Number(value) })}>
                             <SelectTrigger>
-                                <SelectValue placeholder="Select the laboratory where the equipment is located" />
+                                <SelectValue placeholder="Selecciona el formato del modelo" />
                             </SelectTrigger>
                             <SelectContent>
                                 {formats.map((format) => (
@@ -113,7 +112,7 @@ export default function Edit({ model, formats }: EditProps) {
                         </Select>
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="model_poligons">Poligons</Label>
+                        <Label htmlFor="model_poligons">Polígonos</Label>
                         <Input
                             id="model_poligons"
                             className="mt-1 block w-full"
@@ -124,7 +123,7 @@ export default function Edit({ model, formats }: EditProps) {
                             required
                             onKeyDown={(e) => {
                                 if (
-                                    !/[0-9]/.test(e.key) && // Only numbers
+                                    !/[0-9]/.test(e.key) &&
                                     e.key !== 'Backspace' &&
                                     e.key !== 'Delete' &&
                                     e.key !== 'ArrowLeft' &&
@@ -134,9 +133,8 @@ export default function Edit({ model, formats }: EditProps) {
                                     e.preventDefault();
                                 }
                             }}
-                            placeholder="3D model poligons number"
+                            placeholder="Cantidad de polígonos del modelo"
                         />
-
                         <InputError className="mt-2" message={errors.poligons} />
                     </div>
                     <div className="grid gap-2">
@@ -146,7 +144,7 @@ export default function Edit({ model, formats }: EditProps) {
                                 checked={data.textures}
                                 onCheckedChange={(checked) => setData({ ...data, textures: Boolean(checked) })}
                             />
-                            <Label htmlFor="model_textures">Textures</Label>
+                            <Label htmlFor="model_textures">Texturas</Label>
                         </div>
                         <div className="flex items-center gap-2">
                             <Checkbox
@@ -154,7 +152,7 @@ export default function Edit({ model, formats }: EditProps) {
                                 checked={data.animations}
                                 onCheckedChange={(checked) => setData({ ...data, animations: Boolean(checked) })}
                             />
-                            <Label htmlFor="model_animations">Animations</Label>
+                            <Label htmlFor="model_animations">Animaciones</Label>
                         </div>
                         <div className="flex items-center gap-2">
                             <Checkbox
@@ -162,14 +160,14 @@ export default function Edit({ model, formats }: EditProps) {
                                 checked={data.rigged}
                                 onCheckedChange={(checked) => setData({ ...data, rigged: Boolean(checked) })}
                             />
-                            <Label htmlFor="model_rigged">Rigged</Label>
+                            <Label htmlFor="model_rigged">Rigging</Label>
                         </div>
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="model_image">Preview Image</Label>
+                        <Label htmlFor="model_image">Imagen de previsualización</Label>
                         <img
                             src={imagePreview ? imagePreview : `/storage/${model.img_url}`}
-                            alt="3D Model Image Preview"
+                            alt="Vista previa del modelo 3D"
                             className="aspect-video w-3xl object-contain"
                         />
                         <Input
@@ -187,7 +185,7 @@ export default function Edit({ model, formats }: EditProps) {
                         <InputError className="mt-2" message={errors.image} />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="model_model_viewer">Model to viewer</Label>
+                        <Label htmlFor="model_model_viewer">Modelo para visualización</Label>
                         <model-viewer
                             src={modelPreview ? modelPreview : `/storage/${model.model_url}`}
                             auto-rotate
@@ -212,7 +210,7 @@ export default function Edit({ model, formats }: EditProps) {
                         <InputError className="mt-2" message={errors.model_view} />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="model_download">Model to download</Label>
+                        <Label htmlFor="model_download">Modelo para descargar</Label>
                         <Input
                             id="model_download"
                             type="file"
@@ -227,7 +225,7 @@ export default function Edit({ model, formats }: EditProps) {
                         <InputError className="mt-2" message={errors.model_download} />
                     </div>
                     <div className="flex items-center gap-4">
-                        <Button type="submit">Update</Button>
+                        <Button type="submit">Actualizar</Button>
                     </div>
                 </form>
             </div>

@@ -24,11 +24,11 @@ import { toast } from 'sonner';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Equipment',
+        title: 'Equipos',
         href: '/dashboard/equipment',
     },
     {
-        title: 'Types',
+        title: 'Tipos',
         href: '/dashboard/equipment-types',
     },
 ];
@@ -41,6 +41,7 @@ interface EquipmentTypeForm {
     [key: string]: string;
     name: string;
 }
+
 export default function EquipmentTypes({ equipmentTypes }: EquipmentTypesProps) {
     const {
         data,
@@ -55,6 +56,7 @@ export default function EquipmentTypes({ equipmentTypes }: EquipmentTypesProps) 
     } = useForm<EquipmentTypeForm>({
         name: '',
     });
+
     const [selectedEquipmentType, setSelectedEquipmentType] = useState<EquipmentType | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isEditSelected, setIsEditSelected] = useState(false);
@@ -67,14 +69,14 @@ export default function EquipmentTypes({ equipmentTypes }: EquipmentTypesProps) 
 
     const dialogVariants = {
         create: {
-            title: 'New Equipment Type',
-            description: 'You can create a new equipment type',
-            button: 'Create',
+            title: 'Nuevo tipo de equipo',
+            description: 'Puedes crear un nuevo tipo de equipo',
+            button: 'Crear',
         },
         edit: {
-            title: 'Edit Equipment Type',
-            description: 'You can edit the name of the equipment type',
-            button: 'Edit',
+            title: 'Editar tipo de equipo',
+            description: 'Puedes editar el nombre del tipo de equipo',
+            button: 'Editar',
         },
     };
 
@@ -83,7 +85,7 @@ export default function EquipmentTypes({ equipmentTypes }: EquipmentTypesProps) 
         if (isEditSelected) {
             put(route('equipment-types.update', selectedEquipmentType?.id), {
                 onSuccess: () => {
-                    toast.success('Equipment type updated successfully');
+                    toast.success('Tipo de equipo actualizado con éxito');
                     closeDialog();
                 },
                 onFinish: () => reset(),
@@ -91,7 +93,7 @@ export default function EquipmentTypes({ equipmentTypes }: EquipmentTypesProps) 
         } else {
             post(route('equipment-types.store'), {
                 onSuccess: () => {
-                    toast.success('Equipment type created successfully');
+                    toast.success('Tipo de equipo creado con éxito');
                     closeDialog();
                 },
                 onFinish: () => reset(),
@@ -102,11 +104,12 @@ export default function EquipmentTypes({ equipmentTypes }: EquipmentTypesProps) 
     const deleteEquipmentType = () => {
         destroy(route('equipment-types.destroy', selectedEquipmentType?.id), {
             onSuccess: () => {
-                toast.success('Equipment type deleted successfully');
+                toast.success('Tipo de equipo eliminado con éxito');
                 closeDialog();
             },
         });
     };
+
     const openDialog = (variant: 'create' | 'edit', equipmentType?: EquipmentType) => {
         setDialogLabels(dialogVariants[variant]);
         setIsEditSelected(variant === 'edit');
@@ -151,20 +154,22 @@ export default function EquipmentTypes({ equipmentTypes }: EquipmentTypesProps) 
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Equipment types" />
+            <Head title="Tipos de equipos" />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                {/* New equipment type button  */}
+                {/* Botón de nuevo tipo de equipo */}
                 <div className="px-4 md:px-6">
                     <Button variant={'outline'} onClick={() => openDialog('create')}>
-                        <Plus /> New Equipment Type
+                        <Plus /> Nuevo tipo de equipo
                     </Button>
                 </div>
-                {/* Equipment types table */}
+
+                {/* Tabla de tipos de equipos */}
                 <div className="@container/main flex flex-1 flex-col gap-4 p-6">
-                    <DataTable data={equipmentTypes} columns={columns} searchableColumns={['name']} filename="equipment-types" />
+                    <DataTable data={equipmentTypes} columns={columns} searchableColumns={['name']} filename="tipos-de-equipos" />
                 </div>
-                {/* Dialog to edit Equipment type */}
+
+                {/* Diálogo para crear/editar tipo de equipo */}
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogContent>
                         <DialogHeader>
@@ -174,14 +179,14 @@ export default function EquipmentTypes({ equipmentTypes }: EquipmentTypesProps) 
                         <form onSubmit={submit}>
                             <div className="grid gap-6">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="equipment_type_name">Equipment Type name</Label>
+                                    <Label htmlFor="equipment_type_name">Nombre del tipo de equipo</Label>
                                     <Input
                                         id="equipment_type_name"
                                         type="text"
                                         value={data.name}
                                         onChange={(e) => setData('name', e.target.value)}
                                         disabled={processing}
-                                        placeholder="Enter the name of the equipment type"
+                                        placeholder="Escribe el nombre del tipo de equipo"
                                     />
                                     <InputError message={errors.name} />
                                 </div>
@@ -190,7 +195,7 @@ export default function EquipmentTypes({ equipmentTypes }: EquipmentTypesProps) 
                             <div className="mt-4 flex justify-end gap-4">
                                 <DialogClose asChild>
                                     <Button variant="secondary" onClick={closeDialog}>
-                                        Cancel
+                                        Cancelar
                                     </Button>
                                 </DialogClose>
                                 <Button type="submit" disabled={processing}>
@@ -201,20 +206,21 @@ export default function EquipmentTypes({ equipmentTypes }: EquipmentTypesProps) 
                         </form>
                     </DialogContent>
                 </Dialog>
-                {/* Alert dialog to delete Equipment type */}
+
+                {/* Diálogo de confirmación para eliminar tipo de equipo */}
                 <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
                     <AlertDialogContent>
                         <AlertDialogHeader>
-                            <AlertDialogTitle>Are you sure to delete this equipment type?</AlertDialogTitle>
+                            <AlertDialogTitle>¿Estás seguro de eliminar este tipo de equipo?</AlertDialogTitle>
                             <AlertDialogDescription>
-                                This will permanently delete this equipment type and the associated equipments.
+                                Esto eliminará permanentemente este tipo de equipo y los equipos asociados.
                             </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                            <AlertDialogCancel onClick={closeDeleteDialog}>Cancel</AlertDialogCancel>
+                            <AlertDialogCancel onClick={closeDeleteDialog}>Cancelar</AlertDialogCancel>
                             <AlertDialogAction onClick={deleteEquipmentType} disabled={processing}>
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                Delete
+                                Eliminar
                             </AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>

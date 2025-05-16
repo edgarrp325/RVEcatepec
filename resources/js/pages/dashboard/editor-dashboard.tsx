@@ -17,7 +17,7 @@ import { FormEventHandler } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Dashboard',
+        title: 'Panel de control',
         href: '/dashboard',
     },
 ];
@@ -60,7 +60,7 @@ const AttendanceDashboard = ({ attendance, laboratories }: AttendanceDashboardPr
             {attendance ? (
                 <Card className="w-full max-w-lg">
                     <CardHeader>
-                        <CardTitle className="text-xl tracking-tight">Asistencia Activa</CardTitle>
+                        <CardTitle className="text-xl tracking-tight">Asistencia activa</CardTitle>
                     </CardHeader>
                     <CardContent className="pt-0">
                         <div className="grid gap-4">
@@ -76,23 +76,23 @@ const AttendanceDashboard = ({ attendance, laboratories }: AttendanceDashboardPr
                     </CardContent>
                     <CardFooter>
                         <Button size="lg" className="w-full" onClick={finishAttendance} disabled={processing}>
-                            Finalizar Asistencia
+                            Finalizar asistencia
                         </Button>
                     </CardFooter>
                 </Card>
             ) : (
                 <Card className="max-w-lg">
                     <CardHeader className="">
-                        <CardTitle className="text-xl tracking-tight">Elegir Laboratorio</CardTitle>
+                        <CardTitle className="text-xl tracking-tight">Elegir laboratorio</CardTitle>
                     </CardHeader>
                     <CardContent className="pt-0">
                         <form className="flex flex-col gap-6" onSubmit={submit}>
                             <div className="grid gap-6">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="laboratories">Laboratory</Label>
+                                    <Label htmlFor="laboratories">Laboratorio</Label>
                                     <Select value={data.laboratory_id.toString()} onValueChange={(value) => setData('laboratory_id', Number(value))}>
                                         <SelectTrigger>
-                                            <SelectValue placeholder="Select the laboratory you are going to stay" />
+                                            <SelectValue placeholder="Selecciona el laboratorio en el que vas a permanecer" />
                                         </SelectTrigger>
                                         <SelectContent>
                                             {laboratories?.map((laboratory) => (
@@ -112,7 +112,7 @@ const AttendanceDashboard = ({ attendance, laboratories }: AttendanceDashboardPr
 
                                 <Button type="submit" className="mt-2 w-full" disabled={processing}>
                                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                    Continue
+                                    Continuar
                                 </Button>
                             </div>
                         </form>
@@ -136,14 +136,14 @@ export default function EditorDashboard({
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Dashboard" />
+            <Head title="Panel de control" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                <h2 className="text-xl font-bold">Bienvenido a tu dashboard editor</h2>
+                <h2 className="text-xl font-bold">Bienvenido a tu panel editor</h2>
                 <section className="flex w-full flex-wrap gap-4">
                     <AttendanceDashboard attendance={attendance} laboratories={laboratories} />
                     <Card className="w-full max-w-lg">
                         <CardHeader className="">
-                            <CardTitle className="text-xl tracking-tight">Total service hours</CardTitle>
+                            <CardTitle className="text-xl tracking-tight">Total de horas de servicio</CardTitle>
                         </CardHeader>
                         <CardContent className="pt-0">
                             <div className="grid gap-4">
@@ -156,9 +156,9 @@ export default function EditorDashboard({
                     </Card>
                 </section>
                 <Separator className="my-4" />
-                {/* Equipment loans table */}
+                {/* Tabla de préstamos de equipo */}
                 <div className="@container/main flex flex-1 flex-col gap-4 p-6">
-                    <h3 className="text-xl font-bold">My equipment loans</h3>
+                    <h3 className="text-xl font-bold">Mis préstamos de equipo</h3>
                     <DataTable
                         data={equipmentLoans ?? []}
                         columns={getColumns()}
@@ -167,9 +167,9 @@ export default function EditorDashboard({
                     />
                 </div>
                 <Separator className="my-4" />
-                {/* Available equipment table */}
+                {/* Tabla de equipo disponible */}
                 <div className="@container/main flex flex-1 flex-col gap-4 p-6">
-                    <h3 className="text-xl font-bold">Available equipment</h3>
+                    <h3 className="text-xl font-bold">Equipos disponibles</h3>
                     <DataTable
                         data={equipmentData}
                         columns={columns}

@@ -8,10 +8,11 @@ import { Plus } from 'lucide-react';
 
 const breadcrumb: BreadcrumbItem[] = [
     {
-        title: 'Projects',
+        title: 'Proyectos',
         href: '/dashboard/projects',
     },
 ];
+
 interface ProjectsProps {
     projects: ProjectPagination;
 }
@@ -19,21 +20,22 @@ interface ProjectsProps {
 export default function Index({ projects }: ProjectsProps) {
     return (
         <AppLayout breadcrumbs={breadcrumb}>
-            <Head title="Projects" />
+            <Head title="Proyectos" />
             <div className="flex h-full flex-1 flex-col justify-start gap-4 rounded-xl p-4">
-                {/* New project button  */}
+                {/* Botón para nuevo proyecto */}
                 <div className="px-4 md:px-6">
                     <Link className={buttonVariants({ variant: 'outline' })} href={route('projects.create')}>
-                        <Plus /> New project
+                        <Plus /> Nuevo proyecto
                     </Link>
                 </div>
-                {/* Projects */}
+
+                {/* Lista de proyectos */}
                 <div className="flex flex-wrap gap-4 px-4 lg:px-6">
                     {projects.data.map((project: Project) => {
                         return (
                             <Link key={project.id} className="w-fit" href={route('projects.show', project.id)}>
                                 <Card className="h-full w-xs">
-                                    <CardHeader className="">
+                                    <CardHeader>
                                         <img className="aspect-video object-contain" src={`/storage/${project.image_url}`} alt={project.title} />
                                     </CardHeader>
                                     <CardContent className="flex flex-wrap items-center gap-2">
@@ -49,7 +51,8 @@ export default function Index({ projects }: ProjectsProps) {
                         );
                     })}
                 </div>
-                {/* Pagination  */}
+
+                {/* Paginación */}
                 <AppPagination items={projects} />
             </div>
         </AppLayout>

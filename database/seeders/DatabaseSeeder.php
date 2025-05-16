@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\TutorialType;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
             LaboratorySeeder::class,
             EquipmentSeeder::class,
             FormatSeeder::class,
+            TutorialType::class,
         ]);
     }
 }

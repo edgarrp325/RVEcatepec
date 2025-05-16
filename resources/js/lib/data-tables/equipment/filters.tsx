@@ -2,7 +2,7 @@ import { Filter } from '@/types';
 
 export const laboratoryFilter: Filter = {
     columnKey: 'laboratory_name',
-    title: 'Labs',
+    title: 'Laboratorios',
     options: [
         { value: 'Realidad virtual', label: 'Realidad virtual' },
         { value: 'Software', label: 'Software' },
@@ -13,10 +13,10 @@ export const laboratoryFilter: Filter = {
 
 export const statusFilter: Filter = {
     columnKey: 'status',
-    title: 'Status',
+    title: 'Estado',
     options: [
-        { value: 'Available', label: 'Available' },
-        { value: 'In use', label: 'In use' },
-        { value: 'Maintenance', label: 'Maintenance' },
+        { value: 'Available', label: 'Disponible' },
+        { value: 'In use', label: 'En uso' },
+        { value: 'Maintenance', label: 'Mantenimiento' },
     ],
 };

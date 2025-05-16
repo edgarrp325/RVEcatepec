@@ -34,7 +34,7 @@ export default function Show({ tutorial }: ShowProps) {
 
     const breadcrumb: BreadcrumbItem[] = [
         {
-            title: 'Tutorials',
+            title: 'Tutoriales',
             href: '/dashboard/tutorials',
         },
         {
@@ -46,10 +46,10 @@ export default function Show({ tutorial }: ShowProps) {
     const deleteTutorial = () => {
         destroy(route('tutorials.destroy', tutorial.id), {
             onSuccess: () => {
-                toast.success('Tutorial deleted successfully');
+                toast.success('Tutorial eliminado correctamente');
             },
             onError: () => {
-                toast.error('Error deleting tutorial');
+                toast.error('Error al eliminar el tutorial');
             },
         });
     };
@@ -64,9 +64,9 @@ export default function Show({ tutorial }: ShowProps) {
                             <CardHeader className="relative">
                                 <CardTitle className="w-11/12 text-xl">{tutorial.title}</CardTitle>
                                 <CardDescription className="flex flex-wrap gap-x-2">
-                                    <p>{cn('Published', getRelativeTime(tutorial.created_at))}</p>
+                                    <p>{cn('Publicado', getRelativeTime(tutorial.created_at))}</p>
                                     {!dayjs(tutorial.updated_at).isSame(tutorial.created_at) && (
-                                        <p>{cn('Last update', getRelativeTime(tutorial.updated_at))}</p>
+                                        <p>{cn('Última actualización', getRelativeTime(tutorial.updated_at))}</p>
                                     )}
                                 </CardDescription>
                             </CardHeader>
@@ -91,26 +91,26 @@ export default function Show({ tutorial }: ShowProps) {
 
                             <CardFooter className="flex gap-2">
                                 <Link className={buttonVariants({ variant: 'outline' })} href={route('tutorials.edit', tutorial.id)}>
-                                    Edit
+                                    Editar
                                 </Link>
                                 <Button variant="destructive" onClick={() => setIsDeleteDialogOpen(true)}>
-                                    Delete
+                                    Eliminar
                                 </Button>
                             </CardFooter>
                         </Card>
 
-                        {/* Alert dialog to delete tutorial  */}
+                        {/* Diálogo de confirmación para eliminar el tutorial */}
                         <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
                             <AlertDialogContent>
                                 <AlertDialogHeader>
-                                    <AlertDialogTitle>Are you sure to delete this tutorial?</AlertDialogTitle>
-                                    <AlertDialogDescription>This will permanently delete this tutorial</AlertDialogDescription>
+                                    <AlertDialogTitle>¿Estás seguro de eliminar este tutorial?</AlertDialogTitle>
+                                    <AlertDialogDescription>Esta acción eliminará el tutorial de forma permanente.</AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                    <AlertDialogCancel onClick={() => setIsDeleteDialogOpen(false)}>Cancel</AlertDialogCancel>
+                                    <AlertDialogCancel onClick={() => setIsDeleteDialogOpen(false)}>Cancelar</AlertDialogCancel>
                                     <AlertDialogAction onClick={deleteTutorial} disabled={processing}>
                                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                        Delete
+                                        Eliminar
                                     </AlertDialogAction>
                                 </AlertDialogFooter>
                             </AlertDialogContent>

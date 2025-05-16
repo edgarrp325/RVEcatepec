@@ -14,12 +14,12 @@ import { toast } from 'sonner';
 
 const breadcrumb: BreadcrumbItem[] = [
     {
-        title: '3D Models',
+        title: 'Modelos 3D',
         href: '/dashboard/three-d-models',
     },
     {
-        title: 'Create',
-        href: '/dashboard/three-d-models/Create',
+        title: 'Crear',
+        href: '/dashboard/three-d-models/create',
     },
 ];
 
@@ -60,36 +60,35 @@ export default function Create({ formats }: CreateProps) {
         e.preventDefault();
         post(route('three-d-models.store'), {
             onSuccess: () => {
-                toast.success('3D Model created successfully');
+                toast.success('Modelo 3D creado exitosamente');
             },
             onError: () => {
-                toast.error('Error creating 3D Model');
+                toast.error('Error al crear el modelo 3D');
             },
         });
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumb}>
-            <Head title={'Create 3D Model'} />
+            <Head title={'Crear Modelo 3D'} />
             <div className="flex h-full flex-col items-center rounded-xl p-4">
                 <form onSubmit={submit} className="my-4 max-w-xl space-y-6" encType="multipart/form-data">
                     <div className="grid gap-2">
-                        <Label htmlFor="model_name">Name</Label>
+                        <Label htmlFor="model_name">Nombre</Label>
                         <Input
                             id="model_name"
                             className="mt-1 block w-full"
                             value={data.name}
                             onChange={(e) => setData('name', e.target.value)}
-                            placeholder="3D model name"
+                            placeholder="Nombre del modelo 3D"
                         />
-
                         <InputError className="mt-2" message={errors.name} />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="formats">Format</Label>
+                        <Label htmlFor="formats">Formato</Label>
                         <Select value={data.format_id.toString()} onValueChange={(value) => setData('format_id', Number(value))}>
                             <SelectTrigger>
-                                <SelectValue placeholder="Select the laboratory where the equipment is located" />
+                                <SelectValue placeholder="Selecciona el formato del modelo" />
                             </SelectTrigger>
                             <SelectContent>
                                 {formats.map((format) => (
@@ -101,7 +100,7 @@ export default function Create({ formats }: CreateProps) {
                         </Select>
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="model_poligons">Poligons</Label>
+                        <Label htmlFor="model_poligons">Polígonos</Label>
                         <Input
                             id="model_poligons"
                             className="mt-1 block w-full"
@@ -112,7 +111,7 @@ export default function Create({ formats }: CreateProps) {
                             required
                             onKeyDown={(e) => {
                                 if (
-                                    !/[0-9]/.test(e.key) && // Only numbers
+                                    !/[0-9]/.test(e.key) &&
                                     e.key !== 'Backspace' &&
                                     e.key !== 'Delete' &&
                                     e.key !== 'ArrowLeft' &&
@@ -122,9 +121,8 @@ export default function Create({ formats }: CreateProps) {
                                     e.preventDefault();
                                 }
                             }}
-                            placeholder="3D model poligons number"
+                            placeholder="Cantidad de polígonos"
                         />
-
                         <InputError className="mt-2" message={errors.poligons} />
                     </div>
                     <div className="grid gap-2">
@@ -134,7 +132,7 @@ export default function Create({ formats }: CreateProps) {
                                 checked={data.textures}
                                 onCheckedChange={(checked) => setData('textures', Boolean(checked))}
                             />
-                            <Label htmlFor="model_textures">Textures</Label>
+                            <Label htmlFor="model_textures">Texturizado</Label>
                         </div>
                         <div className="flex items-center gap-2">
                             <Checkbox
@@ -142,16 +140,16 @@ export default function Create({ formats }: CreateProps) {
                                 checked={data.animations}
                                 onCheckedChange={(checked) => setData('animations', Boolean(checked))}
                             />
-                            <Label htmlFor="model_animations">Animations</Label>
+                            <Label htmlFor="model_animations">Animaciones</Label>
                         </div>
                         <div className="flex items-center gap-2">
                             <Checkbox id="model_rigged" checked={data.rigged} onCheckedChange={(checked) => setData('rigged', Boolean(checked))} />
-                            <Label htmlFor="model_rigged">Rigged</Label>
+                            <Label htmlFor="model_rigged">Riggeado</Label>
                         </div>
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="model_image">Preview Image</Label>
-                        {imagePreview && <img src={imagePreview} alt="3D Model Image Preview" className="aspect-video w-3xl object-contain" />}
+                        <Label htmlFor="model_image">Imagen de vista previa</Label>
+                        {imagePreview && <img src={imagePreview} alt="Vista previa del modelo 3D" className="aspect-video w-3xl object-contain" />}
                         <Input
                             id="model_image"
                             type="file"
@@ -167,7 +165,7 @@ export default function Create({ formats }: CreateProps) {
                         <InputError className="mt-2" message={errors.image} />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="model_view">Model to viewer</Label>
+                        <Label htmlFor="model_view">Modelo para visualización</Label>
                         {modelPreview && (
                             <model-viewer
                                 src={modelPreview}
@@ -194,7 +192,7 @@ export default function Create({ formats }: CreateProps) {
                         <InputError className="mt-2" message={errors.model_view} />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="model_download">Model to download</Label>
+                        <Label htmlFor="model_download">Modelo para descargar</Label>
                         <Input
                             id="model_download"
                             type="file"
@@ -211,7 +209,7 @@ export default function Create({ formats }: CreateProps) {
                     <div className="flex items-center gap-4">
                         <Button type="submit" disabled={processing}>
                             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                            Create
+                            Crear
                         </Button>
                     </div>
                 </form>

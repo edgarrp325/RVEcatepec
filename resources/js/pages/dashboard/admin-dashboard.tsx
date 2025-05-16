@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Dashboard',
+        title: 'Panel',
         href: '/dashboard',
     },
 ];
@@ -14,7 +14,7 @@ export default function AdminDashboard() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                <h2 className="text-xl font-bold">Bienvenido a tu dashboard</h2>
+                <h2 className="text-xl font-bold">Bienvenido a tu panel</h2>
             </div>
         </AppLayout>
     );

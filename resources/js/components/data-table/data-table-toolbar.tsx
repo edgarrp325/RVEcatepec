@@ -18,7 +18,14 @@ interface DataTableToolbarProps<TData> {
     hideExportButton?: boolean;
 }
 
-export function DataTableToolbar<TData>({ table, globalFilter, setGlobalFilter, filters = [], filename, hideExportButton = false}: DataTableToolbarProps<TData>) {
+export function DataTableToolbar<TData>({
+    table,
+    globalFilter,
+    setGlobalFilter,
+    filters = [],
+    filename,
+    hideExportButton = false,
+}: DataTableToolbarProps<TData>) {
     const isFiltered = table.getState().columnFilters.length > 0;
     return (
         <div className="flex items-center justify-between">
@@ -26,7 +33,7 @@ export function DataTableToolbar<TData>({ table, globalFilter, setGlobalFilter, 
                 {/* 🔍 Global filter field */}
                 <Input
                     id="search"
-                    placeholder="Search..."
+                    placeholder="Buscar..."
                     value={globalFilter}
                     onChange={(e) => setGlobalFilter(e.target.value)}
                     className="max-w-sm"
@@ -42,7 +49,7 @@ export function DataTableToolbar<TData>({ table, globalFilter, setGlobalFilter, 
                 {/* ❌ Clean filters */}
                 {isFiltered && (
                     <Button variant="ghost" onClick={() => table.resetColumnFilters()} className="h-8 px-2 lg:px-3">
-                        Reset
+                        Reiniciar
                         <X />
                     </Button>
                 )}
@@ -54,7 +61,7 @@ export function DataTableToolbar<TData>({ table, globalFilter, setGlobalFilter, 
                         size="sm"
                         onClick={() => exportTableToCSV(table, { filename: filename, excludeColumns: ['is_active', 'actions'] })}
                     >
-                        <Download /> Export
+                        <Download /> Exportar
                     </Button>
                 </div>
             )}

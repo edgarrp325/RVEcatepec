@@ -7,7 +7,7 @@ import { LoaderCircle } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'One-Time Passwords',
+        title: 'Códigos de un solo uso',
         href: '/dashboard/one-time-passwords',
     },
 ];
@@ -30,13 +30,13 @@ export default function OneTimePasswords({ otps }: OneTimePasswordsProps) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="One-Time Passwords" />
+            <Head title="Códigos de un solo uso" />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex h-full flex-wrap items-center justify-center gap-4">
                     <Card className="w-96">
                         <CardHeader>
-                            <CardTitle className="text-center">Admin One Time Password</CardTitle>
+                            <CardTitle className="text-center">Código de un solo uso (Admin)</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="grid w-full items-center gap-4">
@@ -47,14 +47,14 @@ export default function OneTimePasswords({ otps }: OneTimePasswordsProps) {
                             <div className="grid w-full items-center gap-4">
                                 <Button onClick={() => regenerateOTP('admin_code')} disabled={processing}>
                                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                    Regenerate
+                                    Regenerar
                                 </Button>
                             </div>
                         </CardFooter>
                     </Card>
                     <Card className="w-96">
                         <CardHeader>
-                            <CardTitle className="text-center">User One Time Password</CardTitle>
+                            <CardTitle className="text-center">Código de un solo uso (Usuario)</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="grid w-full items-center gap-4">
@@ -65,7 +65,7 @@ export default function OneTimePasswords({ otps }: OneTimePasswordsProps) {
                             <div className="grid w-full items-center gap-4">
                                 <Button onClick={() => regenerateOTP('user_code')} disabled={processing}>
                                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                    Regenerate
+                                    Regenerar
                                 </Button>
                             </div>
                         </CardFooter>

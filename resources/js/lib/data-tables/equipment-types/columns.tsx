@@ -7,9 +7,10 @@ import { MoreHorizontal } from 'lucide-react';
 
 interface GetColumnsProps {
     setSelectedEquipmentType: (selectedEquipmentType: EquipmentType) => void;
-    openDialog: (variant: "create" | "edit", equipmentType?: EquipmentType) => void;    
+    openDialog: (variant: 'create' | 'edit', equipmentType?: EquipmentType) => void;
     setIsDeleteDialogOpen: (isDeleteDialogOpen: boolean) => void;
 }
+
 export function getColumns({ setSelectedEquipmentType, openDialog, setIsDeleteDialogOpen }: GetColumnsProps): ColumnDef<EquipmentType>[] {
     return [
         {
@@ -18,7 +19,7 @@ export function getColumns({ setSelectedEquipmentType, openDialog, setIsDeleteDi
         },
         {
             accessorKey: 'name',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Name" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Nombre" />,
         },
         {
             id: 'actions',
@@ -29,7 +30,7 @@ export function getColumns({ setSelectedEquipmentType, openDialog, setIsDeleteDi
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button variant={'ghost'} className="h-8 w-8 p-0">
-                                    <span className="sr-only">Open menu</span>
+                                    <span className="sr-only">Abrir menú</span>
                                     <MoreHorizontal className="h-4 w-4" />
                                 </Button>
                             </DropdownMenuTrigger>
@@ -40,7 +41,7 @@ export function getColumns({ setSelectedEquipmentType, openDialog, setIsDeleteDi
                                         setSelectedEquipmentType(equipmentType);
                                     }}
                                 >
-                                    Edit
+                                    Editar
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
                                     onSelect={() => {
@@ -48,7 +49,7 @@ export function getColumns({ setSelectedEquipmentType, openDialog, setIsDeleteDi
                                         setSelectedEquipmentType(equipmentType);
                                     }}
                                 >
-                                    Delete
+                                    Eliminar
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>

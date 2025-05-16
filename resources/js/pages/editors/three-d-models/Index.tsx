@@ -10,10 +10,11 @@ import { Plus } from 'lucide-react';
 
 const breadcrumb: BreadcrumbItem[] = [
     {
-        title: '3D Models',
+        title: 'Modelos 3D',
         href: '/dashboard/three-d-models',
     },
 ];
+
 interface ThreeDModelsProps {
     models: ThreeDModelResponsePagination;
 }
@@ -21,28 +22,28 @@ interface ThreeDModelsProps {
 export default function Index({ models }: ThreeDModelsProps) {
     return (
         <AppLayout breadcrumbs={breadcrumb}>
-            <Head title="3D Models" />
+            <Head title="Modelos 3D" />
             <div className="flex h-full flex-1 flex-col justify-start gap-4 rounded-xl p-4">
-                {/* New 3D model button  */}
+                {/* Botón para nuevo modelo 3D */}
                 <div className="px-4 md:px-6">
                     <Link className={buttonVariants({ variant: 'outline' })} href={route('three-d-models.create')}>
-                        <Plus /> New 3D Model
+                        <Plus /> Nuevo modelo 3D
                     </Link>
                 </div>
-                {/* 3D models  */}
+                {/* Modelos 3D */}
                 <div className="flex flex-wrap gap-4 px-4 lg:px-6">
                     {models.data.map((model: ThreeDModelResponse) => {
                         return (
                             <Link key={model.id} className="w-fit" href={route('three-d-models.show', model.id)}>
                                 <Card className="h-full w-xs">
-                                    <CardHeader className="">
+                                    <CardHeader>
                                         <img className="aspect-video object-contain" src={`/storage/${model.img_url}`} alt={model.name} />
-                                        <CardDescription> {cn('Poligons:', getCompactNumber(model.poligons))}</CardDescription>
+                                        <CardDescription>{cn('Polígonos:', getCompactNumber(model.poligons))}</CardDescription>
                                     </CardHeader>
                                     <CardContent className="flex flex-wrap items-center gap-2">
-                                        {model.textures && <Badge>Textured</Badge>}
-                                        {model.animations && <Badge>Animated</Badge>}
-                                        {model.rigged && <Badge>Rigged</Badge>}
+                                        {model.textures && <Badge>Texturizado</Badge>}
+                                        {model.animations && <Badge>Animado</Badge>}
+                                        {model.rigged && <Badge>Riggeado</Badge>}
                                     </CardContent>
                                     <CardFooter className="mt-auto flex justify-between gap-4">
                                         <CardTitle className="text-xl">
@@ -55,7 +56,7 @@ export default function Index({ models }: ThreeDModelsProps) {
                         );
                     })}
                 </div>
-                {/* Pagination  */}
+                {/* Paginación */}
                 <AppPagination items={models} />
             </div>
         </AppLayout>

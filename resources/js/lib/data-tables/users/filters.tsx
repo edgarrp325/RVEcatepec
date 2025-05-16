@@ -2,12 +2,12 @@ import { Filter } from '@/types';
 
 export const roleFilter: Filter = {
     columnKey: 'role',
-    title: 'Role',
+    title: 'Roles',
     options: [
-        { value: 'Administrator', label: 'Administrator' },
-        { value: 'User', label: 'User' },
-        { value: 'Alumn', label: 'Alumn' },
-        { value: 'Social Service', label: 'Social Service' },
-        { value: 'Internship', label: 'Internship' },
+        { value: 'Administrador', label: 'Administrador' },
+        { value: 'Usuario', label: 'Usuario' },
+        { value: 'Alumno', label: 'Alumno' },
+        { value: 'Servicio Social', label: 'Servicio Social' },
+        { value: 'Prácticas profesionales', label: 'Prácticas profesionales' },
     ],
 };

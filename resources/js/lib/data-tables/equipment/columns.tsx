@@ -14,6 +14,7 @@ interface GetColumnsProps {
     openDialog: (variant: 'create' | 'edit', equipment?: Equipment) => void;
     setIsDeleteDialogOpen: (isDeleteDialogOpen: boolean) => void;
 }
+
 interface GetPublicColumnsProps {
     isUsingComputer: boolean;
 }
@@ -21,10 +22,12 @@ interface GetPublicColumnsProps {
 interface ButtonFinishLoanProps {
     id: number;
 }
+
 interface ButtonStartLoanProps {
     id: string;
     disabled: boolean;
 }
+
 function ButtonFinishLoan({ id }: ButtonFinishLoanProps) {
     const { put, processing } = useForm({});
 
@@ -32,13 +35,14 @@ function ButtonFinishLoan({ id }: ButtonFinishLoanProps) {
         put(route('equipment-loans.update', id), {
             preserveScroll: true,
             onSuccess: () => {
-                toast.success('Loan finished successfully');
+                toast.success('Préstamo finalizado correctamente');
             },
-            onError: () => toast.error('Something went wrong'),
+            onError: () => toast.error('Ocurrió un error al finalizar el préstamo'),
         });
     };
+
     return (
-        <Button variant="ghost" onClick={() => finishLoan()} disabled={processing}>
+        <Button variant="ghost" onClick={finishLoan} disabled={processing}>
             <LogOut className="h-4 w-4" />
         </Button>
     );
@@ -52,14 +56,15 @@ function ButtonStartLoan({ id, disabled }: ButtonStartLoanProps) {
     const startLoan = () => {
         post(route('equipment-loans.store'), {
             onSuccess: () => {
-                toast.success('Equipment loan started successfully');
+                toast.success('Préstamo de equipo iniciado correctamente');
             },
-            onError: () => toast.error('Something went wrong'),
+            onError: () => toast.error('Ocurrió un error al iniciar el préstamo'),
         });
     };
+
     return (
-        <Button onClick={() => startLoan()} disabled={processing || disabled}>
-            Use
+        <Button onClick={startLoan} disabled={processing || disabled}>
+            Usar
         </Button>
     );
 }
@@ -72,42 +77,38 @@ export function getColumns({ setSelectedEquipment, openDialog, setIsDeleteDialog
         },
         {
             accessorKey: 'equipment_type_name',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Type" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Tipo" />,
         },
         {
             accessorKey: 'label',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Label" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Etiqueta" />,
         },
         {
             accessorKey: 'laboratory_name',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Laboratory" />,
-            filterFn: (row, id, value) => {
-                return value.includes(row.getValue(id));
-            },
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Laboratorio" />,
+            filterFn: (row, id, value) => value.includes(row.getValue(id)),
         },
         {
             accessorKey: 'status',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Status" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Estado" />,
             cell: ({ row }) => {
                 const status = row.original.status;
                 return (
-                    <Badge variant={'outline'} className={cn('w-24 bg-red-400 font-black text-white', getBadgeColor(status))}>
+                    <Badge variant="outline" className={cn('w-24 bg-red-400 font-black text-white', getBadgeColor(status))}>
                         {status}
                     </Badge>
                 );
             },
-            filterFn: (row, id, value) => {
-                return value.includes(row.getValue(id));
-            },
+            filterFn: (row, id, value) => value.includes(row.getValue(id)),
         },
         {
             accessorKey: 'used_time',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Used time" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Tiempo de uso" />,
             cell: ({ row }) => formatMinutes(row.original.used_time),
         },
         {
             accessorKey: 'user_full_name',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="User" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Usuario" />,
             cell: ({ row }) =>
                 row.original.status === 'In use' ? (
                     <span className="flex items-center gap-2">
@@ -115,7 +116,7 @@ export function getColumns({ setSelectedEquipment, openDialog, setIsDeleteDialog
                         <ButtonFinishLoan id={row.original.loan_id as number} />
                     </span>
                 ) : (
-                    <span className="">N/A</span>
+                    <span className="">N/D</span>
                 ),
         },
         {
@@ -123,40 +124,39 @@ export function getColumns({ setSelectedEquipment, openDialog, setIsDeleteDialog
             cell: ({ row }) => {
                 const equipmentType = row.original;
                 return (
-                    <>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant={'ghost'} className="h-8 w-8 p-0">
-                                    <span className="sr-only">Open menu</span>
-                                    <MoreHorizontal className="h-4 w-4" />
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                                <DropdownMenuItem
-                                    onSelect={() => {
-                                        openDialog('edit', equipmentType);
-                                        setSelectedEquipment(equipmentType);
-                                    }}
-                                >
-                                    Edit
-                                </DropdownMenuItem>
-                                <DropdownMenuItem
-                                    onSelect={() => {
-                                        setIsDeleteDialogOpen(true);
-                                        setSelectedEquipment(equipmentType);
-                                    }}
-                                >
-                                    Delete
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                                <span className="sr-only">Abrir menú</span>
+                                <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem
+                                onSelect={() => {
+                                    openDialog('edit', equipmentType);
+                                    setSelectedEquipment(equipmentType);
+                                }}
+                            >
+                                Editar
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                                onSelect={() => {
+                                    setIsDeleteDialogOpen(true);
+                                    setSelectedEquipment(equipmentType);
+                                }}
+                            >
+                                Eliminar
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 );
             },
         },
     ];
 }
-export function getPublicColumns({ isUsingComputer}: GetPublicColumnsProps): ColumnDef<EquipmentTablePublic>[] {
+
+export function getPublicColumns({ isUsingComputer }: GetPublicColumnsProps): ColumnDef<EquipmentTablePublic>[] {
     return [
         {
             accessorKey: 'id',
@@ -164,31 +164,27 @@ export function getPublicColumns({ isUsingComputer}: GetPublicColumnsProps): Col
         },
         {
             accessorKey: 'equipment_type_name',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Type" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Tipo" />,
         },
         {
             accessorKey: 'label',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Label" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Etiqueta" />,
         },
         {
             accessorKey: 'laboratory_name',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Laboratory" />,
-            filterFn: (row, id, value) => {
-                return value.includes(row.getValue(id));
-            },
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Laboratorio" />,
+            filterFn: (row, id, value) => value.includes(row.getValue(id)),
         },
         {
             id: 'actions',
-            cell: ({ row }) => {
-                return (
-                    <span className="flex items-center gap-2">
-                        <ButtonStartLoan
-                            id={row.original.id}
-                            disabled={isUsingComputer && (row.original.equipment_type_name === 'PC' || row.original.equipment_type_name === 'iMac')}
-                        />
-                    </span>
-                );
-            },
+            cell: ({ row }) => (
+                <span className="flex items-center gap-2">
+                    <ButtonStartLoan
+                        id={row.original.id}
+                        disabled={isUsingComputer && (row.original.equipment_type_name === 'PC' || row.original.equipment_type_name === 'iMac')}
+                    />
+                </span>
+            ),
         },
     ];
 }

@@ -21,11 +21,11 @@ import { toast } from 'sonner';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Equipment',
+        title: 'Equipos',
         href: '/dashboard/equipment',
     },
     {
-        title: 'Loans',
+        title: 'Préstamos',
         href: '/dashboard/equipment-loans',
     },
 ];
@@ -46,10 +46,10 @@ export default function EquipmentLoans({ equipmentLoans }: EquipmentLoansProps) 
         destroy(route('equipment-loans.destroy-all'), {
             onSuccess: () => {
                 setIsDeleteAllDialogOpen(false);
-                toast.success('Equipment Loans history deleted successfully');
+                toast.success('Historial de préstamos eliminado con éxito');
             },
             onFinish: () => reset(),
-            onError: () => toast.error('Something went wrong'),
+            onError: () => toast.error('Algo salió mal'),
         });
     };
 
@@ -61,43 +61,45 @@ export default function EquipmentLoans({ equipmentLoans }: EquipmentLoansProps) 
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Equipment Loans" />
+            <Head title="Préstamos de equipos" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                {/* Delete all equipment loans button  */}
+                {/* Botón para eliminar todos los préstamos */}
                 {equipmentLoans.length > 0 && (
                     <div className="px-4 md:px-6">
                         <Button variant={'destructive'} size={'sm'} onClick={() => setIsDeleteAllDialogOpen(true)}>
-                            <Trash /> Delete history
+                            <Trash /> Eliminar historial
                         </Button>
                     </div>
                 )}
-                {/* Equipment loans table */}
+                {/* Tabla de préstamos de equipos */}
                 <div className="@container/main flex flex-1 flex-col gap-4 p-6">
                     <DataTable
                         data={equipmentLoanData}
                         searchableColumns={['equipment_label', 'equipment_type', 'user_full_name']}
                         columns={columns}
-                        filename="equipment-loans"
+                        filename="prestamos-de-equipos"
                     />
                 </div>
-                {/* Alert dialog to delete all Equipment loans */}
+                {/* Diálogo de confirmación para eliminar todos los préstamos */}
                 <AlertDialog open={isDeleteAllDialogOpen} onOpenChange={setIsDeleteAllDialogOpen}>
                     <AlertDialogContent>
                         <AlertDialogHeader>
-                            <AlertDialogTitle className="text-destructive">Are you sure to delete every equipment loan?</AlertDialogTitle>
+                            <AlertDialogTitle className="text-destructive">
+                                ¿Estás seguro de eliminar todos los préstamos de equipos?
+                            </AlertDialogTitle>
                             <AlertDialogDescription>
-                                This will permanently delete the loan history; only in-progress loans may remain unaffected.
+                                Esto eliminará permanentemente el historial de préstamos. Solo los préstamos en curso podrían mantenerse.
                             </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                            <AlertDialogCancel onClick={closeDeleteDialog}>Cancel</AlertDialogCancel>
+                            <AlertDialogCancel onClick={closeDeleteDialog}>Cancelar</AlertDialogCancel>
                             <AlertDialogAction
                                 className="bg-destructive hover:bg-destructive/90"
                                 onClick={deleteAllEquipmentLoans}
                                 disabled={processing}
                             >
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                Delete permanently
+                                Eliminar permanentemente
                             </AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>

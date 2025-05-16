@@ -14,16 +14,18 @@ dayjs.extend(relativeTime);
 interface ButtonFinishAttendanceProps {
     attendanceId: number;
 }
+
 function ButtonFinishAttendance({ attendanceId }: ButtonFinishAttendanceProps) {
     const { put, processing } = useForm({});
 
     const finishAttendance = () => {
         put(route('attendance.update', attendanceId), {
             onSuccess: () => {
-                toast.success('Assistance finished successfully');
+                toast.success('Asistencia finalizada correctamente');
             },
         });
     };
+
     return (
         <Button variant="ghost" onClick={() => finishAttendance()} disabled={processing}>
             <LogOut className="h-4 w-4" />
@@ -34,46 +36,44 @@ function ButtonFinishAttendance({ attendanceId }: ButtonFinishAttendanceProps) {
 export const columns: ColumnDef<AttendanceTable>[] = [
     {
         accessorKey: 'laboratory_name',
-        header: 'Laboratory',
-        // Custom OR filter: shows rows if cell value is in filter array
+        header: 'Laboratorio',
         filterFn: (row, id, value) => {
             return value.includes(row.getValue(id));
         },
     },
     {
         accessorKey: 'account_number',
-        header: 'Account Number',
+        header: 'Número de cuenta',
     },
     {
         accessorKey: 'user_full_name',
-        header: ({ column }) => <DataTableSortableHeader column={column} title="User" />,
+        header: ({ column }) => <DataTableSortableHeader column={column} title="Usuario" />,
     },
     {
         accessorKey: 'date',
-        header: ({ column }) => <DataTableSortableHeader column={column} title="Date" />,
+        header: ({ column }) => <DataTableSortableHeader column={column} title="Fecha" />,
         cell: ({ row }) => {
             const date = row.original.date;
-            const isToday = dayjs(date).isSame(dayjs(), 'day'); // Verify if the date is today
-            return isToday ? 'Today' : dayjs(date).format('D/MM/YYYY');
+            const isToday = dayjs(date).isSame(dayjs(), 'day');
+            return isToday ? 'Hoy' : dayjs(date).format('D/MM/YYYY');
         },
     },
     {
         accessorKey: 'start_time',
-        header: ({ column }) => <DataTableSortableHeader column={column} title="Start Time" />,
+        header: ({ column }) => <DataTableSortableHeader column={column} title="Hora de entrada" />,
     },
     {
         accessorKey: 'end_time',
-        header: 'End Time',
-        cell: ({ row }) => row.original.end_time ?? 'In progress',
+        header: 'Hora de salida',
+        cell: ({ row }) => row.original.end_time ?? 'En curso',
     },
     {
         accessorKey: 'is_active',
-        header: 'Active',
-
+        header: 'Activa',
         cell: ({ row }) =>
             row.original.is_active === 'active' ? (
                 <span className="flex items-center gap-2 font-semibold text-green-600">
-                    Yes
+                    Sí
                     <ButtonFinishAttendance attendanceId={row.original.attendance_id} />
                 </span>
             ) : (

@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 interface ButtonFinishLoanProps {
     id: number;
 }
+
 function ButtonFinishLoan({ id }: ButtonFinishLoanProps) {
     const { put, processing } = useForm({});
 
@@ -17,17 +18,19 @@ function ButtonFinishLoan({ id }: ButtonFinishLoanProps) {
         put(route('equipment-loans.update', id), {
             preserveScroll: true,
             onSuccess: () => {
-                toast.success('Loan finished successfully');
+                toast.success('Préstamo finalizado correctamente');
             },
-            onError: () => toast.error('Something went wrong'),
+            onError: () => toast.error('Ocurrió un error al finalizar el préstamo'),
         });
     };
+
     return (
         <Button onClick={() => finishLoan()} disabled={processing}>
-            Return
+            Devolver
         </Button>
     );
 }
+
 export function getColumns(): ColumnDef<EquipmentLoansResponseWithoutUser>[] {
     return [
         {
@@ -36,35 +39,33 @@ export function getColumns(): ColumnDef<EquipmentLoansResponseWithoutUser>[] {
         },
         {
             accessorKey: 'label',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Label" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Etiqueta" />,
         },
         {
             accessorKey: 'equipment_type.name',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Type" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Tipo" />,
         },
         {
             accessorKey: 'pivot.date',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Date" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Fecha" />,
             cell: ({ row }) => {
                 const date = row.original.pivot.date;
-                const isToday = dayjs(date).isSame(dayjs(), 'day'); // Verify if the date is today
-                return isToday ? 'Today' : dayjs(date).format('D/MM/YYYY');
+                const isToday = dayjs(date).isSame(dayjs(), 'day');
+                return isToday ? 'Hoy' : dayjs(date).format('D/MM/YYYY');
             },
         },
         {
             accessorKey: 'pivot.start_time',
-            header: ({ column }) => <DataTableSortableHeader column={column} title="Start time" />,
+            header: ({ column }) => <DataTableSortableHeader column={column} title="Hora de inicio" />,
             cell: ({ row }) => formatTime(row.original.pivot.date + row.original.pivot.start_time),
         },
         {
             id: 'actions',
-            cell: ({ row }) => {
-                return (
-                    <span className="flex items-center gap-2">
-                        <ButtonFinishLoan id={row.original.pivot.id} />
-                    </span>
-                );
-            },
+            cell: ({ row }) => (
+                <span className="flex items-center gap-2">
+                    <ButtonFinishLoan id={row.original.pivot.id} />
+                </span>
+            ),
         },
     ];
 }

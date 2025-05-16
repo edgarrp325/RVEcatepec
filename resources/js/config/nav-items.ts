@@ -16,27 +16,27 @@ import {
 
 export const groupedNavItems: NavGroup[] = [
     {
-        title: 'Administration',
+        title: 'Administración',
         items: [
             {
-                title: 'Dashboard',
+                title: 'Panel de control',
                 url: '/dashboard',
                 icon: LayoutGrid,
             },
             {
-                title: 'One-time Passwords',
+                title: 'Contraseñas de un solo uso',
                 url: '/dashboard/one-time-passwords',
                 icon: RectangleEllipsis,
                 canView: [RoleEnum.ADMIN],
             },
             {
-                title: 'Users',
+                title: 'Usuarios',
                 url: '/dashboard/users',
                 icon: UserRoundCog,
                 canView: [RoleEnum.ADMIN],
             },
             {
-                title: 'Laboratories',
+                title: 'Laboratorios',
                 url: '/dashboard/laboratories',
                 icon: Bot,
                 canView: [RoleEnum.ADMIN],
@@ -44,22 +44,22 @@ export const groupedNavItems: NavGroup[] = [
         ],
     },
     {
-        title: 'Equipment',
+        title: 'Equipos',
         items: [
             {
-                title: 'Equipment',
+                title: 'Equipos',
                 url: '/dashboard/equipment',
                 icon: MonitorCog,
                 canView: [RoleEnum.ADMIN, RoleEnum.SOCIALSERVICE, RoleEnum.INTERNSHIP],
             },
             {
-                title: 'Equipment Types',
+                title: 'Tipos de equipo',
                 url: '/dashboard/equipment-types',
                 icon: MonitorSmartphone,
                 canView: [RoleEnum.ADMIN, RoleEnum.SOCIALSERVICE, RoleEnum.INTERNSHIP],
             },
             {
-                title: 'Equipment Loans',
+                title: 'Préstamos de equipo',
                 url: '/dashboard/equipment-loans',
                 icon: MonitorCheck,
                 canView: [RoleEnum.ADMIN],
@@ -67,22 +67,22 @@ export const groupedNavItems: NavGroup[] = [
         ],
     },
     {
-        title: 'Resources',
+        title: 'Recursos',
         items: [
             {
-                title: '3D Models',
+                title: 'Modelos 3D',
                 url: '/dashboard/three-d-models',
                 icon: Box,
                 canView: [RoleEnum.ADMIN, RoleEnum.SOCIALSERVICE, RoleEnum.INTERNSHIP],
             },
             {
-                title: 'Tutorials',
+                title: 'Tutoriales',
                 url: '/dashboard/tutorials',
                 icon: GraduationCap,
                 canView: [RoleEnum.ADMIN, RoleEnum.SOCIALSERVICE, RoleEnum.INTERNSHIP],
             },
             {
-                title: 'Projects',
+                title: 'Proyectos',
                 url: '/dashboard/projects',
                 icon: Folder,
                 canView: [RoleEnum.ADMIN, RoleEnum.SOCIALSERVICE, RoleEnum.INTERNSHIP],
@@ -90,10 +90,10 @@ export const groupedNavItems: NavGroup[] = [
         ],
     },
     {
-        title: 'Posts',
+        title: 'Publicaciones',
         items: [
             {
-                title: 'Developments',
+                title: 'Desarrollos',
                 url: '/dashboard/developments',
                 icon: Rocket,
                 canView: [RoleEnum.ADMIN, RoleEnum.SOCIALSERVICE, RoleEnum.INTERNSHIP],

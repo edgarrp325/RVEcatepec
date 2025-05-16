@@ -8,10 +8,11 @@ import { Plus } from 'lucide-react';
 
 const breadcrumb: BreadcrumbItem[] = [
     {
-        title: 'Tutorials',
+        title: 'Tutoriales',
         href: '/dashboard/tutorials',
     },
 ];
+
 interface TutorialsProps {
     tutorials: TutorialResponsePagination;
 }
@@ -19,21 +20,21 @@ interface TutorialsProps {
 export default function Index({ tutorials }: TutorialsProps) {
     return (
         <AppLayout breadcrumbs={breadcrumb}>
-            <Head title="Tutorials" />
+            <Head title="Tutoriales" />
             <div className="flex h-full flex-1 flex-col justify-start gap-4 rounded-xl p-4">
-                {/* New 3D tutorial button  */}
+                {/* Botón para nuevo tutorial */}
                 <div className="px-4 md:px-6">
                     <Link className={buttonVariants({ variant: 'outline' })} href={route('tutorials.create')}>
-                        <Plus /> New tutorial
+                        <Plus /> Nuevo tutorial
                     </Link>
                 </div>
-                {/* Tutorials */}
+                {/* Lista de tutoriales */}
                 <div className="flex flex-wrap gap-4 px-4 lg:px-6">
                     {tutorials.data.map((tutorial: TutorialResponse) => {
                         return (
                             <Link key={tutorial.id} className="w-fit" href={route('tutorials.show', tutorial.id)}>
                                 <Card className="h-full w-xs">
-                                    <CardHeader className="">
+                                    <CardHeader>
                                         <img className="aspect-video object-contain" src={`/storage/${tutorial.image_url}`} alt={tutorial.title} />
                                     </CardHeader>
                                     <CardContent className="flex flex-wrap items-center gap-2">
@@ -52,7 +53,7 @@ export default function Index({ tutorials }: TutorialsProps) {
                         );
                     })}
                 </div>
-                {/* Pagination  */}
+                {/* Paginación */}
                 <AppPagination items={tutorials} />
             </div>
         </AppLayout>

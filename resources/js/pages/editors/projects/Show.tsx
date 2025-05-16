@@ -8,6 +8,7 @@ import 'react-quill-new/dist/quill.snow.css';
 import { toast } from 'sonner';
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+
 import { cn, getRelativeTime } from '@/lib/utils';
 import dayjs from 'dayjs';
 
@@ -28,12 +29,11 @@ interface ShowProps {
 
 export default function Show({ project }: ShowProps) {
     const { delete: destroy, processing } = useForm({});
-
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
     const breadcrumb: BreadcrumbItem[] = [
         {
-            title: 'Projects',
+            title: 'Proyectos',
             href: '/dashboard/projects',
         },
         {
@@ -45,10 +45,10 @@ export default function Show({ project }: ShowProps) {
     const deleteProject = () => {
         destroy(route('projects.destroy', project.id), {
             onSuccess: () => {
-                toast.success('Project deleted successfully');
+                toast.success('Proyecto eliminado exitosamente');
             },
             onError: () => {
-                toast.error('Error deleting project');
+                toast.error('Error al eliminar el proyecto');
             },
         });
     };
@@ -63,19 +63,19 @@ export default function Show({ project }: ShowProps) {
                             <CardHeader>
                                 <CardTitle className="w-11/12 text-xl">{project.title}</CardTitle>
                                 <CardDescription className="flex flex-wrap gap-x-2">
-                                    <p>{cn('Published', getRelativeTime(project.created_at))}</p>
+                                    <p>{cn('Publicado', getRelativeTime(project.created_at))}</p>
                                     {!dayjs(project.updated_at).isSame(project.created_at) && (
-                                        <p>{cn('Last update', getRelativeTime(project.updated_at))}</p>
+                                        <p>{cn('Última actualización', getRelativeTime(project.updated_at))}</p>
                                     )}
                                 </CardDescription>
                             </CardHeader>
                             <CardContent className="flex flex-col gap-8 p-6">
-                                {/* Description */}
+                                {/* Descripción */}
                                 <div className="prose prose-p:m-0 prose-headings:first:mt-0 quill-content">
                                     <div dangerouslySetInnerHTML={{ __html: project.description }} />
                                 </div>
 
-                                {/* Image */}
+                                {/* Imagen */}
                                 <div className="flex w-full items-center justify-center">
                                     <img
                                         src={`/storage/${project.image_url}`}
@@ -92,31 +92,31 @@ export default function Show({ project }: ShowProps) {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    Github <ArrowUpRight className="ml-2" />
+                                    GitHub <ArrowUpRight className="ml-2" />
                                 </a>
                                 <div className="flex gap-2">
                                     <Link className={buttonVariants({ variant: 'outline' })} href={route('projects.edit', project.id)}>
-                                        Edit
+                                        Editar
                                     </Link>
                                     <Button variant="destructive" onClick={() => setIsDeleteDialogOpen(true)}>
-                                        Delete
+                                        Eliminar
                                     </Button>
                                 </div>
                             </CardFooter>
                         </Card>
 
-                        {/* Alert dialog to delete project  */}
+                        {/* Diálogo de confirmación para eliminar proyecto */}
                         <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
                             <AlertDialogContent>
                                 <AlertDialogHeader>
-                                    <AlertDialogTitle>Are you sure to delete this project?</AlertDialogTitle>
-                                    <AlertDialogDescription>This will permanently delete this project</AlertDialogDescription>
+                                    <AlertDialogTitle>¿Estás seguro de eliminar este proyecto?</AlertDialogTitle>
+                                    <AlertDialogDescription>Esta acción eliminará permanentemente el proyecto.</AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                    <AlertDialogCancel onClick={() => setIsDeleteDialogOpen(false)}>Cancel</AlertDialogCancel>
+                                    <AlertDialogCancel onClick={() => setIsDeleteDialogOpen(false)}>Cancelar</AlertDialogCancel>
                                     <AlertDialogAction onClick={deleteProject} disabled={processing}>
                                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                        Delete
+                                        Eliminar
                                     </AlertDialogAction>
                                 </AlertDialogFooter>
                             </AlertDialogContent>

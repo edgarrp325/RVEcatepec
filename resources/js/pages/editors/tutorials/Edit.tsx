@@ -20,13 +20,15 @@ interface TutorialFormData {
     tutorial_type_id: number;
     [key: string]: string | number | File | null;
 }
+
 interface EditProps {
     tutorial: Tutorial;
 }
-export default function Create({ tutorial }: EditProps) {
+
+export default function Edit({ tutorial }: EditProps) {
     const breadcrumb: BreadcrumbItem[] = [
         {
-            title: 'Tutorials',
+            title: 'Tutoriales',
             href: '/dashboard/tutorials',
         },
         {
@@ -34,7 +36,7 @@ export default function Create({ tutorial }: EditProps) {
             href: '/dashboard/tutorials/' + tutorial.id,
         },
         {
-            title: 'Edit',
+            title: 'Editar',
             href: '/dashboard/tutorials/' + tutorial.id + '/edit',
         },
     ];
@@ -62,10 +64,10 @@ export default function Create({ tutorial }: EditProps) {
             },
             {
                 onSuccess: () => {
-                    toast.success('Tutorial updated successfully');
+                    toast.success('Tutorial actualizado correctamente');
                 },
                 onError: () => {
-                    toast.error('Error updating tutorial');
+                    toast.error('Error al actualizar el tutorial');
                 },
             },
         );
@@ -73,22 +75,23 @@ export default function Create({ tutorial }: EditProps) {
 
     return (
         <AppLayout breadcrumbs={breadcrumb}>
-            <Head title="Edit tutorial" />
+            <Head title="Editar tutorial" />
             <div className="flex h-full flex-col items-center rounded-xl p-4">
                 <form onSubmit={submit} className="my-4 w-full max-w-5xl space-y-6" encType="multipart/form-data">
                     <div className="grid gap-2">
-                        <Label htmlFor="tutorial_title">Title</Label>
+                        <Label htmlFor="tutorial_title">Título</Label>
                         <Input
                             id="tutorial_title"
                             className="mt-1 block w-full"
                             value={data.title}
                             onChange={(e) => setData({ ...data, title: e.target.value })}
-                            placeholder="Tutorial title"
+                            placeholder="Título del tutorial"
                         />
                         <InputError className="mt-2" message={errors.title} />
                     </div>
+
                     <div className="grid gap-4 pb-10 text-wrap">
-                        <Label htmlFor="tutorial_description">Description</Label>
+                        <Label htmlFor="tutorial_description">Descripción</Label>
                         <ReactQuill
                             id="tutorial_description"
                             theme="snow"
@@ -98,13 +101,14 @@ export default function Create({ tutorial }: EditProps) {
                         />
                         <InputError className="mt-10" message={errors.description} />
                     </div>
+
                     <div className="grid gap-2">
-                        <Label htmlFor="tutorial_image">Preview Image</Label>
+                        <Label htmlFor="tutorial_image">Imagen de vista previa</Label>
                         <img
                             src={imagePreview ? imagePreview : `/storage/${tutorial.image_url}`}
-                            alt="3D Model Image Preview"
+                            alt="Vista previa de la imagen"
                             className="aspect-video w-3xl object-contain"
-                        />{' '}
+                        />
                         <Input
                             id="tutorial_image"
                             type="file"
@@ -122,7 +126,7 @@ export default function Create({ tutorial }: EditProps) {
 
                     {data.tutorial_type_id === 2 && (
                         <div className="grid gap-2">
-                            <Label htmlFor="tutorial_embed_url">File</Label>
+                            <Label htmlFor="tutorial_embed_url">Archivo PDF</Label>
                             <embed
                                 className="mt-4 flex aspect-video w-11/12 items-center justify-center"
                                 src={pdfPreview ? pdfPreview : `/storage/${data.embed_url}`}
@@ -146,7 +150,7 @@ export default function Create({ tutorial }: EditProps) {
 
                     {data.tutorial_type_id === 1 && (
                         <div className="grid gap-2">
-                            <Label htmlFor="tutorial_embed_url">Embed URL</Label>
+                            <Label htmlFor="tutorial_embed_url">URL de video (embed)</Label>
                             <lite-youtube className="mt-4 flex aspect-video w-full items-center justify-center md:w-9/12" videoId={data.embed_url} />
                             <Input
                                 id="tutorial_embed_url"
@@ -154,14 +158,14 @@ export default function Create({ tutorial }: EditProps) {
                                 className="mt-1 block w-full"
                                 value={data.embed_url}
                                 onChange={(e) => setData({ ...data, embed_url: e.target.value })}
-                                placeholder="Youtube Embed URL"
+                                placeholder="URL de inserción de YouTube"
                             />
                             <InputError className="mt-2" message={errors.embed_url} />
                         </div>
                     )}
 
                     <div className="flex items-center gap-4">
-                        <Button type="submit">Update</Button>
+                        <Button type="submit">Actualizar</Button>
                     </div>
                 </form>
             </div>
