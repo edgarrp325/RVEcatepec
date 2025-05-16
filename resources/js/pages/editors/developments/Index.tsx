@@ -18,8 +18,6 @@ interface DevelopmentsProps {
 }
 
 export default function Index({ developments }: DevelopmentsProps) {
-    console.log(developments);
-
     return (
         <AppLayout breadcrumbs={breadcrumb}>
             <Head title="Desarrollos" />
