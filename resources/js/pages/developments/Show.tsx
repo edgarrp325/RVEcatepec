@@ -16,7 +16,7 @@ interface ShowProps {
 export default function Show({ development }: ShowProps) {
     const breadcrumb: BreadcrumbItem[] = [
         {
-            title: 'Developments',
+            title: 'Desarrollos',
             href: '/developments',
         },
         {
@@ -41,9 +41,9 @@ export default function Show({ development }: ShowProps) {
                             <CardHeader className="relative">
                                 <CardTitle className="w-11/12 text-xl">{development.title}</CardTitle>
                                 <CardDescription className="flex flex-wrap gap-x-2">
-                                    <p>{cn('Published', getRelativeTime(development.created_at))}</p>
+                                    <p>{cn('Publicado', getRelativeTime(development.created_at))}</p>
                                     {!dayjs(development.updated_at).isSame(development.created_at) && (
-                                        <p>{cn('Last update', getRelativeTime(development.updated_at))}</p>
+                                        <p>{cn('Actualizado', getRelativeTime(development.updated_at))}</p>
                                     )}
                                 </CardDescription>
                             </CardHeader>

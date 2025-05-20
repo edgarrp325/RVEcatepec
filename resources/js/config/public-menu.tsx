@@ -11,22 +11,22 @@ export const publicMenu = [
         url: '/resources',
         items: [
             {
+                title: 'Tutoriales',
+                icon: <GraduationCap className="size-5 shrink-0" />,
+                description: 'Guías y documentación sobre el uso de motores gráficos, modelado 3D y programación para VR.',
+                url: '/resources/tutorials',
+            },
+            {
                 title: 'Elementos 3D',
                 icon: <Box className="size-5 shrink-0" />,
-                description: 'Aquí podrás encontrar modelos 3D para tus proyectos de realidad virtual y aumentada',
+                description: 'Modelos y texturas listos para su integración en proyectos.',
                 url: '/resources/three-d-models',
             },
             {
                 title: 'Proyectos',
                 icon: <Rocket className="size-5 shrink-0" />,
-                description: 'Aquí podrás descargar proyectos de realidad virtual y aumentada',
+                description: 'Códigos de aplicaciones VR, AR e IA disponibles para su modificación y personalización.',
                 url: '/resources/projects',
-            },
-            {
-                title: 'Tutoriales',
-                icon: <GraduationCap className="size-5 shrink-0" />,
-                description: 'Aquí podrás encontrar tutoriales de realidad virtual y aumentada en video y PDF',
-                url: '/resources/tutorials',
             },
         ],
     },

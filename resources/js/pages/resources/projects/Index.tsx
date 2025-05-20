@@ -1,5 +1,4 @@
 import AppPagination from '@/components/app-pagination';
-import { ShineBorder } from '@/components/magicui/shine-border';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import AppPublicLayout from '@/layouts/app-public-layout';
 import { BreadcrumbItem, Project, ProjectPagination } from '@/types';
@@ -7,7 +6,7 @@ import { Head, Link } from '@inertiajs/react';
 
 const breadcrumb: BreadcrumbItem[] = [
     {
-        title: 'Recursos',
+        title: 'Repositorio',
         href: '/resources',
     },
     {
@@ -30,8 +29,7 @@ export default function Index({ projects }: ProjectsProps) {
                     {projects.data.map((project: Project) => {
                         return (
                             <Link key={project.id} className="w-fit" href={route('resources.projects.show', project.id)}>
-                                <Card className="relative h-full w-xs transition-all duration-300 hover:scale-105">
-                                    <ShineBorder shineColor={['#679240', '#C3A701']} borderWidth={1} />
+                                <Card className="h-full w-xs transition-all duration-300 hover:scale-105">
                                     <CardHeader>
                                         <img className="aspect-video object-contain" src={`/storage/${project.image_url}`} alt={project.title} />
                                     </CardHeader>

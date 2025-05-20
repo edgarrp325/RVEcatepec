@@ -1,5 +1,4 @@
 import AppPagination from '@/components/app-pagination';
-import { ShineBorder } from '@/components/magicui/shine-border';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import AppPublicLayout from '@/layouts/app-public-layout';
@@ -9,7 +8,7 @@ import { Head, Link } from '@inertiajs/react';
 
 const breadcrumb: BreadcrumbItem[] = [
     {
-        title: 'Recursos',
+        title: 'Repositorio',
         href: '/resources',
     },
     {
@@ -32,8 +31,7 @@ export default function Index({ models }: ThreeDModelsProps) {
                     {models.data.map((model: ThreeDModelResponse) => {
                         return (
                             <Link key={model.id} className="w-fit" href={route('resources.three-d-models.show', model.id)}>
-                                <Card className="relative h-full w-xs overflow-hidden transition-all duration-300 hover:scale-105">
-                                    <ShineBorder shineColor={['#679240', '#C3A701']} borderWidth={1} />
+                                <Card className="h-full w-xs overflow-hidden transition-all duration-300 hover:scale-105">
                                     <CardHeader>
                                         <img className="aspect-video object-contain" src={`/storage/${model.img_url}`} alt={model.name} />
                                         <CardDescription>{cn('Polígonos:', getCompactNumber(model.poligons))}</CardDescription>
