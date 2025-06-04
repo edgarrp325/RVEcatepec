@@ -31,7 +31,7 @@ export default function AppFooter({ className }: { className?: string }) {
                     <div className="flex justify-center">
                         <div className="size-20">
                             <img
-                                src="https://realidadvirtualecatepec.com.mx/public/img/isotipo_RV.png"
+                                src="isotipo_RV.png"
                                 alt="Logo del Laboratorio de Realidad Virtual"
                             />
                         </div>

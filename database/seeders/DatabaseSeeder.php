@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
             LaboratorySeeder::class,
             EquipmentSeeder::class,
             FormatSeeder::class,
-            TutorialType::class,
         ]);
     }
 }
