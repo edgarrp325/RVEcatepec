@@ -43,7 +43,7 @@ export const publicMenu = [
 export const publicMenuLogo = {
     title: 'Realidad Virtual Ecatepec',
     url: route('home'),
-    src: 'isotipo_RV.png',
+    src: '/isotipo_RV.png',
     alt: 'Logo RV Ecatepec',
 };
 
