@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { RoleEnum, roleLabel } from '@/enums';
 import AuthLayout from '@/layouts/auth-layout';
 import { Head, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
@@ -38,15 +37,15 @@ export default function ServiceRequest() {
     };
 
     return (
-        <AuthLayout title="Service Request" description="Enter your details below to request a service">
-            <Head title="Service Request">
+        <AuthLayout title="Solicitud de Servicio" description="Ingresa tus datos para solicitar un servicio">
+            <Head title="Solicitud de Servicio">
                 <link rel="preconnect" href="https://fonts.bunny.net" />
                 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
             </Head>
             <form className="flex flex-col gap-6" onSubmit={submit} encType="multipart/form-data">
                 <div className="grid gap-6">
                     <div className="grid gap-2">
-                        <Label htmlFor="full_name">Full Name</Label>
+                        <Label htmlFor="full_name">Nombre completo</Label>
                         <Input
                             id="full_name"
                             type="text"
@@ -54,12 +53,12 @@ export default function ServiceRequest() {
                             value={data.full_name}
                             onChange={(e) => setData('full_name', e.target.value)}
                             disabled={processing}
-                            placeholder="Enter your full name"
+                            placeholder="Ingresa tu nombre completo"
                         />
                         <InputError message={errors.full_name} className="mt-2" />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="email">Email address</Label>
+                        <Label htmlFor="email">Correo electrónico</Label>
                         <Input
                             id="email"
                             type="email"
@@ -67,25 +66,25 @@ export default function ServiceRequest() {
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
                             disabled={processing}
-                            placeholder="email@example.com"
+                            placeholder="correo@ejemplo.com"
                         />
                         <InputError message={errors.email} />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="procedence">Procedence</Label>
+                        <Label htmlFor="procedence">Procedencia</Label>
                         <Select value={data.procedence} onValueChange={(value) => setData('procedence', value)}>
                             <SelectTrigger>
-                                <SelectValue placeholder="Select your procedence" />
+                                <SelectValue placeholder="Selecciona tu procedencia" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="UAEM">UAEM</SelectItem>
-                                <SelectItem value="External">External</SelectItem>
+                                <SelectItem value="External">Externo</SelectItem>
                             </SelectContent>
                         </Select>
                         <InputError message={errors.procedence} />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="institute_name">Institute Name</Label>
+                        <Label htmlFor="institute_name">Nombre del instituto</Label>
                         <Input
                             id="institute_name"
                             type="text"
@@ -93,20 +92,20 @@ export default function ServiceRequest() {
                             value={data.institute_name}
                             onChange={(e) => setData('institute_name', e.target.value)}
                             disabled={processing}
-                            placeholder="Enter your institute name and major"
+                            placeholder="Ingresa el nombre de tu institución y carrera"
                         />
                         <InputError message={errors.institute_name} className="mt-2" />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="service">Service</Label>
+                        <Label htmlFor="service">Servicio</Label>
                         <Select value={data.service} onValueChange={(value) => setData('service', value)}>
                             <SelectTrigger>
-                                <SelectValue placeholder="Select the service you need" />
+                                <SelectValue placeholder="Selecciona el servicio que necesitas" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value='social_service'>Social Service</SelectItem>
-                                <SelectItem value='internship'>Internship</SelectItem>
-                                <SelectItem value="development">Development</SelectItem>
+                                <SelectItem value="social_service">Servicio Social</SelectItem>
+                                <SelectItem value="internship">Prácticas Profesionales</SelectItem>
+                                <SelectItem value="development">Desarrollo</SelectItem>
                             </SelectContent>
                         </Select>
                         <InputError message={errors.service} />
@@ -125,7 +124,7 @@ export default function ServiceRequest() {
                     </div>
                     <Button type="submit" className="mt-2 w-full" disabled={processing}>
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                        Send request
+                        Enviar solicitud
                     </Button>
                 </div>
             </form>
