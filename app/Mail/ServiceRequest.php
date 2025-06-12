@@ -26,7 +26,6 @@ class ServiceRequest extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: $this->serviceRequest->email,
             subject: 'Service Request',
         );
     }
