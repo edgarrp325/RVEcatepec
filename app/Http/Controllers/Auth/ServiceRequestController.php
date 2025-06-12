@@ -32,7 +32,7 @@ class ServiceRequestController extends Controller
         ]);
 
         try {
-            Mail::to('edgar.rp325@gmail.com')->send(new ServiceRequest($request));
+            Mail::to('jjamadorr@uaemex.mx')->send(new ServiceRequest($request));
             return to_route('home')->with('success', 'Solicitud de servicio enviada exitosamente.');
         } catch (\Throwable $th) {
             return to_route('home')->with('error', 'Error al enviar la solicitud de servicio. Por favor, intenta más tarde.');

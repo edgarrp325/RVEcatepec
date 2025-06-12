@@ -26,7 +26,8 @@ export default function Services() {
                 </ul>
                 <p>
                     Para acceder a estos servicios, <Link href={route('login')}>inicia sesión</Link> o{' '}
-                    <Link href={route('register')}>regístrate</Link> en la plataforma como alumno, servicio social o prácticas profesionales.
+                    <Link href={route('register')}>regístrate</Link> en la plataforma como alumno, servicio social o prácticas profesionales.**Para
+                    ser aceptado como servicio social o prácticas profesionales, <Link href={route('login')}>realiza tu solicitud</Link>.
                 </p>
             </div>
         </AppPublicLayout>
