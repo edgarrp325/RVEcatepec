@@ -49,12 +49,12 @@ class AttendanceController extends Controller
 
         // Verify if is a weekday
         if ($now->isWeekend()) {
-            return back()->with('error', 'You can not attend on weekends.');
+            return back()->with('error', 'No puedes asistir en fines de semana.');
         }
 
         // Verify it is on laboratory hours
         if ($now->lt($laboratory->opening_time) || $now->gt($laboratory->closing_time)) {
-            return back()->with('error', 'You can not attend out of laboratory hours.');
+            return back()->with('error', 'No puedes asistir fuera de horario laboral.');
         }
 
         $user->laboratories()->attach($request->laboratory_id, [
@@ -64,9 +64,9 @@ class AttendanceController extends Controller
         ]);
 
         if ($user->hasActiveEquipmentLoan()) {
-            return to_route('dashboard')->with('success', 'Attendance started successfully.');
+            return to_route('dashboard')->with('success', 'Asistencia iniciada exitosamente.');
         }
-        return to_route('equipment-loans.create')->with('success', 'Attendance started successfully.');
+        return to_route('equipment-loans.create')->with('success', 'Asistencia iniciada exitosamente.');
     }
 
     /**
@@ -110,7 +110,7 @@ class AttendanceController extends Controller
                 'end_time' => Carbon::now('America/Mexico_City')->format('H:i'),
             ]);
 
-        return to_route('dashboard')->with('success', 'Attendance finished successfully.');
+        return to_route('dashboard')->with('success', 'Asistencia finalizada exitosamente.');
     }
 
     /**
